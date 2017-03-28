@@ -1,0 +1,10 @@
+{
+	"config": {
+		"vendor-dir" : "application/vendor"
+	},
+	"require": {
+		"phpunit/phpunit": "3.7.24",
+		"phing/phing": "dev-master",
+		"vlucas/phpdotenv": "^2.4"
+	}
+}
