@@ -1,0 +1,132 @@
+.asside{
+    position: fixed;
+    top: 0;
+    left: -210px;
+    bottom: 0;
+    width: 200px;
+    background: #fdfdfd;
+    border-right: 1px solid #cfcfcf;
+    overflow-y: auto;
+    z-index: 15;
+    transition: left ease .3s;
+}
+.asside--opened{
+    left: 0;
+}
+
+.asside__brand{
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #cfcfcf;
+    font-size: 2em;
+    font-weight: bold;
+    color: #008DA7;
+    padding: 3px 0 3px 30px;
+}
+
+
+/** icon for opening asside menu */
+.asside__open-btn{
+    display: none;
+    position: fixed;
+    top: 3px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 12;
+}
+.asside__open-btn i{
+    display: block;
+    position: absolute;
+    background-color: #008DA7;
+    border-radius: 20px;
+    width: 25px;
+    left: 12.5px;
+    top: 20px;
+    margin: 5px auto;
+    height: 3px;
+    transition: all ease .25s;
+}
+.header--default + .asside__open-btn i{
+    background-color: #FCFCFC;
+}
+.asside__open-btn i:first-child{
+    top: 13px;
+}
+.asside__open-btn i:last-child{
+    top: 27px;
+}
+
+.asside__open-btn--opened i {
+    background-color: #FCFCFC;
+    opacity: 0;
+}
+.asside__open-btn--opened i:first-child,
+.asside__open-btn--opened i:last-child {
+    top: 20px;
+    opacity: 1;
+}
+.asside__open-btn--opened i:first-child {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.asside__open-btn--opened i:last-child {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/** asside menu */
+.asside__menu{
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 10px;
+    margin-top: 57px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.asside__link,
+.asside__collapse-link{
+    display: block;
+    padding: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.asside__link:hover,
+.asside__link:focus,
+.asside__collapse-link:hover,
+.asside__collapse-link:focus {
+    color: #008DA7;
+    background: rgba(0,0,0,0.02);
+}
+.asside__collapse-link {
+    padding-left: 25px;
+}
+.asside__link .fa {
+    width: 15px;
+    margin-right: 5px;
+}
+
+
+
+/** Large Desktop */
+@media (min-width: 1200px) {
+    .header--default + .asside__open-btn + .asside .asside__brand{
+        padding: 20px 0;
+    }
+}
+
+
+
+/** Phones */
+@media (max-width: 768px) {
+    .asside__open-btn{
+        display: block;
+    }
+}

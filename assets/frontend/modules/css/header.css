@@ -1,0 +1,97 @@
+.header{
+    position: relative;
+    background: #fafafa;
+    width: 100%;
+    padding: 3px 0;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #cfcfcf;
+    transition: all .3s;
+    z-index: 10;
+    user-select: none;
+    cursor: default;
+}
+.header--fixed{
+    position: fixed;
+    top: 0;
+}
+.header--default{
+    background: transparent;
+}
+
+.header__wrapper{
+    display: block;
+    height: inherit;
+    line-height: inherit;
+    width: 80%;
+    margin: 0 auto;
+}
+.header__brand{
+    font-size: 2em;
+    font-weight: bold;
+    color: #008DA7;
+}
+
+.header--default .header__brand,
+.header--default .header__link{
+    color: #FCFCFC;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+
+.header__menu{
+    height: inherit;
+}
+.header__item{
+    display: inline-block;
+}
+.header__link{
+    color: #008DA7;
+    margin-left: 15px;
+    float: left;
+}
+.header--fixed .header__link:hover,
+.header--fixed .header__link:focus{
+    color: #413a41;
+}
+
+.header__link.btn{
+    color: #FCFCFC;
+    background: #008DA7;
+    border-color: #1F6E7D;
+    padding: 9px 15px;
+    margin: 6px 0 6px 10px;
+}
+.header--default .header__link.btn{
+    color: #413a41;
+    background: #FCFCFC;
+    text-shadow: none;
+}
+
+
+/** Large Desktop */
+@media (min-width: 1200px) {
+    .header--default{
+        padding: 20px 0;
+    }
+}
+
+/** Tablets */
+@media (max-width: 992px) {
+    .header__wrapper{
+        width: 90%;
+    }
+}
+
+/** Phones */
+@media (max-width: 768px) {
+    .header__wrapper{
+        width: 100%;
+    }
+    .header__menu{
+        margin-right: 80px;
+    }
+    .header__brand{
+        margin-left: 30px;
+    }
+}

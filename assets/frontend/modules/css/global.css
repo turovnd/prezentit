@@ -1,0 +1,220 @@
+@font-face {
+    font-family: "MyriadProRegular";
+    src: url("../../../static/fonts/MyriadProRegular.eot");
+    src: url("../../../static/fonts/MyriadProRegular.eot?#iefix")format("embedded-opentype"),
+    url("../../../static/fonts/MyriadProRegular.woff") format("woff"),
+    url("../../../static/fonts/MyriadProRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body{
+    font-family: 'MyriadProRegular', sans-serif;
+    margin:0;
+    color: #413a41;
+    font-size: 16px;
+}
+
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a{
+    cursor: pointer;
+    color: #413a41;
+    text-decoration: none;
+}
+a, button, input, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+button{
+    overflow: visible;
+    text-transform: none;
+    padding: 0;
+    border: 0;
+    line-height: inherit;
+    cursor: pointer;
+    background-color: inherit;
+}
+
+.fl_l{
+    float: left;
+}
+.fl_r{
+    float: right;
+}
+.fl_n{
+    float: none;
+}
+.clear_fix{
+    display: block;
+}
+.clear_fix:after, .clear_fix:before{
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+
+/**
+ * Buttons
+ */
+.btn{
+    display: inline-block;
+    line-height: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 15px;
+    outline: 0;
+    border-radius: 20px;
+    transition: all .2s;
+}
+.btn--primary{
+    color: #FCFCFC;
+    background: #008DA7;
+    border-color: #1F6E7D;
+}
+
+
+.hov-foc--scale:hover,
+.hov-foc--scale:focus{
+    transform: scale(1.05);
+}
+
+
+
+/**
+ * Backdrop
+ */
+.backdrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    background: rgba(0,0,0,.6);
+}
+
+/**
+ * Animation
+ */
+.animated{
+    animation-fill-mode: both;
+    animation-duration: .5s;
+}
+.fade__in {
+    animation-name: fade__in;
+}
+.fade__in--up { 
+    animation-name: fade__in--up;
+}
+.fade__in--down { 
+    animation-name: fade__in--down; 
+}
+.fade__in--left { 
+    animation-name: fade__in--left; 
+}
+.fade__in--right { 
+    animation-name: fade__in--right; 
+}
+.fade__out {
+    animation-name: fade__out;
+}
+.fade__out--up {
+    animation-name: fade__out--up;
+}
+.fade__out--down { 
+    animation-name: fade__out--down; 
+}
+.fade__out--left { 
+    animation-name: fade__out--left; 
+}
+.fade__out--right { 
+    animation-name: fade__out--right; 
+}
+
+@keyframes fade__in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fade__in--up {
+    from { opacity: 0; transform: translate3d(0, 100%, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes fade__in--down {
+    from { opacity: 0; transform: translate3d(0, -100%, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes fade__in--left {
+    from { opacity: 0; transform: translate3d(-100%, 0, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes fade__in--right {
+    from { opacity: 0; transform: translate3d(100%, 0, 0); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes fade__out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes fade__out--up {
+    from { opacity: 1; }
+    to { opacity: 0; transform: translate3d(0, -100%, 0); }
+}
+@keyframes fade__out--down {
+    from { opacity: 1; }
+    to { opacity: 0; transform: translate3d(0, 100%, 0); }
+}
+@keyframes fade__out--left { 
+    from { opacity: 1; } 
+    to { opacity: 0; transform: translate3d(-100%, 0, 0); } 
+}
+@keyframes fade__out--right { 
+    from { opacity: 1; } 
+    to { opacity: 0; transform: translate3d(100%, 0, 0); } 
+}
+
+
+.overflow--hidden{
+    overflow: hidden;
+}
+
+
+/**
+ * Hidden xs | sm | md | lg
+ */
+@media (max-width: 768px) {
+    .hidden-xs {
+        display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .hidden-sm {
+        display: none;
+    }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+    .hidden-md {
+        display: none;
+    }
+}
+@media (min-width: 1200px) {
+    .hidden-lg {
+        display: none;
+    }
+}

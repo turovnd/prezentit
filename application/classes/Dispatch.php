@@ -6,7 +6,7 @@ class Dispatch extends Controller_Template
     const GET  = 'GET';
 
     /** @var string - Path to template */
-    public $template = 'main';
+    public $template = '';
 
     /** @var $errors - Page erros */
     protected $errors;
@@ -43,9 +43,9 @@ class Dispatch extends Controller_Template
         if ($this->auto_render) {
 
             // Initialize with empty values
-            $this->template->title = $this->title = $GLOBALS['SITE_NAME'];
-            $this->template->keywords    = '';
-            $this->template->description = '';
+            $this->template->title       = '';
+            $this->template->keywords    = 'prezit, интерактивные презентции, голосование, мгновенные результаты';
+            $this->template->description = 'Prezit - позволяет провести интерактивные презентации, воркшопы и встречи. Спикеру становится проце взаимодействовать со всей аудиторией в режиме реального времени, посредством проведения электронного голосования с мгновенным получением результатов.';
             $this->template->content     = '';
         }
 
