@@ -144,7 +144,7 @@ Kohana::modules(array(
 	 'database'   => MODPATH.'database',   // Database access
 	 'image'      => MODPATH.'image',      // Image manipulation
 	 //'minion'     => MODPATH.'minion',     // CLI Tasks
-	 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
+	 //'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	 'unittest'   => MODPATH.'unittest',   // Unit testing
 	 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	 'email'      => MODPATH.'email' , // EMail module (SwiftMailer)
@@ -157,7 +157,7 @@ Kohana::modules(array(
  * If you have not defined a cookie salt in your Cookie class then
  * uncomment the line below and define a preferrably long salt.
  */
-Cookie::$salt = "saltPronwesalt";
+Cookie::$salt = "saltPrezit";
 
 /**
  * Include Composer libraries
