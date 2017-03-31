@@ -19,7 +19,7 @@ class Controller_Welcome extends Dispatch
     public function action_index()
     {
         $this->template->title = "Добро пожаловать";
-        $this->template->section = "";
+        $this->template->section = View::factory('welcome/pages/main');
     }
 
 }

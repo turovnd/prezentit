@@ -18,5 +18,10 @@
             Войти
         </a>
     </li>
+    <li class="asside__item">
+        <a href="" class="asside__link">
+            Регистрация
+        </a>
+    </li>
 
 </ul>

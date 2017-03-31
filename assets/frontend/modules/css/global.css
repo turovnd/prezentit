@@ -108,6 +108,18 @@ button{
     z-index: 11;
     background: rgba(0,0,0,.6);
 }
+.dark-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: .75;
+}
+
+
+
 
 /**
  * Animation

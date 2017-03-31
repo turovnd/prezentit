@@ -11,30 +11,34 @@
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- =============== VENDOR STYLES ===============-->
-    <link rel="stylesheet" href="">
-
-    <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src=""></script>
-
 
     <!-- modules -->
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/asside.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/parallax.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
 
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/parallax.js"></script>
     <script type="text/javascript">
         function ready() {
             header.init("welcome");
             collapse.init();
+            parallax.init();
         }
 
         document.addEventListener("DOMContentLoaded", ready);
 
     </script>
+
+
+    <!-- =============== VENDOR STYLES ===============-->
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
+
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    <script type="text/javascript" src=""></script>
 
 </head>
 
@@ -53,10 +57,8 @@
     </aside>
 
 
-
     <section>
         <?=$section; ?>
-        <div style="margin: 100%"></div>
     </section>
 
 

@@ -1,0 +1,19 @@
+.section{
+    display: block;
+    position: relative;
+    width: 100%;
+}
+.section--lg{
+    min-height: 640px;
+}
+.section--md{
+    min-height: 320px;
+}
+.section--sm{
+    min-height: 160px;
+}
+.section--first{
+    display: block;
+    margin-top: -91px;
+    overflow: hidden;
+}
