@@ -1,0 +1,51 @@
+.fade__in--left{
+    animation-delay: 0.3s;
+}
+.section{
+    position: relative;
+    width: 100%;
+}
+.section--lg{
+    min-height: 640px;
+}
+.section--md{
+    min-height: 320px;
+}
+.section--sm{
+    min-height: 160px;
+}
+
+.h1--sale, .h2--sale, .h3--sale{
+    line-height: 1.1em;
+    width: 630px;
+}
+.h1--sale{
+    font-weight: bold;
+    font-size: 3em;
+}
+.h2--sale{
+    font-weight: bold;
+    font-size: 2.3em;
+}
+.h3--sale {
+    font-size: 1.5em;
+}
+.img--sale{
+
+}
+
+@media (max-width: 768px) {
+    .h1--sale, .h2--sale, .h3--sale{
+        line-height: 1.2em;
+        width: 100%;
+    }
+    .h1--sale{
+        font-size: 2em;
+    }
+    .h2--sale{
+        font-size: 1.7em;
+    }
+    .h3--sale{
+        font-size: 1.2em;
+    }
+}

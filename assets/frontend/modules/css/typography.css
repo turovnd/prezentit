@@ -1,0 +1,159 @@
+a, [role="button"], button, input[type="submit"], input[type="button"]{
+    cursor: pointer;
+}
+a[disabled], button[disabled],input[disabled]{
+    cursor: default;
+}
+
+a,
+a:hover,
+a:focus{
+    color: #413a41;
+    text-decoration: none;
+    outline: none;
+}
+
+
+button, input, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+ul, ol{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.h1__small, .h2__small, .h3__small, .h4__small, .h5__small, .h6__small {
+    font-weight: normal;
+    line-height: 1;
+    color: #999999;
+}
+
+.h1, .h2, .h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.h1__small, .h2__small, .h3__small {
+    font-size: 65%;
+}
+.h4, .h5, .h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.h4__small, .h5__small, .h6__small {
+    font-size: 75%;
+}
+
+.h1 {
+    font-size: 2.25em;
+}
+.h2 {
+    font-size: 1.8em;
+}
+.h3 {
+    font-size: 1.5em;
+}
+.h4 {
+    font-size: 1.2em;
+}
+.h5 {
+    font-size: 0.85em;
+}
+.h6 {
+    font-size: 75em;
+}
+p {
+    margin: 0 0 10px;
+}
+.bold{
+    font-weight: bold;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.text-nowrap {
+    white-space: nowrap;
+}
+.text-lowercase {
+    text-transform: lowercase;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+.text-capitalize {
+    text-transform: capitalize;
+}
+.text-brand {
+    color: #008DA7;
+}
+a.text-brand:hover,
+a.text-brand:focus {
+    color: #1F6E7D;
+}
+.text-success {
+    color: #27c24c;
+}
+a.text-success:hover,
+a.text-success:focus {
+    color: #1f9c3d;
+}
+.text-danger {
+    color: #f05050;
+}
+a.text-danger:hover,
+a.text-danger:focus {
+    color: #ff0000;
+}
+.text-white{
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+    color: #FCFCFC;
+}
+a.text-white:hover,
+a.text-white:focus {
+    color: #FCFCFC;
+}
+
+.bg-brand {
+    color: #FCFCFC;
+    background-color: #008DA7;
+}
+a.bg-brand:hover,
+a.bg-brand:focus {
+    color: #FCFCFC;
+    background-color: #00819b;
+}
+.bg-success {
+    color: #FCFCFC;
+    background-color: #27c24c;
+}
+a.bg-success:hover,
+a.bg-success:focus {
+    color: #FCFCFC;
+    background-color: #24b145;
+}
+.bg-danger {
+    color: #FCFCFC;
+    background-color: #f05050;
+}
+a.bg-danger:hover,
+a.bg-danger:focus {
+    color: #FCFCFC;
+    background-color: #ee3d3d;
+}

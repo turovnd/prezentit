@@ -1,0 +1,84 @@
+.header{
+    position: fixed;
+    background: #fafafa;
+    top: 0;
+    width: 100%;
+    padding: 3px 0;
+    border-bottom: 1px solid #cfcfcf;
+    transition: all .3s;
+    z-index: 10;
+    user-select: none;
+    cursor: default;
+}
+.header--default{
+    background: transparent;
+}
+
+.header__brand{
+    line-height: 50px;
+    font-size: 2em;
+    font-weight: bold;
+}
+.header__brand, .header__brand:hover, .header__brand:focus{
+    color: #008DA7;
+}
+
+.header--default .header__brand,
+.header--default .header__link{
+    color: #FCFCFC;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+
+.header__menu{
+    height: 50px;
+}
+.header__item{
+    display: inline-block;
+}
+.header__link{
+    line-height: 50px;
+    color: #008DA7;
+    margin-left: 30px;
+    float: left;
+}
+.header--fixed .header__link:hover,
+.header--fixed .header__link:focus{
+    color: #413a41;
+}
+
+.header__link.btn,
+.header__link.btn:hover,
+.header__link.btn:focus{
+    color: #FCFCFC;
+    background: #008DA7;
+    border-color: #1F6E7D;
+    padding: 9px 15px;
+    margin: 5px 0 5px 30px;
+}
+.header--default .header__link.btn{
+    color: #413a41;
+    background: #FCFCFC;
+    text-shadow: none;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    border-color: #FCFCFC;
+}
+
+
+/** Large Desktop */
+@media (min-width: 1200px) {
+    .header--default{
+        padding: 20px 0;
+    }
+}
+
+
+/** Phones */
+@media (max-width: 768px) {
+    .header__menu{
+        margin-right: 80px;
+    }
+    .header__brand{
+        margin-left: 20px;
+    }
+}
