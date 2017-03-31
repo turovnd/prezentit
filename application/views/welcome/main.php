@@ -14,9 +14,14 @@
 
     <!-- modules -->
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/asside.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/footer.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/aside.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/parallax.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/cols.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/typography.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/button.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/animation.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
 
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
@@ -36,6 +41,7 @@
 
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src=""></script>
@@ -44,7 +50,7 @@
 
 <body>
 
-    <header class="header animated fade__in">
+    <header class="header animated fade__in clear_fix">
         <?= View::factory('welcome/blocks/header'); ?>
     </header>
 

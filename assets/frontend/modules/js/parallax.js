@@ -96,9 +96,7 @@ var parallax = (function(parallax) {
         this.scrollDist = this.imgHeight - this.elHeight;
         this.scrollPercent = (this.winBottom - this.elTop) / (this.elHeight + this.winHeight);
         this.positionY = Math.round((this.scrollDist * this.scrollPercent));
-        console.log(this.winHeight, this.winTop, this.winBottom );
-        console.log(this.elHeight, this.elTop, this.elBottom, this.imgHeight);
-        console.log(this.scrollDist, this.scrollPercent, this.positionY);
+
         this.setPosition(this.positionY);
 
     };

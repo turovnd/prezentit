@@ -7,92 +7,20 @@
     font-style: normal;
     font-weight: normal;
 }
-
+html{
+    height: 100%;
+}
+html,body{
+    width: 100%;
+}
 body{
     font-family: 'MyriadProRegular', sans-serif;
+    padding:0;
     margin:0;
     color: #413a41;
     font-size: 16px;
 }
 
-.show{
-    display: block;
-}
-.hide{
-    display: none;
-}
-ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-a{
-    cursor: pointer;
-    color: #413a41;
-    text-decoration: none;
-}
-a, button, input, textarea {
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    outline: none;
-}
-button{
-    overflow: visible;
-    text-transform: none;
-    padding: 0;
-    border: 0;
-    line-height: inherit;
-    cursor: pointer;
-    background-color: inherit;
-}
-
-.fl_l{
-    float: left;
-}
-.fl_r{
-    float: right;
-}
-.fl_n{
-    float: none;
-}
-.clear_fix{
-    display: block;
-}
-.clear_fix:after, .clear_fix:before{
-    content: " ";
-    display: table;
-    clear: both;
-}
-
-
-/**
- * Buttons
- */
-.btn{
-    display: inline-block;
-    line-height: normal;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 6px 15px;
-    outline: 0;
-    border-radius: 20px;
-    transition: all .2s;
-}
-.btn--primary{
-    color: #FCFCFC;
-    background: #008DA7;
-    border-color: #1F6E7D;
-}
-
-
-.hov-foc--scale:hover,
-.hov-foc--scale:focus{
-    transform: scale(1.05);
-}
 
 
 
@@ -119,94 +47,6 @@ button{
 }
 
 
-
-
-/**
- * Animation
- */
-.animated{
-    animation-fill-mode: both;
-    animation-duration: .5s;
-}
-.fade__in {
-    animation-name: fade__in;
-}
-.fade__in--up { 
-    animation-name: fade__in--up;
-}
-.fade__in--down { 
-    animation-name: fade__in--down; 
-}
-.fade__in--left { 
-    animation-name: fade__in--left; 
-}
-.fade__in--right { 
-    animation-name: fade__in--right; 
-}
-.fade__out {
-    animation-name: fade__out;
-}
-.fade__out--up {
-    animation-name: fade__out--up;
-}
-.fade__out--down { 
-    animation-name: fade__out--down; 
-}
-.fade__out--left { 
-    animation-name: fade__out--left; 
-}
-.fade__out--right { 
-    animation-name: fade__out--right; 
-}
-
-@keyframes fade__in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-@keyframes fade__in--up {
-    from { opacity: 0; transform: translate3d(0, 100%, 0); }
-    to { opacity: 1; transform: none; }
-}
-@keyframes fade__in--down {
-    from { opacity: 0; transform: translate3d(0, -100%, 0); }
-    to { opacity: 1; transform: none; }
-}
-@keyframes fade__in--left {
-    from { opacity: 0; transform: translate3d(-100%, 0, 0); }
-    to { opacity: 1; transform: none; }
-}
-@keyframes fade__in--right {
-    from { opacity: 0; transform: translate3d(100%, 0, 0); }
-    to { opacity: 1; transform: none; }
-}
-
-@keyframes fade__out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-@keyframes fade__out--up {
-    from { opacity: 1; }
-    to { opacity: 0; transform: translate3d(0, -100%, 0); }
-}
-@keyframes fade__out--down {
-    from { opacity: 1; }
-    to { opacity: 0; transform: translate3d(0, 100%, 0); }
-}
-@keyframes fade__out--left { 
-    from { opacity: 1; } 
-    to { opacity: 0; transform: translate3d(-100%, 0, 0); } 
-}
-@keyframes fade__out--right { 
-    from { opacity: 1; } 
-    to { opacity: 0; transform: translate3d(100%, 0, 0); } 
-}
-
-
-.overflow--hidden{
-    overflow: hidden;
-}
-
-
 /**
  * Hidden xs | sm | md | lg
  */
@@ -229,4 +69,136 @@ button{
     .hidden-lg {
         display: none;
     }
+}
+
+.valign{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.valign .center{
+    width: 100%;
+    margin: auto;
+    vertical-align: middle;
+}
+
+
+.show, .block{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.visible {
+    visibility: visible;
+}
+.invisible {
+    visibility: hidden;
+}
+.overflow--hidden{
+    overflow: hidden;
+}
+.overflowX--hidden{
+    overflow-x: hidden;
+}
+.overflowY--hidden{
+    overflow-y: hidden;
+}
+.fl_l{
+    float: left;
+}
+.fl_r{
+    float: right;
+}
+.fl_n{
+    float: none;
+}
+.in-circle{
+    border-radius: 999px;
+}
+
+.m-t-100{ margin-top: 100px; }
+.m-t-50{ margin-top: 50px; }
+.m-t-30{ margin-top: 30px; }
+.m-t-20{ margin-top: 20px; }
+.m-t-15{ margin-top: 15px; }
+.m-t-10{ margin-top: 10px; }
+.m-t-5{ margin-top: 5px; }
+
+.m-l-50{ margin-left: 50px; }
+.m-l-30{ margin-left: 30px; }
+.m-l-20{ margin-left: 20px; }
+.m-l-15{ margin-left: 15px; }
+.m-l-10{ margin-left: 10px; }
+.m-l-5{ margin-left: 5px; }
+
+.m-r-50{ margin-right: 50px; }
+.m-r-30{ margin-right: 30px; }
+.m-r-20{ margin-right: 20px; }
+.m-r-15{ margin-right: 15px; }
+.m-r-10{ margin-right: 10px; }
+.m-r-5{ margin-right: 5px; }
+
+.m-b-100{ margin-bottom: 100px; }
+.m-b-50{ margin-bottom: 50px; }
+.m-b-30{ margin-bottom: 30px; }
+.m-b-20{ margin-bottom: 20px; }
+.m-b-15{ margin-bottom: 15px; }
+.m-b-10{ margin-bottom: 10px; }
+.m-b-5{ margin-bottom: 5px; }
+
+
+
+.p-t-100{ padding-top: 100px; }
+.p-t-50{ padding-top: 50px; }
+.p-t-30{ padding-top: 30px; }
+.p-t-20{ padding-top: 20px; }
+.p-t-15{ padding-top: 15px; }
+.p-t-10{ padding-top: 10px; }
+.p-t-5{ padding-top: 5px; }
+
+.p-l-50{ padding-left: 50px; }
+.p-l-30{ padding-left: 30px; }
+.p-l-20{ padding-left: 20px; }
+.p-l-15{ padding-left: 15px; }
+.p-l-10{ padding-left: 10px; }
+.p-l-5{ padding-left: 5px; }
+
+.p-r-50{ padding-right: 50px; }
+.p-r-30{ padding-right: 30px; }
+.p-r-20{ padding-right: 20px; }
+.p-r-15{ padding-right: 15px; }
+.p-r-10{ padding-right: 10px; }
+.p-r-5{ padding-right: 5px; }
+
+.p-b-100{ padding-bottom: 100px; }
+.p-b-50{ padding-bottom: 50px; }
+.p-b-30{ padding-bottom: 30px; }
+.p-b-20{ padding-bottom: 20px; }
+.p-b-15{ padding-bottom: 15px; }
+.p-b-10{ padding-bottom: 10px; }
+.p-b-5{ padding-bottom: 5px; }
+
+
+
+.clear_fix,
+.row,
+.container{
+    display: block;
+}
+.clear_fix:after, .clear_fix:before,
+.container:after, .container:before,
+.row:before, .row:after{
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
