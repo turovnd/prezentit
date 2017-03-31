@@ -3,7 +3,7 @@
 <head>
     <title><?=$title; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
     <meta charset="UTF-8">
-    <meta name="author" content="<?=$GLOBALS['SITE_NAME']; ?>" />
+    <meta name="author" content="<?=$content; ?>" />
 
     <link type="image/x-icon" rel="shortcut icon" href="" />
 
