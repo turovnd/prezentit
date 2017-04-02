@@ -10,8 +10,29 @@
 
 class Controller_Welcome extends Dispatch
 {
+    /**
+     * If User is Logged -> redirect to app
+     */
+    public function before()
+    {
 
+        $isLogged  = self::isLogged();
+
+        if ($isLogged) {
+            $this->redirect('app');
+        }
+
+        parent::before();
+    }
+
+
+    /**
+     * Template of Welcome Module
+     * @var string
+     */
     public $template = 'welcome/main';
+
+
 
     /**
      * Welcome Page

@@ -4,7 +4,6 @@
         Prezit
     </a>
 
-
     <ul class="header__menu fl_r">
         <li class="header__item">
            <a href="" class="header__link hidden-xs">Почему <?=$GLOBALS["SITE_NAME"]; ?></a>
@@ -13,15 +12,14 @@
             <a href="" class="header__link hidden-xs">Как использовать</a>
         </li>
         <li class="header__item">
-            <a href="" class="header__link hidden-xs">Войти</a>
+            <a href="<?= URL::site('login')?>" class="header__link hidden-xs">Войти</a>
         </li>
         <li class="header__item">
-            <a href="" class="header__link btn btn--round hidden-xs">Регистрация</a>
+            <a href="<?= URL::site('signup')?>" class="header__link btn btn--round btn--scaled hidden-xs">Регистрация</a>
         </li>
         <li class="header__item">
-            <a href="" class="header__link hidden-sm hidden-md hidden-lg">Регистрация</a>
+            <a href="<?= URL::site('signup')?>" class="header__link hidden-sm hidden-md hidden-lg">Регистрация</a>
         </li>
-
     </ul>
 
 </div>

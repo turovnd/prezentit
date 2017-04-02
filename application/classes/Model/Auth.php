@@ -18,8 +18,7 @@ class Model_Auth extends Model {
             ->limit(1)
             ->execute();
 
-        if (Arr::get($select, 'id'))
-        {
+        if (Arr::get($select, 'id')) {
             $this->complete($select);
             return true;
         }
@@ -42,27 +41,20 @@ class Model_Auth extends Model {
         return false;
     }
 
-    public function logout($destroy = FALSE)
+    public function logout()
     {
-        if ($destroy === TRUE)
-        {
-            // Destroy the session completely
-            $this->_session->destroy();
-        }
-        else
-        {
-            // Remove the user from the session
-            $this->_session->delete();
+        $this->_session->destroy();
 
-        }
+        Cookie::delete('sid');
+        Cookie::delete('uid');
+        Cookie::delete('secret');
 
         return false;
     }
 
-    private function complete($select) {
-
+    private function complete($select)
+    {
         $this->_session->set('uid', $select['id']);
-        $this->_session->set('lastname', $select['lastname']);
         $this->_session->set('name', $select['name']);
         $this->_session->set('email', $select['email']);
 

@@ -104,42 +104,6 @@ class Dispatch extends Controller_Template
 
     }
 
-
-    /**
-     * Return True if user had logged
-     * @return bool
-     */
-    public static function hadLogged()
-    {
-        $secret = Cookie::get('secret', '');
-        $uid = Cookie::get('uid', '');
-        $sid = Cookie::get('sid', '');
-
-        if ($secret && $uid && $sid) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
-     * Can user login or not
-     */
-    public static function canLogin()
-    {
-        $isLogged  = self::isLogged();
-        $hadLogged = self::hadLogged();
-
-        $canLogin = false;
-
-        if ($isLogged || (!$isLogged && $hadLogged))
-            $canLogin = true;
-
-        return $canLogin;
-    }
-
-
     /**
      * Redis connection
      */
@@ -170,19 +134,8 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        if (self::canLogin()) {
-
-            $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
-            $user = new Model_User($uid);
-
-            /** Authentificated User is visible in all pages */
-            View::set_global('user', $user);
-            $this->user = $user;
-
-        }
 
         View::set_global('isLogged', self::isLogged());
-        View::set_global('canLogin', self::canLogin());
 
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 

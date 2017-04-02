@@ -21,12 +21,15 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/cols.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/typography.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/button.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/form.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/animation.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
 
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/parallax.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
     <script type="text/javascript">
         function ready() {
             header.init("welcome");

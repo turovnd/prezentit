@@ -1,0 +1,1 @@
+<?= View::factory('errors/error', array('code' => 400, 'message' => 'Ссылка не действительна')); ?>

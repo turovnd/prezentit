@@ -79,6 +79,12 @@ p {
 .bold{
     font-weight: bold;
 }
+.nowrap{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .text-left {
     text-align: left;
 }

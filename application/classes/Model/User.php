@@ -9,11 +9,6 @@ Class Model_User {
     public $id;
 
     /**
-     * @var $lastname
-     */
-    public $lastname;
-
-    /**
      * @var $name
      */
     public $name;
@@ -24,19 +19,24 @@ Class Model_User {
     public $surname;
 
     /**
+     * @var $lastname
+     */
+    public $lastname;
+
+    /**
      * @var $email
      */
     public $email;
 
     /**
-     * @var $phone
+     * @var $avatar
      */
-    public $phone;
+    public $avatar;
 
     /**
-     * @var $isConfirmed
+     * @var $is_confirmed
      */
-    public $isConfirmed;
+    public $is_confirmed;
 
     /**
      * @var $dt_create
@@ -87,7 +87,7 @@ Class Model_User {
      public function save()
      {
 
-        $this->dt_create = Date::formatted_time('now', 'Y-m-d');
+        $this->dt_create = Date::formatted_time('now');
 
         $insert = Dao_Users::insert();
 
@@ -149,42 +149,21 @@ Class Model_User {
 
      }
 
-     public static function getByFields($fields) {
 
-         $select = Dao_Users::select('id');
+     public static function getByFieldName($field, $value) {
 
-         foreach ($fields as $field => $value) {
-             $select->where($field, '=', $value);
-         }
+         $id = Dao_Users::select('id')
+             ->where($field, '=', $value)
+             ->limit(1)
+             ->execute();
 
-
-
-         $selection = $select
-                ->limit(1)
-                ->execute();
-
-         return new Model_User($selection['id']);
+         return new Model_User($id);
 
      }
 
-    /**
-     * @param $id
-     * @return organization
-     */
-    public static function getUserOrganization($id)
-    {
-        $select = DB::select('id_organization')->from('User_Organizations')
-                        ->where('id_user', '=', $id)
-                        ->limit(1)
-                        ->execute()
-                        ->as_array();
 
-        return Arr::get($select, '0')['id_organization'];
-    }
 
     /**
-     * @public
-     *
      * Checks for existance by searching field
      *
      * @param $field

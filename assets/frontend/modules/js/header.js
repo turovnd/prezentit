@@ -2,7 +2,8 @@ var header = (function(header) {
 
     header.types = [];
 
-    var type_, // current type of header
+    var type_ = null, // current type of header
+        pathname_ = null,
         headerBlock_ = null,
         headerMenuIcon_ = null,
         asside_ = null,
@@ -14,6 +15,7 @@ var header = (function(header) {
      * @private
      */
     var prepare_ = function () {
+        pathname_ = window.location.pathname;
         headerBlock_ = document.getElementsByClassName('header')[0];
 
         headerMenuIcon_ = document.getElementById('openAsside');
@@ -29,7 +31,7 @@ var header = (function(header) {
 
     /**
      * Init header by type
-     * @param type = welcome || welcome--default || app
+     * @param type = welcome || app
      */
     header.init = function (type) {
         prepare_();
@@ -54,14 +56,16 @@ var header = (function(header) {
      * Window On Scroll Function
      */
     window.onscroll = function () {
-        changeHeaderBlockClass();
+        if (type_ !== "app" && pathname_ !== '/login' && pathname_ !== '/signup') {
+            changeHeaderBlockClass();
+        }
     };
 
     /**
      * 
      */
     var changeHeaderBlockClass = function () {
-        if (type_ != "app") {
+        if (type_ !== "app" && pathname_ !== '/login' && pathname_ !== '/signup') {
             if ( window.scrollY > 5 ) {
                 headerBlock_.classList.add('header--fixed');
                 headerBlock_.classList.remove('header--default');
