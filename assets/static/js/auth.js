@@ -111,6 +111,7 @@ function ready() {
                 //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
             },
             success: function(response) {
+                console.log(response );
                 response = JSON.parse(response);
 
                 if (response.code === "20") {

@@ -90,7 +90,7 @@
 
 
             <!-- Registration Form -->
-            <form class="form__body m-b-10" id="signup" name="signup">
+            <form class="form__body m-b-10" id="signup">
                 <div class="col-xs-12">
                     <p class="h3 bold text-center m-b-20">Регистрация</p>
 

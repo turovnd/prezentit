@@ -87,23 +87,6 @@ class Dispatch extends Controller_Template
         }
     }
 
-
-    /**
-     * Return "True" if user is logged
-     * @return bool
-     */
-    public static function isLogged()
-    {
-        $session = Session::Instance();
-
-        if ( empty($session->get('uid')) ) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
     /**
      * Redis connection
      */
@@ -135,7 +118,7 @@ class Dispatch extends Controller_Template
     private function setGlobals()
     {
 
-        View::set_global('isLogged', self::isLogged());
+        //View::set_global('isLogged', self::isLogged());
 
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 
@@ -147,7 +130,7 @@ class Dispatch extends Controller_Template
     }
 
 
-    protected function makeHash($algo, $string) {
+    protected static function makeHash($algo, $string) {
         return hash($algo, $string);
     }
 
@@ -155,8 +138,60 @@ class Dispatch extends Controller_Template
     protected function checkCsrf()
     {
         /** Check CSRF */
-        if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
+        if (!isset($_POST['csrf']) || empty($_POST['csrf']) && Security::check(Arr::get($_POST, 'csrf', ''))) {
             throw new HTTP_Exception_403();
+        }
+
+        return true;
+    }
+
+
+
+    /**
+     * Return "True" if user is logged
+     *
+     * Check session id
+     * Check session token (make secret from Cookie data and check in redis)
+     * @return bool
+     */
+    public static function isLogged()
+    {
+        $session = Session::Instance();
+
+        if ( empty($session->get('uid')) ) {
+            return false;
+        }
+
+        $redis = self::redisInstance();
+
+        /** get data from cookie  */
+        $uid    = Cookie::get('uid');
+        $sid    = Cookie::get('sid');
+        $secret = Cookie::get('secret');
+        $hash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+
+        if ($redis->get('prezit:sessions:secrets:' . $hash) && $hash == $secret) {
+
+            // Создаем новую сессию
+            $auth = new Model_Auth();
+            $auth->recoverById($uid);
+
+            $sid = $session->id();
+            $uid = $session->get('uid');
+
+            $redis->delete('prezit:sessions:secrets:' . $hash);
+
+            // генерируем новый хэш c новый session id
+            $newHash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+
+            // меняем хэш в куки
+            Cookie::set('secret', $newHash, Date::DAY);
+
+            // сохраняем в редис
+            $redis->set('prezit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+
+        } else {
+            return false;
         }
 
         return true;

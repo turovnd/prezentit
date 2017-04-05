@@ -59,6 +59,7 @@ class Model_Auth extends Model {
         $this->_session->set('email', $select['email']);
 
         $sessionId = $this->_session->id();
+
         Cookie::set('uid', $select['id'], Date::DAY);
         Cookie::set('sid', $sessionId, Date::DAY);
 

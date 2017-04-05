@@ -15,7 +15,8 @@ var header = (function(header) {
 
         headerBlock_ = document.getElementsByClassName('header')[0];
         pathname_ = window.location.pathname;
-        if (type === "welcome" && pathneme_headerFeixed.indexOf(pathname_)) {
+
+        if (type === "welcome" && pathneme_headerFeixed.indexOf(pathname_) === -1) {
 
             window.onscroll = function () {
                 changeHeaderBlockClass();

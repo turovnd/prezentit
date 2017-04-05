@@ -68,14 +68,7 @@ class Controller_Auth_Ajax extends Auth
         $sid = $session->id();
         $uid = $session->get('uid');
 
-        $hash = $this->makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
-
-        Cookie::set('secret', $hash, Date::DAY);
-
-        /**
-         * save session in Redis server
-         */
-        $this->redis->set('prezit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+        $this->setSecret($sid, $uid);
 
         $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success', array('id' => $uid));
         $this->response->body(@json_encode($response->get_response()));
@@ -126,16 +119,20 @@ class Controller_Auth_Ajax extends Auth
 
         $user->save();
 
-        $isSuccess = $this->send_email_confirmation($user, $password);
+        //$isSuccess = $this->send_email_confirmation($user, $password);
 
-        if ($isSuccess) {
-            $response = new Model_Response_Email('EMAIL_SEND_SUCCESS', 'success');
-        } else {
+        /*if (!$isSuccess) {
             $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
-        }
-        $this->response->body(@json_encode($response->get_response()));
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }*/
 
         $auth = new Model_Auth();
+
+        $session = Session::instance();
+        $sid = $session->id();
+
+        $this->setSecret($sid, $user->id);
 
         if ($auth->login($email, $password)) {
             $response = new Model_Response_SignUp('SIGNUP_SUCCESS', 'success',  array('id' => $user->id));
@@ -307,5 +304,19 @@ class Controller_Auth_Ajax extends Auth
 
     }
 
+    /**
+     * Set `secret` to cookie and Redis
+     */
+    protected function setSecret($sid, $uid)
+    {
+        $hash = $this->makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
 
+        Cookie::set('secret', $hash, Date::DAY);
+
+        /**
+         * save session in Redis server
+         */
+        $this->redis->set('prezit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+
+    }
 }
