@@ -15,13 +15,6 @@ class Controller_Welcome extends Dispatch
      */
     public function before()
     {
-
-        $isLogged  = self::isLogged();
-
-        if ($isLogged) {
-            $this->redirect('app');
-        }
-
         parent::before();
     }
 
@@ -39,6 +32,12 @@ class Controller_Welcome extends Dispatch
      */
     public function action_index()
     {
+        $isLogged  = self::isLogged();
+
+        if ($isLogged) {
+            $this->redirect('app');
+        }
+
         $this->template->title = "Добро пожаловать";
         $this->template->section = View::factory('welcome/pages/main');
     }

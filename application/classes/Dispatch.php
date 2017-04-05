@@ -125,8 +125,15 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
+        $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
+        $user = new Model_User($uid);
 
+        /** Authentificated User is visible in all pages */
+        View::set_global('user', $user);
+        $this->user = $user;
+
+
+        $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
         View::set_global('assets', $address . DIRECTORY_SEPARATOR. 'assets' . DIRECTORY_SEPARATOR);
 
         $this->memcache = self::memcacheInstance();

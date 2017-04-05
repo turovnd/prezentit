@@ -1,7 +1,9 @@
 var collapse = (function(collapse) {
 
 
-    var nodes = [];
+    var nodes = [],
+        btn = null,
+        list = null;
 
 
     collapse.init = function() {
@@ -25,10 +27,15 @@ var collapse = (function(collapse) {
 
 
     var toggle = function (event) {
-        var btn = event.target,
-            list = document.getElementById(btn.dataset.area);
+        btn = event.target;
 
-        if (btn.dataset.opened == "false") {
+        if (!btn.classList.contains('aside__link')) {
+            btn = btn.parentNode;
+        }
+
+        list = document.getElementById(btn.dataset.area);
+
+        if (btn.dataset.opened === "false") {
             openCollapse(btn,list);
         } else {
             hideCollapse(btn,list);

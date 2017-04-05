@@ -56,6 +56,7 @@ class Model_Auth extends Model {
     {
         $this->_session->set('uid', $select['id']);
         $this->_session->set('name', $select['name']);
+        $this->_session->set('surname', $select['surname']);
         $this->_session->set('email', $select['email']);
 
         $sessionId = $this->_session->id();
