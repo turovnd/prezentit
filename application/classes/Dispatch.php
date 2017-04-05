@@ -68,23 +68,31 @@ class Dispatch extends Controller_Template
     */
     public function XSSfilter()
     {
-        $exceptions = array(); // Исключения для полей с визуальным редактором
+        /**
+         * @var array Исключения для полей с визуальным редактором
+         */
+        $exceptionsAllowingHTML = array( 'contest_text', 'results_contest' );
 
         foreach ($_POST as $key => $value){
+            if (is_array($value)) {
+                foreach ($value as $sub_key => $sub_value) {
+                    $sub_value = stripos( $sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
+                    $_POST[$key][$sub_key] = Security::xss_clean(HTML::chars($sub_value));
+                }
+                continue;
+            }
+            $value = stripos($value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
 
-            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
-
-            if ( in_array($key, $exceptions) === false ){
+            /** $exceptionsAllowingHTML — allow html tags (does not fire HTML Purifier) */
+            if ( in_array($key, $exceptionsAllowingHTML) === false) {
                 $_POST[$key] = Security::xss_clean(HTML::chars($value));
-            } else {
-                $_POST[$key] = Security::xss_clean( strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>'));
             }
         }
-
         foreach ($_GET  as $key => $value) {
             $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
             $_GET[$key] = Security::xss_clean(HTML::chars($value));
         }
+
     }
 
     /**
@@ -117,13 +125,9 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-
-        //View::set_global('isLogged', self::isLogged());
-
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 
         View::set_global('assets', $address . DIRECTORY_SEPARATOR. 'assets' . DIRECTORY_SEPARATOR);
-        View::set_global('website', $address);
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
@@ -138,7 +142,7 @@ class Dispatch extends Controller_Template
     protected function checkCsrf()
     {
         /** Check CSRF */
-        if (!isset($_POST['csrf']) || empty($_POST['csrf']) && Security::check(Arr::get($_POST, 'csrf', ''))) {
+        if (!isset($_POST['csrf']) || empty($_POST['csrf']) || Security::check(Arr::get($_POST, 'csrf', ''))) {
             throw new HTTP_Exception_403();
         }
 

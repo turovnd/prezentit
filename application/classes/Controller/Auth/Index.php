@@ -11,11 +11,10 @@
 class Controller_Auth_Index extends Dispatch
 {
 
-    /**
-     * If User is Logged -> redirect to app
-     */
+
     public function before()
     {
+
         $auth = new Model_Auth();
         $auth->logout();
 
