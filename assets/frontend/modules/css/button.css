@@ -44,6 +44,10 @@ button {
     border-color: #FCFCFC;
     background: transparent;
 }
+.btn--hollow:hover,
+.btn--hollow:focus{
+    color: #FCFCFC;
+}
 .btn--brand{
     color: #FCFCFC;
     background: #008DA7;

@@ -14,12 +14,12 @@
         </a>
     </li>
     <li class="aside__item">
-        <a href="" class="aside__link">
+        <a href="<?=URL::site('login'); ?>" class="aside__link">
             Войти
         </a>
     </li>
     <li class="aside__item">
-        <a href="" class="aside__link">
+        <a href="<?=URL::site('signup'); ?>" class="aside__link">
             Регистрация
         </a>
     </li>

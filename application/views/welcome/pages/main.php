@@ -12,9 +12,9 @@
                 <?=$GLOBALS["SITE_NAME"];?> - мощный инструмент, благодаря которому выступления становятся захватывающими.
             </h2>
             <div class="btn--sale">
-                <button class="btn btn--lg btn--round btn--white btn--scaled col-xs-12 col-sm-auto">
+                <a href="<?=URL::site('signup'); ?>" class="btn btn--lg btn--round btn--white btn--scaled col-xs-12 col-sm-auto">
                     Приступить!
-                </button>
+                </a>
                 <button class="btn btn--lg btn--round btn--hollow btn--scaled col-xs-12 col-sm-auto">
                     Смотреть видео
                 </button>
@@ -91,12 +91,12 @@
                 Хотите попробовать <?=$GLOBALS["SITE_NAME"]; ?>?
             </p>
             <div class="text-center m-t-50">
-                <button class="btn btn--lg btn--round btn--hollow btn--scaled m-r-30 col-xs-12 col-sm-auto">
+                <a href="<?=URL::site('login'); ?>" class="btn btn--lg btn--round btn--hollow btn--scaled m-r-30 col-xs-12 col-sm-auto">
                     Войти
-                </button>
-                <button class="btn btn--lg in-circle btn--white btn--scaled col-xs-12 col-sm-auto">
+                </a>
+                <a href="<?=URL::site('signup'); ?>" class="btn btn--lg in-circle btn--white btn--scaled col-xs-12 col-sm-auto">
                     Зарегистрироваться
-                </button>
+                </a>
             </div>
         </div>
     </div>

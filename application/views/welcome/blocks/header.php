@@ -1,6 +1,6 @@
 <div class="container">
 
-    <a href="" class="header__brand fl_l">
+    <a href="<?=URL::site('/'); ?>" class="header__brand fl_l">
         Prezit
     </a>
 
