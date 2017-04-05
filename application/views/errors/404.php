@@ -1,0 +1,1 @@
+<?= View::factory('errors/error', array('code' => 404, 'message' => 'Страница не найдена')); ?>

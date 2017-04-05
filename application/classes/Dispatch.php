@@ -68,77 +68,32 @@ class Dispatch extends Controller_Template
     */
     public function XSSfilter()
     {
-        $exceptions = array(); // Исключения для полей с визуальным редактором
+        /**
+         * @var array Исключения для полей с визуальным редактором
+         */
+        $exceptionsAllowingHTML = array( 'contest_text', 'results_contest' );
 
         foreach ($_POST as $key => $value){
+            if (is_array($value)) {
+                foreach ($value as $sub_key => $sub_value) {
+                    $sub_value = stripos( $sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
+                    $_POST[$key][$sub_key] = Security::xss_clean(HTML::chars($sub_value));
+                }
+                continue;
+            }
+            $value = stripos($value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
 
-            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
-
-            if ( in_array($key, $exceptions) === false ){
+            /** $exceptionsAllowingHTML — allow html tags (does not fire HTML Purifier) */
+            if ( in_array($key, $exceptionsAllowingHTML) === false) {
                 $_POST[$key] = Security::xss_clean(HTML::chars($value));
-            } else {
-                $_POST[$key] = Security::xss_clean( strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>'));
             }
         }
-
         foreach ($_GET  as $key => $value) {
             $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
             $_GET[$key] = Security::xss_clean(HTML::chars($value));
         }
-    }
-
-
-    /**
-     * Return "True" if user is logged
-     * @return bool
-     */
-    public static function isLogged()
-    {
-        $session = Session::Instance();
-
-        if ( empty($session->get('uid')) ) {
-            return false;
-        } else {
-            return true;
-        }
 
     }
-
-
-    /**
-     * Return True if user had logged
-     * @return bool
-     */
-    public static function hadLogged()
-    {
-        $secret = Cookie::get('secret', '');
-        $uid = Cookie::get('uid', '');
-        $sid = Cookie::get('sid', '');
-
-        if ($secret && $uid && $sid) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
-     * Can user login or not
-     */
-    public static function canLogin()
-    {
-        $isLogged  = self::isLogged();
-        $hadLogged = self::hadLogged();
-
-        $canLogin = false;
-
-        if ($isLogged || (!$isLogged && $hadLogged))
-            $canLogin = true;
-
-        return $canLogin;
-    }
-
 
     /**
      * Redis connection
@@ -170,31 +125,16 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        if (self::canLogin()) {
-
-            $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
-            $user = new Model_User($uid);
-
-            /** Authentificated User is visible in all pages */
-            View::set_global('user', $user);
-            $this->user = $user;
-
-        }
-
-        View::set_global('isLogged', self::isLogged());
-        View::set_global('canLogin', self::canLogin());
-
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 
         View::set_global('assets', $address . DIRECTORY_SEPARATOR. 'assets' . DIRECTORY_SEPARATOR);
-        View::set_global('website', $address);
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
     }
 
 
-    protected function makeHash($algo, $string) {
+    protected static function makeHash($algo, $string) {
         return hash($algo, $string);
     }
 
@@ -202,8 +142,60 @@ class Dispatch extends Controller_Template
     protected function checkCsrf()
     {
         /** Check CSRF */
-        if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
+        if (!isset($_POST['csrf']) || empty($_POST['csrf']) || Security::check(Arr::get($_POST, 'csrf', ''))) {
             throw new HTTP_Exception_403();
+        }
+
+        return true;
+    }
+
+
+
+    /**
+     * Return "True" if user is logged
+     *
+     * Check session id
+     * Check session token (make secret from Cookie data and check in redis)
+     * @return bool
+     */
+    public static function isLogged()
+    {
+        $session = Session::Instance();
+
+        if ( empty($session->get('uid')) ) {
+            return false;
+        }
+
+        $redis = self::redisInstance();
+
+        /** get data from cookie  */
+        $uid    = Cookie::get('uid');
+        $sid    = Cookie::get('sid');
+        $secret = Cookie::get('secret');
+        $hash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+
+        if ($redis->get('prezit:sessions:secrets:' . $hash) && $hash == $secret) {
+
+            // Создаем новую сессию
+            $auth = new Model_Auth();
+            $auth->recoverById($uid);
+
+            $sid = $session->id();
+            $uid = $session->get('uid');
+
+            $redis->delete('prezit:sessions:secrets:' . $hash);
+
+            // генерируем новый хэш c новый session id
+            $newHash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+
+            // меняем хэш в куки
+            Cookie::set('secret', $newHash, Date::DAY);
+
+            // сохраняем в редис
+            $redis->set('prezit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+
+        } else {
+            return false;
         }
 
         return true;

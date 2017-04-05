@@ -3,10 +3,8 @@
 
         <div class="col-xs-12 col-md-4">
             <span class="footer__helper">Узнай больше</span>
-
-            <a href="" class="footer__link text-brand bold block">Вдохновление</a>
             <a href="" class="footer__link text-brand bold block">Примеры</a>
-            <a href="" class="footer__link text-brand bold block">Пособие</a>
+            <a href="" class="footer__link text-brand bold block">Как использовать</a>
         </div>
 
         <div class="col-xs-12 col-md-4">

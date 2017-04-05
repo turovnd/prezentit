@@ -30,9 +30,6 @@
 .h3--sale {
     font-size: 1.5em;
 }
-.img--sale{
-
-}
 
 @media (max-width: 768px) {
     .h1--sale, .h2--sale, .h3--sale{

@@ -3,6 +3,15 @@
 abstract class Auth extends Dispatch
 {
     /**
+     * Get Attempt from Cookie
+     * @return int|mixed
+     */
+    protected function getAttempt()
+    {
+        return Cookie::get('attempt') ? $this->getAttemptData(Cookie::get('attempt'))['attempts'] : 0 ;
+    }
+
+    /**
      * save in coockies attepmts
      */
     protected function makeAttempt()
@@ -22,6 +31,7 @@ abstract class Auth extends Dispatch
         // incr attempt
         Cookie::set('attempt', $attemptKey. ':' . ++$attempt, Date::MINUTE * 5);
     }
+
 
     protected function getAttemptData($salt)
     {

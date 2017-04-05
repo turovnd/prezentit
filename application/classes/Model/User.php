@@ -9,11 +9,6 @@ Class Model_User {
     public $id;
 
     /**
-     * @var $lastname
-     */
-    public $lastname;
-
-    /**
      * @var $name
      */
     public $name;
@@ -24,19 +19,24 @@ Class Model_User {
     public $surname;
 
     /**
+     * @var $lastname
+     */
+    public $lastname;
+
+    /**
      * @var $email
      */
     public $email;
 
     /**
-     * @var $phone
+     * @var $avatar
      */
-    public $phone;
+    public $avatar;
 
     /**
-     * @var $isConfirmed
+     * @var $is_confirmed
      */
-    public $isConfirmed;
+    public $is_confirmed;
 
     /**
      * @var $dt_create
@@ -81,13 +81,32 @@ Class Model_User {
 
     }
 
+
+    /**
+     * @param $field
+     * @param $value
+     * @return $this|array|bool|mixed|object
+     */
+    public static function getByFieldName($field, $value) {
+
+        $select = Dao_Users::select()
+            ->where($field, '=', $value)
+            ->limit(1)
+            ->execute();
+
+        $user = new Model_User($select['id']);
+        return $user->fill_by_row($select);
+
+    }
+
+
     /**
      * Saves User to Database
      */
      public function save()
      {
 
-        $this->dt_create = Date::formatted_time('now', 'Y-m-d');
+        $this->dt_create = Date::formatted_time('now');
 
         $insert = Dao_Users::insert();
 
@@ -95,10 +114,9 @@ Class Model_User {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $id = $insert->execute();
+        $result = $insert->execute();
 
-        return $this->get_($id);
-
+        return $this->fill_by_row($result);
      }
 
     /**
@@ -120,10 +138,16 @@ Class Model_User {
 
         $id = $insert->execute();
 
-        return $this->get_($id);
-
+        return $this->get_($this->id);
      }
 
+
+    /**
+     * Checking Password before changing
+     *
+     * @param $pass
+     * @return bool
+     */
      public function checkPassword ($pass) {
 
          $selection = Dao_Users::select(array('password'))
@@ -134,9 +158,15 @@ Class Model_User {
          $password = $selection['password'];
 
          return $password == $pass;
-
      }
 
+
+    /**
+     * Change password
+     *
+     * @param $newpass
+     * @return object
+     */
      public function changePassword ($newpass) {
 
          $insert = Dao_Users::update()
@@ -149,47 +179,13 @@ Class Model_User {
 
      }
 
-     public static function getByFields($fields) {
-
-         $select = Dao_Users::select('id');
-
-         foreach ($fields as $field => $value) {
-             $select->where($field, '=', $value);
-         }
-
-
-
-         $selection = $select
-                ->limit(1)
-                ->execute();
-
-         return new Model_User($selection['id']);
-
-     }
 
     /**
-     * @param $id
-     * @return organization
-     */
-    public static function getUserOrganization($id)
-    {
-        $select = DB::select('id_organization')->from('User_Organizations')
-                        ->where('id_user', '=', $id)
-                        ->limit(1)
-                        ->execute()
-                        ->as_array();
-
-        return Arr::get($select, '0')['id_organization'];
-    }
-
-    /**
-     * @public
-     *
-     * Checks for existance by searching field
+     * Checks for existence by searching field
      *
      * @param $field
      * @param $value
-     * @returns [Bool] True or False
+     * @return bool
      */
     public static function isUserExist($value, $field = 'email') {
         $select = Dao_Users::select('id')
