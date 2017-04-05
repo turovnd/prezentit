@@ -26,19 +26,20 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
 
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/aside.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/parallax.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
     <script type="text/javascript">
         function ready() {
-            header.init("welcome");
+            header.init('welcome');
+            aside.init();
             collapse.init();
             parallax.init();
         }
 
         document.addEventListener("DOMContentLoaded", ready);
-
     </script>
 
 
@@ -53,16 +54,16 @@
 
 <body>
 
-    <header class="header animated fade__in clear_fix">
+    <header class="header header--default animated fade__in clear_fix">
         <?= View::factory('welcome/blocks/header'); ?>
     </header>
 
-    <button id="openAsside" class="asside__open-btn animated fade__in">
+    <button id="openAside" class="aside__open-btn animated fade__in">
         <i></i><i></i><i></i>
     </button>
 
-    <aside class="asside">
-        <?= View::factory('welcome/blocks/asside'); ?>
+    <aside class="aside">
+        <?= View::factory('welcome/blocks/aside'); ?>
     </aside>
 
 

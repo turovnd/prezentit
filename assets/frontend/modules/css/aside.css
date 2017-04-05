@@ -1,4 +1,4 @@
-.asside{
+.aside{
     position: fixed;
     top: 0;
     left: -210px;
@@ -10,11 +10,11 @@
     z-index: 15;
     transition: left ease .3s;
 }
-.asside--opened{
+.aside--opened{
     left: 0;
 }
 
-.asside__brand{
+.aside__brand{
     height: 50px;
     line-height: 50px;
     border-bottom: 1px solid #cfcfcf;
@@ -25,8 +25,8 @@
 }
 
 
-/** icon for opening asside menu */
-.asside__open-btn{
+/** icon for opening aside menu */
+.aside__open-btn{
     display: none;
     position: fixed;
     top: 3px;
@@ -36,7 +36,7 @@
     cursor: pointer;
     z-index: 12;
 }
-.asside__open-btn i{
+.aside__open-btn i{
     display: block;
     position: absolute;
     background-color: #008DA7;
@@ -48,38 +48,38 @@
     height: 3px;
     transition: all ease .25s;
 }
-.header--default + .asside__open-btn i{
+.header--default + .aside__open-btn i{
     background-color: #FCFCFC;
 }
-.asside__open-btn i:first-child{
+.aside__open-btn i:first-child{
     top: 13px;
 }
-.asside__open-btn i:last-child{
+.aside__open-btn i:last-child{
     top: 27px;
 }
 
-.asside__open-btn--opened i {
+.aside__open-btn--opened i {
     background-color: #FCFCFC;
     opacity: 0;
 }
-.asside__open-btn--opened i:first-child,
-.asside__open-btn--opened i:last-child {
+.aside__open-btn--opened i:first-child,
+.aside__open-btn--opened i:last-child {
     top: 20px;
     opacity: 1;
 }
-.asside__open-btn--opened i:first-child {
+.aside__open-btn--opened i:first-child {
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-.asside__open-btn--opened i:last-child {
+.aside__open-btn--opened i:last-child {
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
 
-/** asside menu */
-.asside__menu{
+/** aside menu */
+.aside__menu{
     position: absolute;
     overflow-x: hidden;
     overflow-y: auto;
@@ -90,25 +90,25 @@
     left: 0;
     right: 0;
 }
-.asside__link,
-.asside__collapse-link{
+.aside__link,
+.aside__collapse-link{
     display: block;
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.asside__link:hover,
-.asside__link:focus,
-.asside__collapse-link:hover,
-.asside__collapse-link:focus {
+.aside__link:hover,
+.aside__link:focus,
+.aside__collapse-link:hover,
+.aside__collapse-link:focus {
     color: #008DA7;
     background: rgba(0,0,0,0.02);
 }
-.asside__collapse-link {
+.aside__collapse-link {
     padding-left: 25px;
 }
-.asside__link .fa {
+.aside__link .fa {
     width: 15px;
     margin-right: 5px;
 }
@@ -117,7 +117,7 @@
 
 /** Large Desktop */
 @media (min-width: 1200px) {
-    .header--default + .asside__open-btn + .asside .asside__brand{
+    .header--default + .aside__open-btn + .aside .aside__brand{
         padding: 20px 0;
     }
 }
@@ -126,7 +126,7 @@
 
 /** Phones */
 @media (max-width: 768px) {
-    .asside__open-btn{
+    .aside__open-btn{
         display: block;
     }
 }
