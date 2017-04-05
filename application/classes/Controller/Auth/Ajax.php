@@ -69,7 +69,7 @@ class Controller_Auth_Ajax extends Auth
 
         $this->setSecret($sid, $uid);
 
-        $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success', array('id' => $uid));
+        $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
 
     }
@@ -139,7 +139,7 @@ class Controller_Auth_Ajax extends Auth
         $this->setSecret($sid, $user->id);
 
         if ($auth->login($email, $password_hash)) {
-            $response = new Model_Response_SignUp('SIGNUP_SUCCESS', 'success',  array('id' => $user->id));
+            $response = new Model_Response_SignUp('SIGNUP_SUCCESS', 'success');
             $this->response->body(@json_encode($response->get_response()));
         };
 
