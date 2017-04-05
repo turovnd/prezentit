@@ -14,12 +14,7 @@ class Controller_Auth_Index extends Dispatch
 
     public function before()
     {
-
-        $auth = new Model_Auth();
-        $auth->logout();
-
         parent::before();
-
     }
 
 
@@ -48,6 +43,14 @@ class Controller_Auth_Index extends Dispatch
     {
         $this->template->title = "Регистрация";
         $this->template->section = View::factory('welcome/pages/auth');
+    }
+
+
+    public function action_logout()
+    {
+        $auth = new Model_Auth();
+        $auth->logout();
+        $this->redirect('/');
     }
 
 

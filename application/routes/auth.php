@@ -9,7 +9,7 @@ $STRING = '\w+';
  */
 Route::set('AUTH_PAGES', '<action>',
     array(
-        'action' => 'login|signup'
+        'action' => 'login|signup|logout'
     ))
     ->defaults(array(
         'controller'  => 'Auth_Index',
