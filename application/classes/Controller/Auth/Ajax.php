@@ -27,11 +27,11 @@ class Controller_Auth_Ajax extends Auth
     {
         $this->checkRequest();
 
-        if ($this->getAttempt() > 3) {
-            $response = new Model_Response_Auth('ATTEMPT_NUMBER_ERROR', 'error');
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-        }
+//        if ($this->getAttempt() > 3) {
+//            $response = new Model_Response_Auth('ATTEMPT_NUMBER_ERROR', 'error');
+//            $this->response->body(@json_encode($response->get_response()));
+//            return;
+//        }
 
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
