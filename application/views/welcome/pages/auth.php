@@ -87,7 +87,7 @@
                                 <label for="signup_name" class="form-group__control-group-addon">
                                     <i aria-hidden="true" class="fa fa-user"></i>
                                 </label>
-                                <input type="text" id="signup_name" name="name" class="form-group__control form-group__control-group-input" placeholder="Введите ваше имя" required="">
+                                <input type="text" id="signup_name" name="name" class="form-group__control form-group__control-group-input" placeholder="Введите имя и фамилию" required="">
                             </div>
                         </div>
 
