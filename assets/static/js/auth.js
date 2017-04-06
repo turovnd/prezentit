@@ -84,8 +84,8 @@ function ready() {
                     //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
                 },
                 success: function(response) {
-                    response = JSON.parse(response);
                     console.log(response);
+                    response = JSON.parse(response);
 
                     window.location.replace(protocol + '//' + host + '/app');
                 },

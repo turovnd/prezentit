@@ -149,7 +149,7 @@ class Dispatch extends Controller_Template
     protected function checkCsrf()
     {
         /** Check CSRF */
-        if (!isset($_POST['csrf']) || empty($_POST['csrf']) || Security::check(Arr::get($_POST, 'csrf', ''))) {
+        if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
             throw new HTTP_Exception_403();
         }
 
