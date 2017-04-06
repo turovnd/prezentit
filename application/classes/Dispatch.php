@@ -2,8 +2,10 @@
 
 class Dispatch extends Controller_Template
 {
-    const POST = 'POST';
-    const GET  = 'GET';
+    const POST      = 'POST';
+    const GET       = 'GET';
+    const SALT      = "HEREISYOURSALT";
+    const AUTHSALT  = "SALTFORUSERAUTHORIZATION";
 
     /** @var string - Path to template */
     public $template = '';
@@ -179,7 +181,7 @@ class Dispatch extends Controller_Template
         $uid    = Cookie::get('uid');
         $sid    = Cookie::get('sid');
         $secret = Cookie::get('secret');
-        $hash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+        $hash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
 
         if ($redis->get('prezit:sessions:secrets:' . $hash) && $hash == $secret) {
 
@@ -193,7 +195,7 @@ class Dispatch extends Controller_Template
             $redis->delete('prezit:sessions:secrets:' . $hash);
 
             // генерируем новый хэш c новый session id
-            $newHash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+            $newHash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
 
             // меняем хэш в куки
             Cookie::set('secret', $newHash, Date::DAY);

@@ -33,11 +33,4 @@ class Controller_App_Index extends Dispatch
         $this->template->section = View::factory('app/pages/all-presentations');
     }
 
-    public function action_profile()
-    {
-        $this->template->title = "Профиль - " . $this->user->name . " " . $this->user->surname;
-        $this->template->section = View::factory('app/pages/profile');
-    }
-
-
 }

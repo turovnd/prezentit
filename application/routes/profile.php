@@ -4,12 +4,8 @@ $DIGIT  = '\d+';
 $STRING = '\w+';
 
 
-/**
- * Main pages in app
- * - show all presentations
- */
-Route::set('APP', 'app')
+Route::set('PROFILE', 'app/profile(/<action>)')
     ->defaults(array(
-        'controller'  => 'App_Index',
+        'controller'  => 'Profile',
         'action'      => 'index',
     ));

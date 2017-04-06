@@ -44,7 +44,6 @@
 
 
     <!-- =============== VENDOR STYLES ===============-->
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
