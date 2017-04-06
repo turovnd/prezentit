@@ -29,7 +29,7 @@ class Controller_App_Index extends Dispatch
 
     public function action_index()
     {
-        $this->template->title = "Презентации - " . $this->user->name . " " . $this->user->surname;
+        $this->template->title = "Презентации - " . $this->user->name;
         $this->template->section = View::factory('app/pages/all-presentations');
     }
 

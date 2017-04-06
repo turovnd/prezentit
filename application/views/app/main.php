@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title><?=$user->name . ' ' . $user->surname; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
+    <title><?=$user->name; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
 

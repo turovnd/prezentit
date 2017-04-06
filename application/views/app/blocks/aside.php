@@ -35,7 +35,7 @@
         </ul>
     </li>
     <li class="aside__item">
-        <a href="" class="aside__link">
+        <a href="<?=URL::site('logout' ); ?>" class="aside__link">
             <i class="fa fa-sign-out" aria-hidden="true"></i>
             Выйти
         </a>

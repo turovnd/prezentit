@@ -106,7 +106,7 @@ class Controller_Auth_Ajax extends Auth
             return;
         }
 
-        if (preg_match("[ ]",$name)) {
+        if (str_word_count($name) < 1) {
             $response = new Model_Response_SignUp('NAME_VALIDATION_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
