@@ -54,7 +54,7 @@
 
 <body>
 
-    <header class="header header--default animated fade__in clear_fix">
+    <header class="header header--default animated fade__in clear-fix">
         <?= View::factory('welcome/blocks/header'); ?>
     </header>
 

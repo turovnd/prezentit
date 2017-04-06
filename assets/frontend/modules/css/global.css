@@ -199,7 +199,7 @@ body{
 .p-b-0{ padding-bottom: 0; }
 
 
-.section_content{
+.section__content{
     display: block;
     position: relative;
     padding-top: 60px;
@@ -207,17 +207,17 @@ body{
 }
 
 @media (max-width: 768px) {
-    .section_content{
+    .section__content{
         margin-left:0;
     }
 }
 
-.clear_fix,
+.clear-fix,
 .row,
 .container{
     display: block;
 }
-.clear_fix:after, .clear_fix:before,
+.clear-fix:after, .clear-fix:before,
 .container:after, .container:before,
 .row:before, .row:after{
     content: " ";

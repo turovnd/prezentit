@@ -53,7 +53,7 @@
 
 <body>
 
-    <header class="header clear_fix">
+    <header class="header clear-fix">
         <?= View::factory('app/blocks/header', array('title' => $title)); ?>
     </header>
 

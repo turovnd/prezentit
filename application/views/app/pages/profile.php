@@ -1,4 +1,4 @@
-<div class="section_content clear_fix">
+<div class="section__content clear-fix">
     <form class="col-xs-12" id="changeProfile">
         <h3 class="col-xs-12">Изменение основной информации</h3>
 
