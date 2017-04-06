@@ -130,7 +130,14 @@
     font-weight: bold;
     padding-top:2px;
 }
-
+.aside__item--active{
+    background: rgba(0,0,0,0.02);
+    border-left: 2px solid #008DA7;
+}
+.aside__link--active,
+.aside__collapse-link--active{
+    color: #008DA7;
+}
 
 /** Large Desktop */
 @media (min-width: 1200px) {
