@@ -121,6 +121,7 @@ body{
 }
 .divider{
     display: block;
+    position: relative;
     height: 1px;
     margin: 5px auto;
     overflow: hidden;
@@ -198,19 +199,16 @@ body{
 .p-b-0{ padding-bottom: 0; }
 
 
-
 .section_content{
     display: block;
-    position: absolute;
-    top: 57px;
-    left: 200px;
-    right: 0;
-    bottom: 0;
+    position: relative;
+    padding-top: 60px;
+    margin-left: 200px;
 }
 
 @media (max-width: 768px) {
     .section_content{
-        left:0;
+        margin-left:0;
     }
 }
 

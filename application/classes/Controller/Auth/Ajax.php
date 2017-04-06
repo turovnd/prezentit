@@ -120,6 +120,8 @@ class Controller_Auth_Ajax extends Auth
         $user->password     = $password_hash;
         $user->name         = $name;
         $user->is_confirmed = 0;
+        $user->newsletter   = 1;
+
 
         $user->save();
 

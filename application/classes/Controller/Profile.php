@@ -2,61 +2,72 @@
 
 /**
  * Class Controller_Profile
+ *
+ * @copyright prezit
+ * @author Nikolai Turov
+ * @version 0.0.0
  */
-
 class Controller_Profile extends Dispatch
 {
-    public $template = 'profile/main';
 
-    /**
-     * Welcome Page
-     */
-    public function action_index()
+    public $template = 'app/main';
+
+    public function before()
     {
-        $id = $this->request->param('id');
+        parent::before();
 
-        $profile = new Model_User($id);
+        $isLogged   = self::isLogged();
 
-        if (!$profile->id) {
-            throw new HTTP_Exception_404();
+        if (!$isLogged) {
+            $this->redirect('login');
         }
-
-        $isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
-        $canLogin = self::canLogin();
-
-        $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', View::factory('profile/blocks/header_menu'))
-            ->set('auth_modal', View::factory('globalblocks/auth_modal', array('canLogin' => $canLogin)));
-
-        $this->template->footer = View::factory('globalblocks/footer');
-
-        $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
-
-        $this->template->profile = $profile;
-        $this->template->isProfileOwner = $isProfileOwner;
-
-            /** Meta data */
-        $this->template->title       = $profile->name. ' ' . $profile->surname . " | Votepad";
-        $this->template->description = "Просмотреть профиль " . $profile->name. ' ' . $profile->surname . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
-        $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
-
 
     }
 
+    /**
+     * action_index - show Profile page
+     */
+    public function action_index()
+    {
+        $id = $this->session->get('uid');
+
+        $profile = new Model_User($id);
+
+        $this->template->title = "Профиль - " . $this->user->name . " " . $this->user->surname;
+        $this->template->section = View::factory('app/pages/profile')
+            ->set('profile', $profile);
+    }
+
+
+    /**
+     * action_update - Update Profile Main Info
+     */
     public function action_update()
     {
-        $id = $this->request->param('id');
+        $this->checkRequest();
+
+        $id = Arr::get($_POST, 'id');
+        $uid = $this->session->get('uid');
+
+        if ($id != $uid) {
+            $response = new Model_Response_Profile('USER_ID_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
 
         $user = new Model_User($id);
 
-        if (!$user->id) {
-            throw new HTTP_Exception_404();
-        }
+        $user->name = Arr::get($_POST, 'name');
+        $user->newsletter = Arr::get($_POST, 'newsletter') ? 1 : 0;
 
-        $user->name = Arr::get($_POST, 'name', $user->name);
-        $user->surname = Arr::get($_POST, 'surname', $user->surname);
-        $user->lastname = Arr::get($_POST, 'lastname', $user->lastname);
-        $email = Arr::get($_POST, 'email');
+        $user->update();
+
+        $response = new Model_Response_Profile('USER_UPDATE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+/*
+        var_dump($id, $uid);
+        exit;
+
 
         if ($email != $user->email) {
             $user->email = $email;
@@ -90,7 +101,79 @@ class Controller_Profile extends Dispatch
         }
 
         $this->redirect('user/'.$id);
+*/
+    }
+
+
+
+    /**
+     * action_updatepassword - Update Profile Password
+     */
+    public function action_updatepassword()
+    {
+        $this->checkRequest();
+
+        $id = Arr::get($_POST, 'id');
+        $uid = $this->session->get('uid');
+
+        if ($id != $uid) {
+            $response = new Model_Response_Profile('USER_ID_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $curPass = Arr::get($_POST, 'curPass');
+        $newPass = Arr::get($_POST, 'newPass');
+        $newPass1 = Arr::get($_POST, 'newPass1');
+
+        if ( empty($curPass) || empty($newPass) || empty($newPass1) ) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($newPass != $newPass1) {
+            $response = new Model_Response_Profile('PASSWORDS_ARE_NOT_EQUAL_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $user = new Model_User($id);
+
+        $curPass = $this->makeHash('md5', $curPass . $_SERVER['SALT']);
+
+        if (!$user->checkPassword($curPass)) {
+            $response = new Model_Response_Profile('USER_INVALID_PASSWORD_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $newPass = $this->makeHash('md5', $newPass . $_SERVER['SALT']);
+
+        $user->changePassword($newPass);
+
+        $response = new Model_Response_Profile('PASSWORD_CHANGE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
 
     }
+
+
+
+    /**
+     * Checking if request ajax and checkCsrf
+     * @throws HTTP_Exception_403
+     */
+    protected function checkRequest()
+    {
+        // Do not allow render
+        $this->auto_render = false;
+
+        if (!$this->request->is_ajax()) {
+            throw new HTTP_Exception_403;
+        }
+
+        $this->checkCsrf();
+    }
+
 
 }

@@ -34,6 +34,11 @@ Class Model_User {
     public $avatar;
 
     /**
+     * @var $newsletter
+     */
+    public $newsletter;
+
+    /**
      * @var $is_confirmed
      */
     public $is_confirmed;
