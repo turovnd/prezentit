@@ -33,7 +33,7 @@ class Controller_Profile extends Dispatch
 
         $profile = new Model_User($id);
 
-        $this->template->title = "Профиль - " . $this->user->name . " " . $this->user->surname;
+        $this->template->title = "Профиль - " . $this->user->name;
         $this->template->section = View::factory('app/pages/profile')
             ->set('profile', $profile);
     }

@@ -17,7 +17,7 @@ class Model_Response_SignUp extends Model_Response_Abstract
     protected $_NAME_VALIDATION_ERROR = array(
         'type' => 'signup',
         'code' => '22',
-        'message' => 'Name must be in one word'
+        'message' => 'Name must be in two words'
     );
 
 }

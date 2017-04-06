@@ -14,24 +14,9 @@ Class Model_User {
     public $name;
 
     /**
-     * @var $surname
-     */
-    public $surname;
-
-    /**
-     * @var $lastname
-     */
-    public $lastname;
-
-    /**
      * @var $email
      */
     public $email;
-
-    /**
-     * @var $avatar
-     */
-    public $avatar;
 
     /**
      * @var $newsletter
@@ -121,7 +106,7 @@ Class Model_User {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
      }
 
     /**
