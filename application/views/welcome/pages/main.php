@@ -4,21 +4,13 @@
 
     <div class="valign section--lg">
         <div class="container animated fade__in--left">
-            <h1 class="h1 h1--sale text-white">
+            <h1 class="h1 h1--sale text-white m-l-auto m-r-auto text-center">
                 Интерактивные презентации,<br>
                 воркшопы и встречи
             </h1>
-            <h2 class="h3 h3--sale text-white">
-                <?=$GLOBALS["SITE_NAME"];?> - мощный инструмент, благодаря которому выступления становятся захватывающими.
+            <h2 class="h3 h3--sale text-white m-l-auto m-r-auto text-center m-t-50">
+                С <?=$GLOBALS["SITE_NAME"];?> выступления становятся захватывающими!
             </h2>
-            <div class="btn--sale">
-                <a href="<?=URL::site('signup'); ?>" class="btn btn--lg btn--round btn--white btn--scaled col-xs-12 col-sm-auto">
-                    Приступить!
-                </a>
-                <button class="btn btn--lg btn--round btn--hollow btn--scaled col-xs-12 col-sm-auto">
-                    Смотреть видео
-                </button>
-            </div>
         </div>
     </div>
 </div>
