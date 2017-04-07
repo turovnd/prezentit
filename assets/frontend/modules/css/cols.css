@@ -1,7 +1,12 @@
-.container {
+.container{
     position: relative;
     padding: 0 15px;
     margin: 0 auto;
+}
+.section__container{
+    position: relative;
+    padding: 0 30px;
+    width:100%;
 }
 @media (min-width: 768px) {
     .container {

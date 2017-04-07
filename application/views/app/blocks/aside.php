@@ -1,5 +1,5 @@
 <div class="aside-app__brand">
-    Prezit
+    <?=$_SERVER['SITE_NAME'];?>
 </div>
 
 <ul class="aside__menu">
@@ -23,12 +23,12 @@
         </a>
         <ul id="helpCollapse" class="aside__collapse collapse">
             <li class="aside__collapse-item">
-                <a href="<?=URL::site('' ); ?>" class="aside__collapse-link">
+                <a href="<?=URL::site('how' ); ?>" class="aside__collapse-link">
                     Как использовать
                 </a>
             </li>
             <li class="aside__collapse-item">
-                <a href="<?=URL::site('' ); ?>" class="aside__collapse-link">
+                <a href="<?=URL::site('faq' ); ?>" class="aside__collapse-link">
                     Поддержка
                 </a>
             </li>

@@ -1,7 +1,7 @@
 <div class="container">
 
     <a href="<?=URL::site('/'); ?>" class="header__brand fl_l">
-        Prezit
+        <?=$_SERVER['SITE_NAME'];?>
     </a>
 
     <ul class="header__menu fl_r">

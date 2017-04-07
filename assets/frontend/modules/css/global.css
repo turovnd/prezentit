@@ -90,7 +90,7 @@ body{
     display: block;
 }
 .hide{
-    display: none;
+    display: none !important;
 }
 .visible {
     visibility: visible;
@@ -108,13 +108,13 @@ body{
     overflow-y: hidden;
 }
 .fl_l{
-    float: left;
+    float: left !important;;
 }
 .fl_r{
-    float: right;
+    float: right !important;;
 }
 .fl_n{
-    float: none;
+    float: none !important;
 }
 .in-circle{
     border-radius: 999px;
@@ -214,11 +214,13 @@ body{
 
 .clear-fix,
 .row,
-.container{
+.container,
+.section__container{
     display: block;
 }
 .clear-fix:after, .clear-fix:before,
 .container:after, .container:before,
+.section__container:after, .section__container:before,
 .row:before, .row:after{
     content: " ";
     display: table;

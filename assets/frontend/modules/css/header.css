@@ -73,13 +73,14 @@
 .header__page{
     height: 50px;
     line-height: 50px;
-    padding-left: 15px;
     width: calc(100% - 200px);
 }
 
 .header__title {
-    display: inline-block;
     margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 

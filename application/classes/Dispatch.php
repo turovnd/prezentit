@@ -27,7 +27,7 @@ class Dispatch extends Controller_Template
 
     function before()
     {
-        $GLOBALS['SITE_NAME']   = "Prezit";
+        $GLOBALS['SITE_NAME']   = "Prezentit";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
         // XSS clean in POST and GET requests
