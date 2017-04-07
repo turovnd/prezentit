@@ -1,13 +1,15 @@
 <!-- =============== PAGE STYLES ===============-->
+<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css">
 <link rel="stylesheet" href="<?=$assets; ?>static/css/all-presentations.css">
 
 
 <div class="section__content clear-fix">
 
     <div class="section__container m-t-30">
-        <button class="btn btn--brand btn--round btn--scaled presentation__btn-new">
+        <button id="newPresentation" class="btn btn--brand btn--round btn--scaled presentation__btn-new">
             <i aria-hidden="true" class="fa fa-plus"></i>
             Новая презентация
+            <input id="newPresentFormCSRF" type="hidden" name="csrf" value="<?=Security::token(); ?>">
         </button>
         <div class="presentations__search form-group">
             <div class="form-group__control-group">
@@ -67,4 +69,5 @@
 
 
 <!-- =============== PAGE SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/all-presentations.js"></script>

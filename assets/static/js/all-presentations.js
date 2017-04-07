@@ -1,8 +1,11 @@
 function ready() {
 
-    var toggleAction        = document.getElementsByClassName('presentations__actions-toggle'),
+    var host                = window.location.host,
+        protocol            = window.location.protocol,
+        toggleAction        = document.getElementsByClassName('presentations__actions-toggle'),
         closeAction         = document.getElementsByClassName('presentations__actions-close'),
         searchInput         = document.getElementById('searchInput'),
+        newPresentation     = document.getElementById('newPresentation'),
         presentations       = [],
         i, toglebtn, cancelbtn, searchingText, presentation, shownpresent;
 
@@ -90,6 +93,64 @@ function ready() {
 
 
     /**
+     *
+     */
+    var swalNewPresentation = function () {
+        swal({
+            html:
+            '<h3>Новая презентация</h3>'+
+            '<div class="form-group">' +
+                '<input id="newPresentFormName" class="form-group__control" type="text" name="name" placeholder="Введите название презентации">' +
+            '</div>',
+
+            confirmButtonColor: '#008DA7',
+            showCancelButton: true,
+            confirmButtonText: 'Создать',
+            cancelButtonText: 'Отмена',
+            showLoaderOnConfirm: true,
+            preConfirm: function (text) {
+                return new Promise(function (resolve, reject) {
+                    var formData = new FormData();
+                        formData.append('name', document.getElementById('newPresentFormName').value);
+                        formData.append('csrf', document.getElementById('newPresentFormCSRF').value);
+
+                    var ajaxData = {
+                        url: '/app/newpresentation',
+                        type: 'POST',
+                        data: formData,
+                        beforeSend: function(){
+                            //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            response = JSON.parse(response);
+
+                            if (response.code === "51") {
+                                reject('Укажите название презентации.')
+                            } else {
+                                window.location.replace(protocol + '//' + host + '/app/s/' + response.uri + '/edit');
+                            }
+
+                        },
+                        error: function(callbacks) {
+                            console.log(callbacks);
+                        }
+                    };
+
+                    ajax.send(ajaxData);
+
+                })
+            }
+
+        });
+
+    };
+
+
+
+
+
+    /**
      * Add event listener
      */
     for (i = 0; i < toggleAction.length; i++){
@@ -98,7 +159,11 @@ function ready() {
     }
 
     if (searchInput) {
-        searchInput.addEventListener('keyup', searchPresentation)
+        searchInput.addEventListener('keyup', searchPresentation);
+    }
+
+    if (newPresentation){
+        newPresentation.addEventListener('click', swalNewPresentation);
     }
 }
 
