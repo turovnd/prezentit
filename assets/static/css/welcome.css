@@ -31,6 +31,12 @@
     font-size: 1.5em;
 }
 
+.img--sale{
+    display: block;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
 @media (max-width: 768px) {
     .h1--sale, .h2--sale, .h3--sale{
         line-height: 1.2em;
@@ -44,5 +50,14 @@
     }
     .h3--sale{
         font-size: 1.2em;
+    }
+    .col-xs-12.section--lg, .col-xs-12.section--md, .col-xs-12.section--sm{
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    .header__link{
+        display: none;
     }
 }

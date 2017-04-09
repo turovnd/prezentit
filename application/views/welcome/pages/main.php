@@ -2,8 +2,8 @@
     <div class="dark-bg"></div>
     <img class="parallax__img" src="<?=$assets; ?>static/img/welcome/img1.jpg">
 
-    <div class="valign section--lg">
-        <div class="container animated fade__in--left">
+    <div class="section--lg valign">
+        <div class="container animated fade__in">
             <h1 class="h1 h1--sale text-white m-l-auto m-r-auto text-center">
                 Интерактивные презентации,<br>
                 воркшопы и встречи
@@ -16,56 +16,64 @@
 </div>
 
 <div class="section section--lg">
-    <div class="container m-t-100 m-b-50">
+    <div class="container m-t-50 m-b-50">
         <h1 class="h1 h2--sale">
             Голосование в реальном времени<br>
             <span class="text-brand">для привлечения внимания аудитории</span>
         </h1>
 
-        <div class="section--md valign">
+        <div class="section--md m-t-50">
             <div class="row">
-                <div class="col-xs-12 col-sm-7">
-                    <img class="img--sale" src="/" alt="">
+                <div class="col-xs-12 col-sm-6 section--md valign fl_r">
+                    <div>
+                        <h3 class="h2">Придумайте вопрос</h3>
+                        <p class="h4 m-t-20">Авторизуйтесь в системе и напишете вопрос, который хотите спросить. Вы можете вставить опрос прямо в свою презентацию.</p>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-5">
-                    <h3 class="h2">Придумайте вопрос</h3>
-                    <p class="h4 m-t-20">Авторизуйтесь в системе и напишете вопрос, который хотите спросить. Вы можете вставить опрос прямо в свою презентацию.</p>
+                <div class="col-xs-12 col-sm-6 section--md valign">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img2.jpg" alt="">
                 </div>
             </div>
         </div>
 
-        <div class="section--md valign">
+        <div class="section--md">
             <div class="row">
-                <div class="col-xs-12 col-sm-5">
-                    <h3 class="h2">Дождитесь ответов</h3>
-                    <p class="h4 m-t-20">Аудитория заходит на страницу оценивания, вводит код Вашей презентации и отвечает на вопросы.</p>
+                <div class="col-xs-12 col-sm-6 section--md valign">
+                    <div class="">
+                        <h3 class="h2">Дождитесь ответов</h3>
+                        <p class="h4 m-t-20">Аудитория заходит на страницу оценивания, вводит код Вашей презентации и отвечает на вопросы.</p>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-7">
-                    <img class="img--sale" src="/" alt="">
+                <div class="col-xs-12 col-sm-6 section--md valign">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img3.jpg" alt="">
                 </div>
             </div>
         </div>
 
-        <div class="section--md valign">
+        <div class="section--md m-t-50">
             <div class="row">
-                <div class="col-xs-12 col-sm-7">
-                    <img class="img--sale" src="/" alt="">
+                <div class="col-xs-12 col-sm-6 fl_r section--md valign">
+                    <div>
+                        <h3 class="h2">Узнайте реакцию аудитории</h3>
+                        <p class="h4 m-t-20">Позвольте аудитории оставлять мнение о текущем слайде. Анализируйте и улучшайте свои выступления.</p>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-5">
-                    <h3 class="h2">Узнайте реакцию аудитории</h3>
-                    <p class="h4 m-t-20">Позвольте аудитории оставлять мнение о текущем слайде. Анализируйте и улучшайте свои выступления.</p>
+                <div class="col-xs-12 col-sm-6 fl_l section--md valign">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img4.jpg" alt="">
                 </div>
             </div>
         </div>
 
-        <div class="section--md valign">
+        <div class="section--lg m-t-50">
             <div class="row">
-                <div class="col-xs-12 col-sm-5">
-                    <h3 class="h2">Просматривайте результаты в реальном времени</h3>
-                    <p class="h4 m-t-20">Результаты отображаются на экране в режиме реального времени так скоро, как аудитория их оставит. Конечно, Вы можете скрыть результаты пока все не закончат.</p>
+                <div class="col-xs-12 col-sm-6 section--lg valign">
+                    <div>
+                        <h3 class="h2">Просматривайте результаты в реальном времени</h3>
+                        <p class="h4 m-t-20">Результаты отображаются на экране в режиме реального времени так скоро, как аудитория их оставит. Конечно, Вы можете скрыть результаты пока все не закончат.</p>
+                    </div>
                 </div>
-                <div class="col-xs-12 col-sm-7">
-                    <img class="img--sale" src="/" alt="">
+                <div class="col-xs-12 col-sm-6 section--lg valign">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img5.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -78,7 +86,7 @@
     <img class="parallax__img" src="<?=$assets; ?>static/img/welcome/img1.jpg">
 
     <div class="valign section--md">
-        <div class="container animated fade__in--left">
+        <div class="container">
             <p class="h1 h1--sale text-white">
                 Хотите попробовать <?=$GLOBALS["SITE_NAME"]; ?>?
             </p>
