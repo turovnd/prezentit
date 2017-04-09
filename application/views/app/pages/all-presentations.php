@@ -3,13 +3,13 @@
 <link rel="stylesheet" href="<?=$assets; ?>static/css/all-presentations.css">
 
 
-<div class="section__content clear-fix">
+<div class="section__content clear-fix animated fade__in">
 
     <div class="section__container m-t-30">
-        <button id="newPresentation" class="btn btn--brand btn--round btn--scaled presentation__btn-new">
+        <button id="newPres" class="btn btn--brand btn--round btn--scaled presentation__btn-new">
             <i aria-hidden="true" class="fa fa-plus"></i>
             Новая презентация
-            <input id="newPresentFormCSRF" type="hidden" name="csrf" value="<?=Security::token(); ?>">
+            <input id="newPresFormCSRF" type="hidden" name="csrf" value="<?=Security::token(); ?>">
         </button>
         <div class="presentations__search form-group">
             <div class="form-group__control-group">
@@ -37,28 +37,31 @@
             </thead>
 
             <tbody class="presentations__body">
-                <tr class="presentations__row">
-                    <td class="presentations__title">
-                        <a href="" class="text-brand">НАзвание очень большое для презентации</a>
-                    </td>
-                    <td class="presentations__time">
-                        30 Декабря 2017
-                    </td>
-                    <td class="presentations__actions">
-                        <a href="" class="text-brand"><i aria-hidden="true" class="fa fa-share-alt"></i></a>
-                        <a href="" class="text-brand"><i aria-hidden="true" class="fa fa-play-circle-o"></i></a>
-                        <a href="" class="text-brand"><i aria-hidden="true" class="fa fa-copy"></i></a>
-                        <a href="" class="text-danger"><i aria-hidden="true" class="fa fa-trash"></i></a>
-                        <a role="button" class="text-brand presentations__actions-toggle"><i aria-hidden="true" class="fa fa-ellipsis-h"></i></a>
-                    </td>
-                    <td class="presentations__actions-mobile">
-                        <a href="" class="text-brand"><i aria-hidden="true" class="fa fa-share-alt"></i></a>
-                        <a href="" class="text-brand"><i aria-hidden="true" class="fa fa-play-circle-o"></i></a>
-                        <a href="" class="text-brand"><i aria-hidden="true" class="fa fa-copy"></i></a>
-                        <a href="" class="text-danger"><i aria-hidden="true" class="fa fa-trash"></i></a>
-                        <a role="button" class="text-brand presentations__actions-close"><i aria-hidden="true" class="fa fa-close"></i></a>
-                    </td>
-                </tr>
+                <? foreach ($presentations as $presentation) : ?>
+
+                    <tr class="presentations__row">
+                        <td class="presentations__title">
+                            <a href="<?= URL::site('app/s/' . $presentation->uri . '/edit'); ?>" class="text-brand"><?=$presentation->name; ?></a>
+                        </td>
+                        <td class="presentations__time">
+                            <?=$presentation->dt_update; ?>
+                        </td>
+                        <td class="presentations__actions">
+                            <a role="button" class="text-brand presentation__share" data-uri="<?=$presentation->short_uri; ?>"><i aria-hidden="true" class="fa fa-share-alt"></i></a>
+                            <a href="<?= URL::site('app/s/' . $presentation->uri); ?>" class="text-brand"><i aria-hidden="true" class="fa fa-slideshare"></i></a>
+                            <a href="<?= URL::site('app/s/' . $presentation->uri . '/mobile'); ?>" class="text-brand"><i aria-hidden="true" class="fa fa-mobile"></i></a>
+                            <a role="button" data-id="<?=$presentation->id; ?>" class="text-danger presentation__delete"><i aria-hidden="true" class="fa fa-trash"></i></a>
+                            <a role="button" class="text-brand presentations__actions-toggle"><i aria-hidden="true" class="fa fa-ellipsis-h"></i></a>
+                        </td>
+                        <td class="presentations__actions-mobile">
+                            <a role="button" class="text-brand presentation__share-mobile" data-uri="<?= URL::site($presentation->short_uri); ?>"><i aria-hidden="true" class="fa fa-share-alt"></i></a>
+                            <a href="<?= URL::site('app/s/' . $presentation->uri); ?>" class="text-brand"><i aria-hidden="true" class="fa fa-slideshare"></i></a>
+                            <a href="<?= URL::site('app/s/' . $presentation->uri . '/mobile'); ?>" class="text-brand"><i aria-hidden="true" class="fa fa-mobile"></i></a>
+                            <a role="button" data-id="<?=$presentation->id; ?>" class="text-danger presentation__delete"><i aria-hidden="true" class="fa fa-trash"></i></a>
+                            <a role="button" class="text-brand presentations__actions-close"><i aria-hidden="true" class="fa fa-close"></i></a>
+                        </td>
+                    </tr>
+                <? endforeach; ?>
             </tbody>
         </table>
 
@@ -70,4 +73,7 @@
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/moment.min.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/plugins/moment-timer.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/all-presentations.js"></script>

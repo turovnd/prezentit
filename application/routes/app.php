@@ -14,13 +14,19 @@ Route::set('APP', 'app')
         'action'      => 'index',
     ));
 
+
 /**
- * Create New Presentation
+ * Presentation Actions
+ * - create new
+ * - delete existed
  */
-Route::set('NEW_PRESENTATION', 'app/newpresentation')
+Route::set('NEW_PRESENTATION', 'app/presentation/<action>(/<id>)',
+    array(
+        'id'        => $DIGIT,
+        'action'    => 'new|delete'
+    ))
     ->defaults(array(
         'controller'  => 'App_Ajax',
-        'action'      => 'newpresentation',
     ));
 
 
@@ -32,7 +38,7 @@ Route::set('NEW_PRESENTATION', 'app/newpresentation')
 Route::set('PRESENTATION', 'app/s/<uri>(/<action>)',
     array(
         'uri'   => $STRING,
-        'action'  => 'edit|invite'
+        'action'  => 'edit|mobile'
     ))
     ->filter(function ($route, $params, $request) {
         $params['controller']   = 'App_Index';

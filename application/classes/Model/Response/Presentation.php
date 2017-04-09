@@ -14,5 +14,11 @@ class Model_Response_Presentation extends Model_Response_Abstract
         'message' => 'Invalid presentation name'
     );
 
+    protected $_PRESENTATION_DELETE_SUCCESS = array (
+        'type' => 'delete',
+        'code' => '52',
+        'message' => 'Success deleting'
+    );
+
 
 }

@@ -15,15 +15,15 @@ class Controller_App_Ajax extends Ajax
     {
         parent::before();
 
-        $this->checkCsrf();
-
     }
 
     /**
      * New Presentation
      */
-    public function action_newpresentation()
+    public function action_new()
     {
+        $this->checkCsrf();
+
         $name = Arr::get($_POST, 'name');
 
         if ( empty($name) ) {
@@ -40,6 +40,23 @@ class Controller_App_Ajax extends Ajax
         $result = $presentation->save();
 
         $response = new Model_Response_Presentation('PRESENTATION_CREATE_SUCCESS', 'success', array('uri' => $result->uri));
+        $this->response->body(@json_encode($response->get_response()));
+
+    }
+
+
+    /**
+     * Delete presentation by toggle is_removed
+     */
+    public function action_delete()
+    {
+        $id = $this->request->param('id');
+
+        $presentation = Model_Presentation::get($id);
+
+        $presentation->delete(true);
+
+        $response = new Model_Response_Presentation('PRESENTATION_DELETE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
 
     }

@@ -2,12 +2,16 @@ function ready() {
 
     var host                = window.location.host,
         protocol            = window.location.protocol,
+        rows                = document.getElementsByClassName('presentations__row'),
         toggleAction        = document.getElementsByClassName('presentations__actions-toggle'),
         closeAction         = document.getElementsByClassName('presentations__actions-close'),
         searchInput         = document.getElementById('searchInput'),
-        newPresentation     = document.getElementById('newPresentation'),
+        newPres             = document.getElementById('newPres'),
+        delPres             = document.getElementsByClassName('presentation__delete'),
+        shPres              = document.getElementsByClassName('presentation__share'),
+        shPresMobile        = document.getElementsByClassName('presentation__share-mobile'),
         presentations       = [],
-        i, toglebtn, cancelbtn, searchingText, presentation, shownpresent;
+        i, toglebtn, cancelbtn, searchingText, presentation, shownpresent, time, presentID, ajaxData, formData, row, uri;
 
 
     var td = document.createElement('td');
@@ -19,22 +23,11 @@ function ready() {
         noresult.id = "noResult";
         noresult.append(td);
 
+    td.innerHTML = "Презентации ещё не созданы <i style='margin-left: 2px; font-size: 1.3em' class='fa fa-frown-o' aria-hidden='true'></i>";
 
-
-
-    /**
-     * Prepare presentations for searching
-     */
-    for (i = 0; i < document.getElementsByClassName('presentations__row').length; i++) {
-        presentation = {
-            row: document.getElementsByClassName('presentations__row')[i],
-            name: document.getElementsByClassName('presentations__row')[i].getElementsByClassName('presentations__title')[0].getElementsByTagName('a')[0].innerHTML.toLowerCase()
-        };
-
-        presentations.push(presentation);
-    }
-
-
+    var noitems = document.createElement('tr');
+        noitems.id = "noItems";
+        noitems.append(td);
 
     /**
      * Open Table Mobile Actions on click
@@ -63,9 +56,9 @@ function ready() {
 
 
     /**
-     * Search Presentations
+     * Search Press
      */
-    var searchPresentation = function () {
+    var searchPres = function () {
         searchingText = new RegExp(event.target.value.toLowerCase());
         shownpresent = 0;
 
@@ -93,14 +86,14 @@ function ready() {
 
 
     /**
-     *
+     * Create new presentation
      */
-    var swalNewPresentation = function () {
+    var swalNewPres = function () {
         swal({
             html:
             '<h3>Новая презентация</h3>'+
             '<div class="form-group">' +
-                '<input id="newPresentFormName" class="form-group__control" type="text" name="name" placeholder="Введите название презентации">' +
+                '<input id="newPresFormName" class="form-group__control" type="text" name="name" placeholder="Введите название презентации">' +
             '</div>',
 
             confirmButtonColor: '#008DA7',
@@ -110,12 +103,12 @@ function ready() {
             showLoaderOnConfirm: true,
             preConfirm: function (text) {
                 return new Promise(function (resolve, reject) {
-                    var formData = new FormData();
-                        formData.append('name', document.getElementById('newPresentFormName').value);
-                        formData.append('csrf', document.getElementById('newPresentFormCSRF').value);
+                    formData = new FormData();
+                    formData.append('name', document.getElementById('newPresFormName').value);
+                    formData.append('csrf', document.getElementById('newPresFormCSRF').value);
 
-                    var ajaxData = {
-                        url: '/app/newpresentation',
+                    ajaxData = {
+                        url: '/app/presentation/new',
                         type: 'POST',
                         data: formData,
                         beforeSend: function(){
@@ -128,6 +121,7 @@ function ready() {
                             if (response.code === "51") {
                                 reject('Укажите название презентации.')
                             } else {
+                                window.history.pushState('App', protocol + '//' + host + '/app');
                                 window.location.replace(protocol + '//' + host + '/app/s/' + response.uri + '/edit');
                             }
 
@@ -143,9 +137,126 @@ function ready() {
             }
 
         });
+    };
+
+
+    /**
+     * Delete presentation
+     */
+    var deletePres = function () {
+        if (event.target.classList.contains('presentation__delete')) {
+            presentID = event.target.dataset.id;
+            row = event.target.parentNode.parentNode;
+        } else {
+            presentID = event.target.parentNode.dataset.id;
+            row = event.target.parentNode.parentNode.parentNode;
+        }
+
+        swal({
+            title: 'Подтверждение удаления',
+            text: "После удаления, у Вас не будет способа восстановить презентацию!",
+            type: 'warning',
+            confirmButtonColor: '#008DA7',
+            showCancelButton: true,
+            confirmButtonText: 'Удалить',
+            cancelButtonText: 'Отмена',
+            showLoaderOnConfirm: true,
+        }).then(function () {
+
+            ajaxData = {
+                url: '/app/presentation/delete/' + presentID,
+                type: 'POST',
+                beforeSend: function () {
+                    //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                },
+                success: function (response) {
+                    console.log(response);
+                    response = JSON.parse(response);
+
+                    if (response.code === "52") {
+                        row.remove();
+                        calcNumberRows();
+                    }
+
+                },
+                error: function (callbacks) {
+                    console.log(callbacks);
+                }
+            };
+
+            ajax.send(ajaxData);
+        });
 
     };
 
+
+    /**
+     * Swal for sharing presentation.
+     */
+    var sharePres = function () {
+        if (event.target.classList.contains('presentation__share')) {
+            uri = event.target.dataset.uri;
+        } else {
+            uri = event.target.parentNode.dataset.uri;
+        }
+
+        swal({
+            title: 'Поделиться ссылкой',
+            html:
+            '<div class="form-group">' +
+                '<label for="" class="form-group__label">Используй ссылку, чтобы пользователи проголосовали</label>' +
+                '<input type="text" class="form-group__control" value="' + protocol+ '//' + host + '/' + uri + '">' +
+            '</div>',
+            confirmButtonColor: '#008DA7',
+            confirmButtonText: 'Готово!',
+        });
+    };
+    
+    
+    var calcNumberRows = function () {
+        //rows
+        console.log(rows.length, noitems );
+        if (rows.length == 0) {
+            document.getElementsByClassName('presentations__body')[0].append(noitems);
+        } else if ( document.getElementById('noItems')) {
+            document.getElementById('noItems').remove();
+        }  
+    };
+
+
+    /**
+     * Format Date using moment.js
+     */
+    moment.locale('ru');
+    var lastUpdate = function (date) {
+        date = new Date(date);
+
+        if ( new Date() - date < 259200000) {
+            return moment(date).fromNow();
+        } else {
+            return moment(date).format('DD MMM YYYY');
+        }
+    };
+
+
+    /**
+     * Parse presentations rows
+     * - for searching
+     * - for setting time
+     */
+    calcNumberRows();
+    for (i = 0; i < rows.length; i++) {
+        presentation = {
+            row: rows[i],
+            name: rows[i].getElementsByClassName('presentations__title')[0].getElementsByTagName('a')[0].innerHTML.toLowerCase()
+        };
+        presentations.push(presentation);
+
+        time = rows[i].getElementsByClassName('presentations__time')[0];
+        time.innerHTML = lastUpdate(time.innerHTML);
+    }
+    
+    
 
 
 
@@ -156,14 +267,17 @@ function ready() {
     for (i = 0; i < toggleAction.length; i++){
         toggleAction[i].addEventListener('click', openMobileAction);
         closeAction[i].addEventListener('click', closeMobileAction);
+        delPres[i].addEventListener('click', deletePres);
+        shPres[i].addEventListener('click', sharePres);
+        shPresMobile[i].addEventListener('click', sharePres);
     }
 
     if (searchInput) {
-        searchInput.addEventListener('keyup', searchPresentation);
+        searchInput.addEventListener('keyup', searchPres);
     }
 
-    if (newPresentation){
-        newPresentation.addEventListener('click', swalNewPresentation);
+    if (newPres){
+        newPres.addEventListener('click', swalNewPres);
     }
 }
 
