@@ -2,8 +2,10 @@
 
 class Dispatch extends Controller_Template
 {
-    const POST = 'POST';
-    const GET  = 'GET';
+    const POST      = 'POST';
+    const GET       = 'GET';
+    const SALT      = "HEREISYOURSALT";
+    const AUTHSALT  = "SALTFORUSERAUTHORIZATION";
 
     /** @var string - Path to template */
     public $template = '';
@@ -25,7 +27,7 @@ class Dispatch extends Controller_Template
 
     function before()
     {
-        $GLOBALS['SITE_NAME']   = "Prezit";
+        $GLOBALS['SITE_NAME']   = "Prezentit";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
         // XSS clean in POST and GET requests
@@ -125,8 +127,15 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
+        $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
+        $user = new Model_User($uid);
 
+        /** Authentificated User is visible in all pages */
+        View::set_global('user', $user);
+        $this->user = $user;
+
+
+        $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
         View::set_global('assets', $address . DIRECTORY_SEPARATOR. 'assets' . DIRECTORY_SEPARATOR);
 
         $this->memcache = self::memcacheInstance();
@@ -142,7 +151,7 @@ class Dispatch extends Controller_Template
     protected function checkCsrf()
     {
         /** Check CSRF */
-        if (!isset($_POST['csrf']) || empty($_POST['csrf']) || Security::check(Arr::get($_POST, 'csrf', ''))) {
+        if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
             throw new HTTP_Exception_403();
         }
 
@@ -172,9 +181,9 @@ class Dispatch extends Controller_Template
         $uid    = Cookie::get('uid');
         $sid    = Cookie::get('sid');
         $secret = Cookie::get('secret');
-        $hash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+        $hash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
 
-        if ($redis->get('prezit:sessions:secrets:' . $hash) && $hash == $secret) {
+        if ($redis->get('presentit:sessions:secrets:' . $hash) && $hash == $secret) {
 
             // Создаем новую сессию
             $auth = new Model_Auth();
@@ -183,16 +192,16 @@ class Dispatch extends Controller_Template
             $sid = $session->id();
             $uid = $session->get('uid');
 
-            $redis->delete('prezit:sessions:secrets:' . $hash);
+            $redis->delete('presentit:sessions:secrets:' . $hash);
 
             // генерируем новый хэш c новый session id
-            $newHash = self::makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
+            $newHash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
 
             // меняем хэш в куки
             Cookie::set('secret', $newHash, Date::DAY);
 
             // сохраняем в редис
-            $redis->set('prezit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+            $redis->set('presentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
 
         } else {
             return false;

@@ -1,0 +1,122 @@
+.presentations{
+    overflow: hidden;
+    width: 100%;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+.presentations__header th{
+    text-align: left;
+    font-size: 1.1em;
+    padding: 20px 8px;
+    border-bottom: 1px solid #cfcfcf;
+}
+.presentations__row td{
+    padding: 20px 8px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.presentations__time{
+    width: 200px;
+}
+.presentations__actions{
+    text-align: right;
+    width: 150px;
+}
+.presentations__actions a {
+    padding: 5px;
+}
+.presentations__actions-toggle{
+    display: none;
+}
+.presentations__actions .fa{
+    font-size: 1.2em;
+    width: 20px;
+    text-align: center;
+}
+.presentations__actions-mobile{
+    display: none;
+}
+
+.presentation__btn-new{
+    float: right;
+}
+.presentations__search{
+    width: 300px;
+    float: left;
+}
+
+
+@media (max-width: 992px) {
+    .presentations__header .presentations__actions,
+    .presentations__time,
+    .presentations__header th:not(:first-child),
+    .presentations__actions a {
+        display: none;
+    }
+
+    .presentations__header th:first-child{
+        padding: 10px 8px;
+    }
+    .presentations__header th:first-child,
+    .presentations__title{
+        width: calc(100% - 90px);
+    }
+    .presentations__title a{
+        float: left;
+        padding: 20px 0;
+    }
+
+
+    .presentations__row{
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .presentations__row td{
+        padding: 0 8px;
+    }
+
+    .presentations__actions{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        height: 100%;
+        text-align: right;
+        width: 90px;
+        right:0;
+    }
+
+    .presentations__actions-toggle {
+        margin: auto 0 auto auto;
+        display: block !important;
+        padding: 20px 5px 20px 35px !important;
+    }
+    .presentations__actions-mobile{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        padding: 0;
+        height: 100%;
+        right: -110%;
+        background: #fff;
+        border-left: 5px solid #e5e5e5;
+        transition: all .5s ease;
+    }
+    .presentations__actions-mobile--opened{
+        right: 0;
+    }
+    .presentations__actions-mobile a {
+        padding: 20px;
+    }
+    .presentations__actions-mobile .fa{
+        font-size: 1.4em;
+    }
+
+    .presentation__btn-new,
+    .presentations__search{
+        margin-bottom: 20px;
+        width: 100%;
+        float: none;
+    }
+
+
+}

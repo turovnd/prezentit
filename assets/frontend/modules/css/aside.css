@@ -1,4 +1,4 @@
-.aside{
+.aside, .aside-app{
     position: fixed;
     top: 0;
     left: -210px;
@@ -10,20 +10,32 @@
     z-index: 15;
     transition: left ease .3s;
 }
+.aside-app{
+    z-index: 9;
+    left: 0;
+}
+
 .aside--opened{
     left: 0;
 }
 
-.aside__brand{
-    height: 50px;
+.aside__brand,
+.aside-app__brand{
+    height: 57px;
     line-height: 50px;
     border-bottom: 1px solid #cfcfcf;
     font-size: 2em;
     font-weight: bold;
     color: #008DA7;
-    padding: 3px 0 3px 30px;
+    padding: 3px 0;
+    text-align: center;
+    margin: 0 auto;
 }
+.aside-app__brand{
+    display: none;
 
+
+}
 
 /** icon for opening aside menu */
 .aside__open-btn{
@@ -93,7 +105,7 @@
 .aside__link,
 .aside__collapse-link{
     display: block;
-    padding: 10px;
+    padding: 10px 15px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -106,14 +118,26 @@
     background: rgba(0,0,0,0.02);
 }
 .aside__collapse-link {
-    padding-left: 25px;
+    padding-left: 50px;
 }
-.aside__link .fa {
-    width: 15px;
-    margin-right: 5px;
+.aside__link .fa:first-child{
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
 }
-
-
+.aside__link .fa--right{
+    float: right;
+    font-weight: bold;
+    padding-top:2px;
+}
+.aside__item--active{
+    background: rgba(0,0,0,0.02);
+    border-left: 2px solid #008DA7;
+}
+.aside__link--active,
+.aside__collapse-link--active{
+    color: #008DA7;
+}
 
 /** Large Desktop */
 @media (min-width: 1200px) {
@@ -122,10 +146,18 @@
     }
 }
 
-
-
 /** Phones */
 @media (max-width: 768px) {
+    .aside-app{
+        left: -210px;
+    }
+    .aside-app.aside--opened{
+        left: 0;
+        z-index: 15;
+    }
+    .aside-app__brand{
+        display: block;
+    }
     .aside__open-btn{
         display: block;
     }

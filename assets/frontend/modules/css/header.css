@@ -14,12 +14,18 @@
     background: transparent;
 }
 
-.header__brand{
+.header__brand, .header-app__brand{
     line-height: 50px;
     font-size: 2em;
     font-weight: bold;
 }
-.header__brand, .header__brand:hover, .header__brand:focus{
+.header-app__brand{
+    width: 200px;
+    text-align: center;
+}
+
+.header__brand, .header__brand:hover, .header__brand:focus,
+.header-app__brand, .header-app__brand:hover, .header-app__brand:focus{
     color: #008DA7;
 }
 
@@ -64,6 +70,21 @@
     border-color: #FCFCFC;
 }
 
+.header__page{
+    height: 50px;
+    line-height: 50px;
+    width: calc(100% - 200px);
+}
+
+.header__title {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
 
 /** Large Desktop */
 @media (min-width: 1200px) {
@@ -72,7 +93,6 @@
     }
 }
 
-
 /** Phones */
 @media (max-width: 768px) {
     .header__menu{
@@ -80,5 +100,11 @@
     }
     .header__brand{
         margin-left: 20px;
+    }
+    .header-app__brand{
+        display: none;
+    }
+    .header__page{
+        width: calc(100% - 50px);
     }
 }

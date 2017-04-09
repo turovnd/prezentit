@@ -1,11 +1,11 @@
 <div class="aside__brand">
-    Prezit
+    <?=$_SERVER['SITE_NAME'];?>
 </div>
 
 <ul class="aside__menu">
     <li class="aside__item">
        <a href="" class="aside__link">
-           Почему Prezit
+           Почему <?=$_SERVER['SITE_NAME'];?>
        </a>
     </li>
     <li class="aside__item">

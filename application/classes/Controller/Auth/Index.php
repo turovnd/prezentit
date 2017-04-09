@@ -3,7 +3,7 @@
 /**
  * Class Controller_Auth_Index
  *
- * @copyright prezit
+ * @copyright presentit
  * @author Nikolai Turov
  * @version 0.0.0
  */

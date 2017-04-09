@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title><?=$title; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
+    <title><?=$user->name; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
 
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
     <script type="text/javascript">
         function ready() {
-            header.init('welcome');
+            header.init('app');
             aside.init();
             collapse.init();
             parallax.init();
@@ -44,7 +44,6 @@
 
 
     <!-- =============== VENDOR STYLES ===============-->
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
@@ -54,27 +53,23 @@
 
 <body>
 
-    <header class="header header--default animated fade__in clear-fix">
-        <?= View::factory('welcome/blocks/header'); ?>
+    <header class="header clear-fix">
+        <?= View::factory('app/blocks/header', array('title' => $title)); ?>
     </header>
 
-    <button id="openAside" class="aside__open-btn animated fade__in">
+    <button id="openAside" class="aside__open-btn ">
         <i></i><i></i><i></i>
     </button>
 
-    <aside class="aside">
-        <?= View::factory('welcome/blocks/aside'); ?>
+    <aside class="aside aside-app">
+        <?= View::factory('app/blocks/aside'); ?>
     </aside>
 
 
     <section>
+
         <?=$section; ?>
     </section>
-
-
-    <footer class="footer">
-        <?= View::factory('welcome/blocks/footer'); ?>
-    </footer>
 
     <div class="backdrop hide"></div>
 </body>
