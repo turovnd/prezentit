@@ -11,6 +11,9 @@
             <h2 class="h3 h3--sale text-white m-l-auto m-r-auto text-center m-t-50">
                 С <?=$GLOBALS["SITE_NAME"];?> выступления становятся захватывающими!
             </h2>
+            <div class="m-t-50 m-l-auto m-r-auto text-center">
+                <a role="button" class="btn btn--lg btn--default btn--round btn--scaled subscribe">Подписаться на бета-версию</a>
+            </div>
         </div>
     </div>
 </div>
@@ -91,11 +94,14 @@
                 Хотите попробовать <?=$GLOBALS["SITE_NAME"]; ?>?
             </p>
             <div class="text-center m-t-50">
-                <a href="<?=URL::site('login'); ?>" class="btn btn--lg btn--round btn--hollow btn--scaled m-r-30 col-xs-12 col-sm-auto">
+                <!--<a href="<?=URL::site('login'); ?>" class="btn btn--lg btn--round btn--hollow btn--scaled m-r-30 col-xs-12 col-sm-auto">
                     Войти
                 </a>
                 <a href="<?=URL::site('signup'); ?>" class="btn btn--lg in-circle btn--white btn--scaled col-xs-12 col-sm-auto">
-                    Зарегистрироваться
+                    Регистрация
+                </a>-->
+                <a role="button" class="btn btn--lg in-circle btn--hollow btn--scaled col-xs-12 col-sm-auto subscribe">
+                    Подписаться на бета-версию
                 </a>
             </div>
         </div>

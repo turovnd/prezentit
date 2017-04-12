@@ -77,6 +77,84 @@
     </footer>
 
     <div class="backdrop hide"></div>
+    <input id="newSubCSRF" type="hidden" value="<?=Security::token(); ?>">
 </body>
+
+<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css">
+<script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
+
+<script type="text/javascript">
+    function ready() {
+
+        function swalSubscribe() {
+            swal({
+                title: 'Будь первым',
+                html:
+                '<div class="col-xs-12">' +
+                '<div class="form-group text-left">' +
+                    '<label for="emailSub" class="form-group__label">Эл.почта</label>' +
+                    '<input id="emailSub" class="form-group__control" type="email">' +
+                '</div>' +
+                '<div class="form-group text-left">' +
+                    '<label for="nameSub" class="form-group__label">Имя</label>' +
+                    '<input id="nameSub" class="form-group__control" type="text">' +
+                '</div></div>',
+
+                confirmButtonColor: '#008DA7',
+                showCancelButton: true,
+                confirmButtonText: 'Быть в курсе!',
+                cancelButtonText: 'Отмена',
+                showLoaderOnConfirm: true,
+                preConfirm: function (text) {
+                    return new Promise(function (resolve, reject) {
+                        var formData = new FormData();
+                        formData.append('name', document.getElementById('nameSub').value);
+                        formData.append('email', document.getElementById('emailSub').value);
+                        formData.append('csrf', document.getElementById('newSubCSRF').value);
+
+                        ajaxData = {
+                            url: '/newsubscriber',
+                            type: 'POST',
+                            data: formData,
+                            beforeSend: function(){
+
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                response = JSON.parse(response);
+
+                                if (response.code === "60") {
+                                    reject('Неправильный формат эл.почты')
+                                } else if (response.code === "30") {
+                                    reject('Укажите имя')
+                                } else {
+                                    resolve();
+                                }
+
+                            },
+                            error: function(callbacks) {
+                                console.log(callbacks);
+                            }
+                        };
+
+                        ajax.send(ajaxData);
+
+                    })
+                }
+
+            });
+        }
+
+
+        var btn = document.getElementsByClassName('subscribe');
+
+        for (var i = 0; i < btn.length; i++) {
+            btn[i].addEventListener('click', swalSubscribe);
+        }
+
+    }
+
+    document.addEventListener("DOMContentLoaded", ready);
+</script>
 
 </html>

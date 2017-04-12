@@ -3,35 +3,13 @@
 
 Class Model_User {
 
-    /**
-     * @var $id_user
-     */
     public $id;
-
-    /**
-     * @var $name
-     */
     public $name;
-
-    /**
-     * @var $email
-     */
     public $email;
-
-    /**
-     * @var $newsletter
-     */
     public $newsletter;
-
-    /**
-     * @var $is_confirmed
-     */
     public $is_confirmed;
-
-    /**
-     * @var $dt_create
-     */
     public $dt_create;
+
 
     /**
      * Model_User constructor.

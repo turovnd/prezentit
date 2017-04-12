@@ -1,11 +1,11 @@
 <div class="aside__brand">
-    <?=$_SERVER['SITE_NAME'];?>
+    <?=$GLOBALS['SITE_NAME'];?>
 </div>
 
 <ul class="aside__menu">
     <li class="aside__item">
        <a href="" class="aside__link">
-           Почему <?=$_SERVER['SITE_NAME'];?>
+           Почему <?=$GLOBALS['SITE_NAME'];?>
        </a>
     </li>
     <li class="aside__item">
@@ -13,7 +13,7 @@
             Как работает
         </a>
     </li>
-    <li class="aside__item">
+    <!--<li class="aside__item">
         <a href="<?=URL::site('login'); ?>" class="aside__link">
             Войти
         </a>
@@ -21,6 +21,11 @@
     <li class="aside__item">
         <a href="<?=URL::site('signup'); ?>" class="aside__link">
             Регистрация
+        </a>
+    </li>-->
+    <li class="aside__item">
+        <a role="button" class="aside__link">
+            Подписаться на бета-версию
         </a>
     </li>
 

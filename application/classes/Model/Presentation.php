@@ -3,44 +3,13 @@
 
 Class Model_Presentation {
 
-    /**
-     * @var $id_user
-     */
     public $id;
-
-    /**
-     * @var $name
-     */
     public $name;
-
-    /**
-     * @var $uri
-     */
     public $uri;
-
-    /**
-     * @var $short_uri
-     */
     public $short_uri;
-
-    /**
-     * @var $owner
-     */
     public $owner;
-
-    /**
-     * @var $dt_update
-     */
     public $dt_update;
-
-    /**
-     * @var $dt_create
-     */
     public $dt_create;
-
-    /**
-     * @var $is_removed
-     */
     public $is_removed;
 
 

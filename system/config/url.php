@@ -4,7 +4,7 @@ return array(
 
 	'trusted_hosts' => array(
 		'localhost',
-		'prezit'
+		'presentit'
 	),
 
 );
