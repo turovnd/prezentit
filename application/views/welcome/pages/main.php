@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--md valign">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img2.jpg" alt="">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/askquestion.jpg" alt="Ask Question">
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--md valign">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img3.jpg" alt="">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/getanswer.jpg" alt="Get Answer">
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 fl_l section--md valign">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img4.jpg" alt="">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/audiencereaction.jpg" alt="Audience Reaction">
                 </div>
             </div>
         </div>
