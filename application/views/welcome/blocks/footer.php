@@ -35,8 +35,8 @@
 
         <div class="col-xs-6 m-t-20">
             <span class="footer__helper">Узнай больше</span>
-            <a href="" class="footer__link text-brand bold block">Почему <?=$GLOBALS['SITE_NAME']; ?></a>
-            <a href="" class="footer__link text-brand bold block">Как использовать</a>
+            <a href="<?=URL::site('why'); ?>" class="footer__link text-brand bold block">Почему <?=$GLOBALS['SITE_NAME']; ?></a>
+            <a href="<?=URL::site('how-to'); ?>" class="footer__link text-brand bold block">Как работает</a>
         </div>
 
         <div class="col-xs-6 m-t-20">

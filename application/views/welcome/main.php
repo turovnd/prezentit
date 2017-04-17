@@ -91,7 +91,8 @@
                 title: 'Будь первым',
                 html:
                 '<div class="col-xs-12">' +
-                '<div class="form-group text-left">' +
+                '<p>Совсем скоро система начнет функционировать, будь первым, кто получит бесплатный доступ!</p>' +
+                '<div class="form-group text-left m-t-20">' +
                     '<label for="emailSub" class="form-group__label">Эл.почта</label>' +
                     '<input id="emailSub" class="form-group__control" type="email">' +
                 '</div>' +

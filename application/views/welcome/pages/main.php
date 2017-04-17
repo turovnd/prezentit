@@ -4,12 +4,12 @@
 
     <div class="section--lg valign">
         <div class="container animated fade__in">
-            <h1 class="h1 h1--sale text-white m-l-auto m-r-auto text-center">
+            <h1 class="h1--sale text-white m-l-auto m-r-auto text-center">
                 Интерактивные презентации,<br>
                 воркшопы и встречи
             </h1>
-            <h2 class="h3 h3--sale text-white m-l-auto m-r-auto text-center m-t-50">
-                С <?=$GLOBALS["SITE_NAME"];?> выступления становятся захватывающими!
+            <h2 class="h3--sale text-white m-l-auto m-r-auto text-center m-t-50">
+                С <?=$GLOBALS["SITE_NAME"];?> выступления становятся запоминающимися!
             </h2>
             <div class="m-t-50 m-l-auto m-r-auto text-center">
                 <a role="button" class="btn btn--lg btn--default btn--round btn--scaled subscribe">Подписаться на бета-версию</a>
@@ -20,10 +20,10 @@
 
 <div class="section section--lg">
     <div class="container m-t-50 m-b-50">
-        <h1 class="h1 h2--sale">
+        <h2 class="h2--sale">
             Голосование в реальном времени<br>
             <span class="text-brand">для привлечения внимания аудитории</span>
-        </h1>
+        </h2>
 
         <div class="section--md m-t-50">
             <div class="row">
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--lg valign">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/img5.jpg" alt="">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/slideshow.jpg" alt="Slide Show">
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
 
     <div class="valign section--md">
         <div class="container">
-            <p class="h1 h1--sale text-white">
+            <p class="h1--sale text-white">
                 Хотите попробовать <?=$GLOBALS["SITE_NAME"]; ?>?
             </p>
             <div class="text-center m-t-50">

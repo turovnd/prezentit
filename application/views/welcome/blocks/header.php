@@ -6,10 +6,10 @@
 
     <ul class="header__menu fl_r">
         <li class="header__item">
-           <a href="" class="header__link hidden-xs">Почему <?=$GLOBALS["SITE_NAME"]; ?></a>
+           <a href="<?=URL::site('why'); ?>" class="header__link hidden-xs">Почему <?=$GLOBALS["SITE_NAME"]; ?></a>
         </li>
         <li class="header__item">
-            <a href="" class="header__link hidden-xs">Как использовать</a>
+            <a href="<?=URL::site('how-to'); ?>" class="header__link hidden-xs">Как работает</a>
         </li>
         <!--<li class="header__item">
             <a href="<?= URL::site('login')?>" class="header__link hidden-xs">Войти</a>

@@ -38,9 +38,30 @@ class Controller_Welcome extends Dispatch
             $this->redirect('app');
         }
 
-        $this->template->title = "Добро пожаловать";
+        $this->template->title = "Интерактивные презентации";
         $this->template->section = View::factory('welcome/pages/main');
     }
+
+
+    /**
+     * Why Page
+     */
+    public function action_why()
+    {
+        $this->template->title = "Интерактивные презентации";
+        $this->template->section = View::factory('welcome/pages/why');
+    }
+
+
+    /**
+     * How to use Page
+     */
+    public function action_howto()
+    {
+        $this->template->title = "Как создать интерактивную презентацию";
+        $this->template->section = View::factory('welcome/pages/how-to');
+    }
+
 
 
     /**

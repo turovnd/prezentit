@@ -106,6 +106,9 @@ p {
 .text-capitalize {
     text-transform: capitalize;
 }
+.text-bold{
+    font-weight: bold;
+}
 .text-brand {
     color: #008DA7;
 }

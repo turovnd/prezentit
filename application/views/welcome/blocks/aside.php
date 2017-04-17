@@ -24,7 +24,7 @@
         </a>
     </li>-->
     <li class="aside__item">
-        <a role="button" class="aside__link">
+        <a role="button" class="aside__link subscribe">
             Подписаться на бета-версию
         </a>
     </li>
