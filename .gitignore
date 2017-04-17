@@ -18,3 +18,4 @@ uploads/*
 # Others
 .env
 composer.lock
+system/config/url.php

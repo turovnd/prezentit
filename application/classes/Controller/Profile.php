@@ -64,44 +64,7 @@ class Controller_Profile extends Dispatch
 
         $response = new Model_Response_Profile('USER_UPDATE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
-/*
-        var_dump($id, $uid);
-        exit;
 
-
-        if ($email != $user->email) {
-            $user->email = $email;
-            $user->isConfirmed = 0;
-        }
-
-        $user->phone = Arr::get($_POST, 'phone', $user->phone);
-
-        $user->update();
-
-        if (Arr::get($_POST, 'newpassword') && Arr::get($_POST, 'newpassword2')) {
-
-            $oldpass = Arr::get($_POST, 'oldpassword');
-            $newpass1 = Arr::get($_POST, 'newpassword');
-            $newpass2 = Arr::get($_POST, 'newpassword2');
-
-            if ($newpass1 != $newpass2) {
-                $response = new Model_Response_Auth('PASSWORDS_ARE_NOT_EQUAL_ERROR', 'error');
-                $this->response->body(@json_encode($response->get_response()));
-                return;
-            }
-
-            if (!$user->checkPassword($oldpass)) {
-                $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error');
-                $this->response->body(@json_encode($response->get_response()));
-                return;
-            }
-
-            $user->changePassword($newpass1);
-
-        }
-
-        $this->redirect('user/'.$id);
-*/
     }
 
 
