@@ -25,18 +25,13 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/animation.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
 
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/aside.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/parallax.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/prezentit.bundle.js"></script>
     <script type="text/javascript">
         function ready() {
-            header.init('app');
-            aside.init();
-            collapse.init();
-            parallax.init();
+            pit.header.init('app');
+            pit.aside.init();
+            pit.collapse.init();
+            pit.parallax.init();
         }
 
         document.addEventListener("DOMContentLoaded", ready);

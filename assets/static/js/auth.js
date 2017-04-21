@@ -48,7 +48,7 @@ function ready() {
 
 
 
-    if (!cookies.get('reset_link')) {
+    if (!pit.cookies.get('reset_link')) {
 
         /**
          * On page load
@@ -94,7 +94,7 @@ function ready() {
                 }
             };
 
-            ajax.send(ajaxData);
+            pit.ajax.send(ajaxData);
         });
 
 
@@ -127,7 +127,7 @@ function ready() {
                 }
             };
 
-            ajax.send(ajaxData);
+            pit.ajax.send(ajaxData);
         });
 
 
@@ -159,7 +159,7 @@ function ready() {
                 }
             };
 
-            ajax.send(ajaxData);
+            pit.ajax.send(ajaxData);
         });
 
 
@@ -193,11 +193,11 @@ function ready() {
                 }
             };
 
-            ajax.send(ajaxData);
+            pit.ajax.send(ajaxData);
         });
 
         cancelReset.addEventListener('click', function () {
-           cookies.remove('reset_link');
+           pit.cookies.remove('reset_link');
            window.location.reload();
         });
 

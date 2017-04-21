@@ -19,3 +19,6 @@ uploads/*
 .env
 composer.lock
 system/config/url.php
+
+#node
+node_modules

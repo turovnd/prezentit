@@ -25,20 +25,15 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/animation.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
 
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/aside.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/parallax.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
+
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/prezentit.bundle.js"></script>
     <script type="text/javascript">
         function ready() {
-            header.init('welcome');
-            aside.init();
-            collapse.init();
-            parallax.init();
+            pit.header.init('welcome');
+            pit.aside.init();
+            pit.collapse.init();
+            pit.parallax.init();
         }
-
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
@@ -47,8 +42,6 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
 
-    <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src=""></script>
 
 </head>
 
@@ -158,6 +151,7 @@
     document.addEventListener("DOMContentLoaded", ready);
 </script>
 
-<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter44244999 = new Ya.Metrika({ id:44244999, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/44244999" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter --
+<script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter44244999 = new Ya.Metrika({ id:44244999, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/44244999" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 
 </html>
