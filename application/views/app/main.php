@@ -4,8 +4,7 @@
     <title><?=$user->name; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
-
-    <link type="image/x-icon" rel="shortcut icon" href="" />
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />
 
     <meta name="description" content="<?=$description; ?>" />
     <meta name="keywords" content="<?=$keywords; ?>" />
