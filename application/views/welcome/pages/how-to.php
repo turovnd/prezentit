@@ -99,7 +99,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 section--sm valign fl_l">
                     <div class="m-l-auto m-r-auto">
-                        <h3 class="h2">Передите по ссылке</h3>
+                        <h3 class="h2">Перейдите по ссылке</h3>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--sm valign fl_r">

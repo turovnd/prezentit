@@ -1,17 +1,19 @@
-var parallax = (function(parallax) {
+module.exports = (function (parallax) {
 
 
     var parallaxArray_ = null;
 
 
-    parallax.init = function() {
+    parallax.init = function () {
 
         parallaxArray_ = document.querySelectorAll('[data-toggle="parallax"]');
 
         if (parallaxArray_.length > 0) {
 
             for (var i =0; i < parallaxArray_.length; i++) {
+
                 new parallaxFun(parallaxArray_[i]);
+
             }
 
         }
@@ -54,39 +56,49 @@ var parallax = (function(parallax) {
     parallaxFun.prototype.winBottom = null;
 
 
-    parallaxFun.prototype.initialise = function() {
+    parallaxFun.prototype.initialise = function () {
+
         this.img.classList.add('show');
         this.updateDimensions();
         this.updateBounds();
 
         window.addEventListener('scroll', this.action);
         window.addEventListener('resize', this.action);
+
     };
 
 
-    parallaxFun.prototype.action = function() {
+    parallaxFun.prototype.action = function () {
+
         this.updateDimensions();
         this.updateBounds();
+
     };
 
 
-    parallaxFun.prototype.updateDimensions = function() {
+    parallaxFun.prototype.updateDimensions = function () {
+
         this.winWidth = window.innerWidth;
         this.winHeight = window.innerHeight;
         this.winTop = window.scrollY;
         this.winBottom = this.winTop + this.winHeight;
+
     };
 
 
-    parallaxFun.prototype.updateBounds = function() {
+    parallaxFun.prototype.updateBounds = function () {
 
         this.elHeight = this.el.clientHeight;
         this.imgHeight = this.img.clientHeight;
 
         if ( this.winWidth < 768) {
+
             this.elHeight = (this.elHeight > 0) ? this.elHeight : this.imgHeight;
+
         } else {
+
             this.elHeight  = (this.elHeight > 0) ? this.elHeight : 500;
+
         }
 
         this.elTop = this.el.offsetTop;
@@ -102,8 +114,10 @@ var parallax = (function(parallax) {
     };
 
 
-    parallaxFun.prototype.setPosition = function(posY) {
+    parallaxFun.prototype.setPosition = function (posY) {
+
         this.img.style = 'transform: translate3d(-50%,' + posY + 'px ,0)';
+
     };
 
 

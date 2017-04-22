@@ -4,41 +4,22 @@
     <title><?=$title; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
-
-    <link type="image/x-icon" rel="shortcut icon" href="" />
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />
 
     <meta name="description" content="<?=$description; ?>" />
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/prezentit.bundle.css">
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/prezentit.bundle.js"></script>
 
-    <!-- modules -->
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/footer.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/aside.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/parallax.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/cols.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/typography.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/button.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/form.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/animation.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
-
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/aside.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/parallax.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
     <script type="text/javascript">
         function ready() {
-            header.init('welcome');
-            aside.init();
-            collapse.init();
-            parallax.init();
+            pit.header.init('welcome');
+            pit.aside.init();
+            pit.collapse.init();
+            pit.parallax.init();
         }
-
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
@@ -47,8 +28,6 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
 
-    <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src=""></script>
 
 </head>
 
@@ -158,6 +137,7 @@
     document.addEventListener("DOMContentLoaded", ready);
 </script>
 
-<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter44244999 = new Ya.Metrika({ id:44244999, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/44244999" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter --
+<script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter44244999 = new Ya.Metrika({ id:44244999, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/44244999" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 
 </html>

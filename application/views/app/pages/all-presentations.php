@@ -75,5 +75,4 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/moment/moment.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/moment/plugins/moment-timer.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/all-presentations.js"></script>

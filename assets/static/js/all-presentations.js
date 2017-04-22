@@ -19,15 +19,18 @@ function ready() {
         td.style = "text-align: center; padding: 20px 8px; border-bottom: 1px solid #e5e5e5;";
         td.innerHTML = "К сожалению, ничего ненеайдено. Попробуйте изменить запрос";
 
-    var noresult = document.createElement('tr');
-        noresult.id = "noResult";
-        noresult.append(td);
+    var noResult = document.createElement('tr');
+        noResult.id = "noResult";
+        noResult.appendChild(td);
 
-    td.innerHTML = "Презентации ещё не созданы <i style='margin-left: 2px; font-size: 1.3em' class='fa fa-frown-o' aria-hidden='true'></i>";
+    var td1 = document.createElement('td');
+        td1.colSpan = 3;
+        td1.style = "text-align: center; padding: 20px 8px; border-bottom: 1px solid #e5e5e5;";
+        td1.innerHTML = "Презентации ещё не созданы <i style='margin-left: 2px; font-size: 1.3em' class='fa fa-frown-o' aria-hidden='true'></i>";
 
-    var noitems = document.createElement('tr');
-        noitems.id = "noItems";
-        noitems.append(td);
+    var noItems = document.createElement('tr');
+        noItems.id = "noItems";
+        noItems.appendChild(td1);
 
     /**
      * Open Table Mobile Actions on click
@@ -76,7 +79,7 @@ function ready() {
             }
 
             if ( shownpresent == 0 ) {
-                document.getElementsByClassName('presentations__body')[0].append(noresult);
+                document.getElementsByClassName('presentations__body')[0].appendChild(noResult);
             } else if ( document.getElementById('noResult')) {
                 document.getElementById('noResult').remove();
             }
@@ -214,10 +217,8 @@ function ready() {
     
     
     var calcNumberRows = function () {
-        //rows
-        console.log(rows.length, noitems );
         if (rows.length == 0) {
-            document.getElementsByClassName('presentations__body')[0].append(noitems);
+            document.getElementsByClassName('presentations__body')[0].appendChild(noItems);
         } else if ( document.getElementById('noItems')) {
             document.getElementById('noItems').remove();
         }  
