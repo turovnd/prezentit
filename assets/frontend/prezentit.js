@@ -7,6 +7,8 @@
  * @copyright Prezentit Team 2017
  */
 
+require('./modules/css/main');
+
 module.exports = ( function (prezentit) {
 
     prezentit.ajax        = require('./modules/js/ajax');

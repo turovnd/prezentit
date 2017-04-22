@@ -8,20 +8,21 @@
 
 /**
  * Plugins for bundle
- * @type {webpack}
  */
-var webpack                     = require('webpack');
+const webpack             = require('webpack');
+const ExtractTextPlugin   = require("extract-text-webpack-plugin");
+const OptimizeCssPlugin   = require('optimize-css-assets-webpack-plugin');
 
-/** Environment requirements */
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const path          = require('path');
+const libJS         = "prezentit.bundle.js";
+const libCSS        = "prezentit.bundle.css";
 
-var path = require('path');
+const modulePath    = path.resolve(__dirname, "../modules/");
+const bundlePath    = path.resolve(__dirname, "../bundles/");
+const entryFile     = path.resolve(__dirname, "../prezentit.js");
 
-var modulePath = path.resolve(__dirname, "../modules/");
-var bundlePath = path.resolve(__dirname, "../bundles/");
-var entryFile  = path.resolve(__dirname, "../prezentit.js");
 
-var config = {
+module.exports = {
 
     entry: {
         "prezentit" : entryFile
@@ -33,7 +34,7 @@ var config = {
         path : bundlePath,
 
         /** bundle name */
-        filename: "[name].bundle.js",
+        filename: libJS,
 
         /** Lib name */
         library: "pit"
@@ -45,8 +46,6 @@ var config = {
         aggregateTimeOut: 50
     },
 
-    devtool: NODE_ENV == 'development' ? "source-map" : null,
-
     module : {
 
         // rules for modules
@@ -54,50 +53,53 @@ var config = {
             {
                 test: /\.js?$/,
                 loader: 'eslint-loader',
+                include: modulePath,
                 exclude: /node_modules/,
                 options : {
-                    fix:true
+                    fix: true
                 }
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [ "css-loader" ]
+                }),
+                include: modulePath,
+                exclude: /node_modules/
             }
-
-            // {
-            //     test : /\.js$/,
-            //     include: [
-            //         modulePath
-            //     ],
-            //     loader: "babel",
-            //     options: {
-            //         presets: ['node_modules', __dirname + 'node_modules/babel-preset-es2015', nodeModules + "/babel-preset-es2015", 'babili']
-            //     }
-            //
-            // }
         ]
 
     },
 
     resolve : {
-
         modules : ["node_modules", "*-loader", "*"],
-        extensions : [".js"]
-
-    },
-
-    resolveLoader : {
-
-        modules: ["web_loaders", "web_modules", "node_loaders", "node_modules"],
-        moduleExtensions: ['*-loader']
-
+        extensions : [".js", ".css"]
     },
 
     plugins : [
+        /** Минифицируем JS */
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
-                drop_console: false
+                drop_console: true
+            }
+        }),
+
+        /** Вырезает CSS из JS сборки в отдельный файл */
+        new ExtractTextPlugin(libCSS),
+
+        /** Минифицируем CSS */
+        new OptimizeCssPlugin({
+            assetNameRegExp: libCSS,
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
             }
         })
+
     ]
 
 };
-
-module.exports = config;

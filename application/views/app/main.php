@@ -11,21 +11,9 @@
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-
-    <!-- modules -->
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/footer.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/aside.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/parallax.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/cols.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/typography.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/button.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/form.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/animation.css">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/global.css">
-
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/prezentit.bundle.css">
     <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/prezentit.bundle.js"></script>
+
     <script type="text/javascript">
         function ready() {
             pit.header.init('app');
