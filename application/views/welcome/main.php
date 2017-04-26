@@ -117,7 +117,7 @@
                             }
                         };
 
-                        pip.ajax.send(ajaxData);
+                        pit.ajax.send(ajaxData);
 
                     })
                 }
