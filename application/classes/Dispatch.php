@@ -115,7 +115,7 @@ class Dispatch extends Controller_Template
 
     public static function memcacheInstance()
     {
-        return Cache::instance('memcache');
+        return Cache::instance('memcacheimp');
     }
 
 
