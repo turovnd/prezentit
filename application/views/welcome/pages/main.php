@@ -1,6 +1,6 @@
 <div class="section section--lg parallax" data-toggle="parallax">
     <div class="dark-bg"></div>
-    <img class="parallax__img" src="<?=$assets; ?>static/img/welcome/img1.jpg">
+    <img class="parallax__img" src="<?=$assets; ?>static/img/welcome/branding1.jpg">
 
     <div class="section--lg valign">
         <div class="container animated fade__in">
@@ -86,7 +86,7 @@
 
 <div class="section section--md parallax" data-toggle="parallax">
     <div class="dark-bg"></div>
-    <img class="parallax__img" src="<?=$assets; ?>static/img/welcome/img1.jpg">
+    <img class="parallax__img" src="<?=$assets; ?>static/img/welcome/branding1.jpg">
 
     <div class="valign section--md">
         <div class="container">

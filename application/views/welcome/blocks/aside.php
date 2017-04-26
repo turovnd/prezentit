@@ -4,12 +4,12 @@
 
 <ul class="aside__menu">
     <li class="aside__item">
-       <a href="" class="aside__link">
+       <a href="<?=URL::site('why'); ?>" class="aside__link">
            Почему <?=$GLOBALS['SITE_NAME'];?>
        </a>
     </li>
     <li class="aside__item">
-        <a href="" class="aside__link">
+        <a href="<?=URL::site('how-to'); ?>" class="aside__link">
             Как работает
         </a>
     </li>
