@@ -13,7 +13,7 @@
             Как работает
         </a>
     </li>
-    <!--<li class="aside__item">
+    <li class="aside__item">
         <a href="<?=URL::site('login'); ?>" class="aside__link">
             Войти
         </a>
@@ -22,11 +22,5 @@
         <a href="<?=URL::site('signup'); ?>" class="aside__link">
             Регистрация
         </a>
-    </li>-->
-    <li class="aside__item">
-        <a role="button" class="aside__link subscribe">
-            Подписаться на бета-версию
-        </a>
     </li>
-
 </ul>

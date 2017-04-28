@@ -4,7 +4,7 @@ class Dispatch extends Controller_Template
 {
     const POST      = 'POST';
     const GET       = 'GET';
-    const SALT      = "HEREISYOURSALT";
+    const SALT      = "SALTPREZENTIT";
     const AUTHSALT  = "SALTFORUSERAUTHORIZATION";
 
     /** @var string - Path to template */

@@ -11,7 +11,7 @@
         <li class="header__item">
             <a href="<?=URL::site('how-to'); ?>" class="header__link hidden-xs">Как работает</a>
         </li>
-        <!--<li class="header__item">
+        <li class="header__item">
             <a href="<?= URL::site('login')?>" class="header__link hidden-xs">Войти</a>
         </li>
         <li class="header__item">
@@ -19,7 +19,7 @@
         </li>
         <li class="header__item">
             <a href="<?= URL::site('signup')?>" class="header__link hidden-sm hidden-md hidden-lg">Регистрация</a>
-        </li>-->
+        </li>
     </ul>
 
 </div>

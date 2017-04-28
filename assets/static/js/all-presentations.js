@@ -134,7 +134,7 @@ function ready() {
                         }
                     };
 
-                    ajax.send(ajaxData);
+                    pit.ajax.send(ajaxData);
 
                 })
             }
@@ -187,7 +187,7 @@ function ready() {
                 }
             };
 
-            ajax.send(ajaxData);
+            pit.ajax.send(ajaxData);
         });
 
     };
