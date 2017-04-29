@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title><?=$title; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
+    <title><?=$title; ?> | Prezentit</title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />

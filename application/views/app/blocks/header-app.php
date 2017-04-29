@@ -4,6 +4,6 @@
 
 <div class="header__page fl_l">
     <div class="section__container">
-        <h2 class="header__title"><?=$title; ?></h2>
+        <h2 class="header__title"><?= $title; ?></h2>
     </div>
 </div>
