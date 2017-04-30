@@ -22,8 +22,10 @@
                     <?= View::factory('app/blocks/slide-type/default')?>
                 </div>
                 <div id="slideContent" class="tabs__block tabs__block--active">
-                    <?= View::factory('app/blocks/slide-type/heading')?>
+<!--                    --><?//= View::factory('app/blocks/slide-type/heading')?>
 <!--                    --><?//= View::factory('app/blocks/slide-type/image')?>
+                    <?= View::factory('app/blocks/slide-type/paragraph')?>
+<!--                    --><?//= View::factory('app/blocks/slide-type/multiply_choice')?>
                 </div>
 
             </div>

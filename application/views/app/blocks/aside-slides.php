@@ -22,6 +22,22 @@
         <?= View::factory('app/blocks/slide-aside/image')?>
     </a>
 
+    <a class="aside__item">
+        <span class="aside__item-number">3</span>
+        <span class="aside__item-action">
+            <i class="fa fa-trash aside__item-action-icon text-danger" aria-hidden="true"></i>
+        </span>
+        <?= View::factory('app/blocks/slide-aside/paragraph')?>
+    </a>
+
+    <a class="aside__item">
+        <span class="aside__item-number">4</span>
+        <span class="aside__item-action">
+            <i class="fa fa-trash aside__item-action-icon text-danger" aria-hidden="true"></i>
+        </span>
+        <?= View::factory('app/blocks/slide-aside/multiply_choice')?>
+    </a>
+
 </div>
 
 <div class="aside-nav">
