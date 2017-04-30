@@ -13,6 +13,15 @@
         </span>
         <?= View::factory('app/blocks/slide-aside/heading')?>
     </a>
+
+    <a class="aside__item">
+        <span class="aside__item-number">2</span>
+        <span class="aside__item-action">
+            <i class="fa fa-trash aside__item-action-icon text-danger" aria-hidden="true"></i>
+        </span>
+        <?= View::factory('app/blocks/slide-aside/image')?>
+    </a>
+
 </div>
 
 <div class="aside-nav">

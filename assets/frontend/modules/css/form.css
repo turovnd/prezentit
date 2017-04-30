@@ -38,8 +38,8 @@
     display: inline-block;
     max-width: 100%;
     font-size: .9em;
+    font-weight: bold;
     margin-bottom: 5px;
-    letter-spacing: .04em;
     color: #413a41;
 }
 .form-group--has-success .form-group__label{

@@ -23,6 +23,7 @@
                 </div>
                 <div id="slideContent" class="tabs__block tabs__block--active">
                     <?= View::factory('app/blocks/slide-type/heading')?>
+<!--                    --><?//= View::factory('app/blocks/slide-type/image')?>
                 </div>
 
             </div>
