@@ -72,33 +72,6 @@
 
 </div>
 
-<style>
-    .input-with-counter-block{
-        position: relative;
-    }
-    .input-with-counter{
-        float: none;
-        padding-right: 35px;
-        resize: vertical;
-    }
-    .counter-block{
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        color: #ccc;
-        opacity:0;
-        margin: 8px 10px;
-        font-size: .8em;
-        z-index: 5;
-    }
-    .input-with-counter:focus + .counter-block{
-        opacity:1;
-    }
-    .reactions__label-checkbox{
-        padding-left: 18px !important;
-        margin-top: 5px;
-    }
-</style>
 
 <script>
 
@@ -209,7 +182,7 @@
 
         newOption.appendChild(newOptionInput);
 
-        createCounter(newOptionInput);
+        pit.form.createCounter(newOptionInput);
         newOptionDeleteBtn.addEventListener('click', deleteOptionFun);
 
         if (optionsWithImage) {
@@ -242,56 +215,4 @@
     }
 
 
-
-
-
-    /* form */
-    function changeCounter(el) {
-        var inputArea   = el.target || el,
-            counter     = inputArea.parentNode.children[1];
-
-        counter.innerHTML = inputArea.maxLength - inputArea.value.length;
-    }
-
-    function createCounter(el, len) {
-        var inputBlock  = document.createElement('div'),
-            counter     = document.createElement('span'),
-            formBlock   = el.parentNode;
-
-        counter.classList.add('counter-block');
-        counter.innerHTML = len;
-
-        el.classList.add('input-with-counter');
-        inputBlock.classList.add('input-with-counter-block');
-
-        inputBlock.appendChild(el);
-        inputBlock.appendChild(counter);
-        if ( formBlock.classList.contains('form-group__control-group') ) {
-            formBlock.insertBefore(inputBlock, formBlock.childNodes[0]);
-        } else {
-            formBlock.appendChild(inputBlock);
-        }
-        changeCounter(el);
-        el.addEventListener('keyup', changeCounter);
-
-    }
-
-    var inputs = document.getElementsByTagName('input');
-    var textareas = document.getElementsByTagName('textarea');
-
-    for (var i = 0; i < inputs.length; i++) {
-
-        if ( inputs[i].hasAttribute('maxlength') ) {
-            createCounter(inputs[i], inputs[i].maxLength);
-        }
-
-    }
-
-    for (var i = 0; i < textareas.length; i++) {
-
-        if ( textareas[i].hasAttribute('maxlength') ) {
-            createCounter(textareas[i], textareas[i].maxLength);
-        }
-
-    }
 </script>

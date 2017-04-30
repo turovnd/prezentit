@@ -41,6 +41,7 @@
             search: false,
             counter: false
         });
+        pit.form.init();
     }
 
     document.addEventListener("DOMContentLoaded", ready);

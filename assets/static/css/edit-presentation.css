@@ -37,3 +37,29 @@
     display: block;
     font-size: 1.5em;
 }
+
+.input-with-counter-block{
+    position: relative;
+}
+.input-with-counter{
+    float: none;
+    padding-right: 35px;
+    resize: vertical;
+}
+.counter-block{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #ccc;
+    opacity:0;
+    margin: 8px 10px;
+    font-size: .8em;
+    z-index: 5;
+}
+.input-with-counter:focus + .counter-block{
+    opacity:1;
+}
+.reactions__label-checkbox{
+    padding-left: 18px !important;
+    margin-top: 5px;
+}
