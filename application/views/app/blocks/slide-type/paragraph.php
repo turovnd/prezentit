@@ -1,7 +1,7 @@
 <div class="m-t-20">
 
     <div class="form-group">
-        <label for="" class="form-group__label">Вопрос</label>
+        <label for="" class="form-group__label">Заголовок</label>
         <div class="form-group__control-group">
             <input type="text" class="form-group__control form-group__control-group-input" maxlength="90">
             <label for="bgImage" class="form-group__control-group-addon cursor-pointer">
@@ -12,25 +12,42 @@
     </div>
 
     <div class="form-group">
-        <label for="" class="form-group__label">Варианты ответа</label>
-        <ul id="optionsList" class="m-b-10">
-            <li class="form-group__control-group m-b-5">
-                <input type="text" class="form-group__control form-group__control-group-input" maxlength="60">
-                <a class="form-group__control-group-addon deleteOption">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li class="form-group__control-group m-b-5">
-                <input type="text" class="form-group__control form-group__control-group-input" maxlength="60">
-                <a class="form-group__control-group-addon deleteOption">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul>
-        <button id="addOption" role="button" class="btn btn--brand col-xs-12">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            добавить
-        </button>
+        <label for="" class="form-group__label">Параграф</label>
+        <textarea id="" name="" class="form-group__control" maxlength="300" rows="6"></textarea>
+    </div>
+
+    <div class="form-group clear-fix">
+        <label for="" class="form-group__label">Реакции аудитории <i class="fa fa-question reaction-tooltip-icon" aria-hidden="true"></i></label>
+        <div class="m-t-5 clear-fix">
+            <div class="text-center fl_l m-r-20">
+                <label for="reactionLikes" class="reactions__label">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </label>
+                <input id="reactionLikes" type="checkbox" class="m-t-5 checkbox">
+                <label for="reactionLikes" class="checkbox-label reactions__label-checkbox"></label>
+            </div>
+            <div class="text-center fl_l m-r-20">
+                <label for="reactionQuestion" class="reactions__label">
+                    <i class="fa fa-question" aria-hidden="true"></i>
+                </label>
+                <input id="reactionQuestion" type="checkbox" class="m-t-5 checkbox">
+                <label for="reactionQuestion" class="checkbox-label reactions__label-checkbox"></label>
+            </div>
+            <div class="text-center fl_l m-r-20">
+                <label for="reactionThumbsUp" class="reactions__label">
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </label>
+                <input id="reactionThumbsUp" type="checkbox" class="m-t-5 checkbox">
+                <label for="reactionThumbsUp" class="checkbox-label reactions__label-checkbox"></label>
+            </div>
+            <div class="text-center fl_l m-r-20">
+                <label for="reactionThumbsDown"class="reactions__label">
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                </label>
+                <input id="reactionThumbsDown" type="checkbox" class="m-t-5 checkbox">
+                <label for="reactionThumbsDown" class="checkbox-label reactions__label-checkbox"></label>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -65,62 +82,6 @@
 
 <script>
 
-
-    var optionsList     = document.getElementById('optionsList'),
-        addOption       = document.getElementById('addOption'),
-        deleteOption    = document.getElementsByClassName('deleteOption');
-
-
-    function deleteOptionFun(el) {
-
-        var element = el.target || el;
-
-        if ( ! element.classList.contains('deleteOption') ) {
-            element = element.parentNode;
-        }
-
-        element.parentNode.remove();
-
-    }
-
-
-    function addOptionFun() {
-
-        var newOption = document.createElement('li'),
-            newOptionInput = document.createElement('input'),
-            newOptionDeleteBtn = document.createElement('a');
-
-        newOption.classList.add('form-group__control-group','m-b-5');
-
-        newOptionInput.type = 'text';
-        newOptionInput.classList.add('form-group__control','form-group__control-group-input');
-        newOptionInput.maxLength = 60;
-
-        newOptionDeleteBtn.classList.add('form-group__control-group-addon','deleteOption');
-        newOptionDeleteBtn.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
-
-        newOption.appendChild(newOptionInput);
-
-        createCounter(newOptionInput);
-        newOptionDeleteBtn.addEventListener('click', deleteOptionFun);
-
-        newOption.appendChild(newOptionDeleteBtn);
-
-        optionsList.appendChild(newOption);
-
-    }
-
-
-    addOption.addEventListener('click', addOptionFun);
-
-    for( var i = 0; i < deleteOption.length; i++ ) {
-        deleteOption[i].addEventListener('click', deleteOptionFun);
-    }
-
-
-
-
-    
     /* form */
     function changeCounter(el) {
         var inputArea   = el.target || el,
