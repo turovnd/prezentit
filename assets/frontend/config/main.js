@@ -40,7 +40,7 @@ module.exports = {
         library: "pit"
     },
 
-    watch: false,
+    watch: true,
 
     watchOptions: {
         aggregateTimeOut: 50

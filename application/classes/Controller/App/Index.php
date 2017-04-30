@@ -31,6 +31,8 @@ class Controller_App_Index extends Dispatch
 
         $presentations = Model_Presentation::getByUserId($uid);
 
+        $this->template->title = $this->user->name;
+
         $this->template->header = View::factory('app/blocks/header-app', array('title' => "Презентации - " . $this->user->name));
 
         $this->template->aside = View::factory('app/blocks/aside-app');
@@ -70,13 +72,13 @@ class Controller_App_Index extends Dispatch
 
         if ( $presentaton->id ) {
 
-            $this->template->presentaton = $presentaton;
+            $this->template->title = $presentaton->name;
 
             $this->template->header = View::factory('app/blocks/header-slides', array('presentaton' => $presentaton));
 
             $this->template->aside = View::factory('app/blocks/aside-slides');
 
-            $this->template->section = "";
+            $this->template->section = View::factory('app/pages/edit-presentation');
 
         } else {
 

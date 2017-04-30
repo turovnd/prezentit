@@ -118,6 +118,12 @@ body{
     overflow: hidden;
     background-color: #e5e5e5;
 }
+.b-l-0{
+    border-left: 0;
+}
+.b-r-0{
+    border-right: 0;
+}
 
 .m-t-100{ margin-top: 100px; }
 .m-t-50{ margin-top: 50px; }

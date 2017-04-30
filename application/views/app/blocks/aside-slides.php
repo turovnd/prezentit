@@ -5,28 +5,15 @@
     <?=$_SERVER['SITE_NAME'];?>
 </div>
 
-<ul class="aside__menu">
-    <a class="aside__item">
-        <span class="aside__item-number">1</span>
-        <span class="aside__item-action">
-            <i class="fa fa-trash aside__item-action-icon text-danger" aria-hidden="true"></i>
-        </span>
-        <div class="aside__item-slide">
-            <p class="aside__item-name">NameNameNameNameNameNameNameNameNameNameNameNameNameNa</p>
-            <i class="fa fa-bar-chart aside__item-type" aria-hidden="true"></i>
-        </div>
-    </a>
+<div class="aside__menu">
     <a class="aside__item aside__item--active">
         <span class="aside__item-number">1</span>
         <span class="aside__item-action">
             <i class="fa fa-trash aside__item-action-icon text-danger" aria-hidden="true"></i>
         </span>
-        <div class="aside__item-slide">
-            <p class="aside__item-name">NameNameNameNameNameNameNameNameNameNameNameNameNameNa</p>
-            <i class="fa fa-bar-chart aside__item-type" aria-hidden="true"></i>
-        </div>
+        <?= View::factory('app/blocks/slide-aside/heading')?>
     </a>
-</ul>
+</div>
 
 <div class="aside-nav">
     <a class="aside-nav__item">

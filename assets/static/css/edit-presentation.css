@@ -1,0 +1,39 @@
+.presentation-wrapper{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    background: #EEEEEE;
+}
+.slide-block{
+    position: fixed;
+    margin-top: 57px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 350px;
+    background: #fdfdfd;
+    padding-bottom: 50px;
+    border-left: 1px solid #cfcfcf;
+    overflow-y: auto;
+    z-index: 15;
+    transition: left .3s ease;
+}
+.tabs__header{
+    background: #fdfdfd;
+    border-radius: 0;
+    border-right: 0;
+    padding-top: 10px;
+}
+.tabs__btn{
+    padding: 10px 6px;
+}
+.reaction-tooltip-icon{
+    color: #a0a0a0;
+}
+.reactions__label{
+    display: block;
+    font-size: 1.5em;
+}
