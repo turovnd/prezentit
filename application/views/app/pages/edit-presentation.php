@@ -1,11 +1,17 @@
-<!-- =============== SECTION STYLES ===============-->
+<!-- =============== PAGE STYLES ===============-->
 <link rel="stylesheet" href="<?=$assets; ?>static/css/edit-presentation.css">
+<link rel="stylesheet" href="<?=$assets; ?>static/css/presentation.css">
+
 
 <div class="section__content clear-fix animated fade__in">
 
-    <div class="presentation-wrapper">
+    <div class="presentation-background"></div>
 
-    </div>
+
+    <main class="presentation">
+        <?= View::factory('app/pages/presentation'); ?>
+    </main>
+
 
     <div class="slide-block col-xs-12">
         <div id="slide-block__1">
@@ -25,8 +31,8 @@
 <!--                    --><?//= View::factory('app/blocks/slide-type/heading')?>
 <!--                    --><?//= View::factory('app/blocks/slide-type/image')?>
 <!--                    --><?//= View::factory('app/blocks/slide-type/paragraph')?>
-                    <?= View::factory('app/blocks/slide-type/choices')?>
-<!--                    --><?//= View::factory('app/blocks/slide-type/options')?>
+<!--                    --><?//= View::factory('app/blocks/slide-type/choices')?>
+                    <?= View::factory('app/blocks/slide-type/options')?>
                 </div>
 
             </div>
@@ -35,6 +41,8 @@
 
 </div>
 
+<!-- =============== PAGE SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
 <script>
     function ready() {
         pit.tabs.init({

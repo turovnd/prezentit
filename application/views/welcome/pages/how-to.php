@@ -90,20 +90,20 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--md valign">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/graphphone.jpg" alt="Graph Phone">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/graphphone.png" alt="Graph Phone">
                 </div>
             </div>
         </div>
 
-        <div class="section--sm m-t-50">
+        <div class="section--md m-t-50">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 section--sm valign fl_l">
+                <div class="col-xs-12 col-sm-6 section--md valign fl_l">
                     <div class="m-l-auto m-r-auto">
                         <h3 class="h2">Перейдите по ссылке</h3>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--sm valign fl_r">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/sitelink.jpg" alt="Site Link">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/sitelink.png" alt="Site Link">
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--md valign">
-                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/entercode.jpg" alt="Enter Code">
+                    <img class="img--sale" src="<?=$assets; ?>static/img/welcome/entercode.png" alt="Enter Code">
                 </div>
             </div>
         </div>

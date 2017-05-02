@@ -10,10 +10,26 @@
 
 class Controller_App_Index extends Dispatch
 {
-    public $template = 'app/main';
+
+    /**
+     * @const ACTION_NEW [String]
+     */
+    const ACTION_PRESENTATION = 'presentation';
+
 
     public function before()
     {
+        switch ($this->request->action()) {
+
+            case self::ACTION_PRESENTATION :
+                $this->template = 'app/main-presentation';
+                break;
+
+            default :
+                $this->template = 'app/main';
+                break;
+        }
+
         parent::before();
 
         $isLogged   = self::isLogged();
@@ -51,15 +67,10 @@ class Controller_App_Index extends Dispatch
         if ( $presentaton->id ) {
 
             $this->template->title = $presentaton->name;
-            $this->template->section = "";
 
         } else {
             throw new HTTP_Exception_404;
         }
-
-        echo Debug::vars($presentaton->name);
-        echo Debug::vars("presentation on the desk");
-        exit;
 
     }
 

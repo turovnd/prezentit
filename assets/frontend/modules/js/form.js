@@ -74,8 +74,6 @@ module.exports = (function (form) {
 
     };
 
-
-
     return form;
 
 })({});

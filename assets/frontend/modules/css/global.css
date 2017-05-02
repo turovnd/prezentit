@@ -1,8 +1,6 @@
-html{
-    height: 100%;
-}
-html,body{
+html,main{
     width: 100%;
+    height: 100%;
 }
 body{
     font-family: sans-serif;
@@ -10,14 +8,10 @@ body{
     margin:0;
     color: #413a41;
     font-size: 16px;
+    width: 100%;
 }
 
 
-
-
-/**
- * Backdrop
- */
 .backdrop{
     position: fixed;
     top: 0;
@@ -129,6 +123,9 @@ body{
 }
 .cursor-default{
     cursor: default;
+}
+.user-select--none{
+    user-select: none;
 }
 
 .m-t-100{ margin-top: 100px; }

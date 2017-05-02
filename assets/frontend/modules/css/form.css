@@ -202,6 +202,15 @@
     user-select: none;
 }
 
+.checkbox:focus + label:after{
+    transform:scale(1);
+    border:0;
+    border-radius:50%;
+    box-shadow:0 0 0 8px rgba(0,0,0,0.05);
+    background-color: rgba(0,0,0,0.05);
+}
+
+
 
 
 /** placeholder color */
