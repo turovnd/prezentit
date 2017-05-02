@@ -31,7 +31,7 @@
                 <img src="<?=$assets; ?>static/img/welcome/entercode.png" alt="Graph Phone" class="presentation__instruction-image">
                 <p class="presentation__instruction-text">
                     <span class="presentation__instruction-number bg-brand">3</span>
-                    Введите код
+                    Введите код <b>45 45 45</b> <br> и оценивайте
                 </p>
             </li>
         </ul>

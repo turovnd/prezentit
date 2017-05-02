@@ -41,6 +41,7 @@ body{
     max-height: 300px;
 }
 .presentation__instruction-text{
+    margin-top: 10px;
     font-size: 2vw;
     font-weight: 600;
 }
