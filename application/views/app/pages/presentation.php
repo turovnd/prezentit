@@ -1,13 +1,18 @@
-<?= View::factory('app/blocks/header-presentation'); ?>
+<div id="toggleInstruction" class="cursor-pointer" data-toggle="collapse" data-area="instruction" data-opened="false" onclick="document.getElementById('instruction').removeAttribute('data-height')">
+    <?= View::factory('app/blocks/header-presentation'); ?>
+</div>
 
+<div class="presentation__aside-open">
+    <a role="button" class="presentation__aside-open-btn">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+    </a>
+</div>
 
 <aside class="presentation__aside">
 
-    <?= View::factory('app/blocks/aside-presentation'); ?>
+    <?= View::factory('app/blocks/aside-presentation', array('presentaton' => $presentaton)); ?>
 
 </aside>
-
-<button>open aside</button>
 
 <div class="presentation__slides">
 

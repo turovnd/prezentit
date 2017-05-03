@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title><?=$title; ?> | Prezentit</title>
+    <title><?=$presentaton->name; ?> | Prezentit</title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />
@@ -16,6 +16,7 @@
     <script type="text/javascript">
         function ready() {
             pit.collapse.init();
+            present.init();
         }
 
         document.addEventListener("DOMContentLoaded", ready);
@@ -33,8 +34,8 @@
 
 <body>
 
-    <main class="presentation">
-        <?= View::factory('app/pages/presentation')?>
+    <main class="presentation user-select--none">
+        <?= View::factory('app/pages/presentation', array('presentaton' => $presentaton))?>
     </main>
 
 </body>

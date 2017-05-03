@@ -9,7 +9,7 @@
 
 
     <main class="presentation">
-        <?= View::factory('app/pages/presentation'); ?>
+        <?= View::factory('app/pages/presentation', array('presentaton' => $presentaton)); ?>
     </main>
 
 

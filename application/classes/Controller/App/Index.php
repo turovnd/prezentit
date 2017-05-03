@@ -66,7 +66,7 @@ class Controller_App_Index extends Dispatch
 
         if ( $presentaton->id ) {
 
-            $this->template->title = $presentaton->name;
+            $this->template->presentaton = $presentaton;
 
         } else {
             throw new HTTP_Exception_404;
@@ -89,7 +89,8 @@ class Controller_App_Index extends Dispatch
 
             $this->template->aside = View::factory('app/blocks/aside-slides');
 
-            $this->template->section = View::factory('app/pages/edit-presentation');
+            $this->template->section = View::factory('app/pages/edit-presentation')
+                ->set('presentaton', $presentaton);
 
         } else {
 
