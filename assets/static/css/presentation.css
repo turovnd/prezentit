@@ -223,8 +223,12 @@ body{
 }
 
 .presentation__slides{
+    position: relative;
     overflow: hidden;
-    height:100%;
+    height: calc(100% - 8vh);
+}
+.presentation__header-wrapper.hide + .presentation__slides{
+    height: 100%;
 }
 .presentation__slide{
     display: flex;
@@ -266,9 +270,6 @@ body{
     text-shadow: 0 0 3px #fcfcfc;
     word-wrap: break-word;
 }
-.presentation__content--background{
-    background: rgba(255,255,255,0.6)
-}
 .presentation__content--center{
     margin: auto;
     text-align: center;
@@ -287,7 +288,7 @@ body{
 }
 
 .presentation__reactions-wrapper{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 2.5vh;
     width: 30vw;
@@ -313,15 +314,40 @@ body{
 .presentation__reaction:nth-child(4){
     right:135px;
 }
-
 .presentation__reaction-votes{
     font-size: 1.5em;
     text-align: center;
     transition: all 2s linear;
 }
-
 .presentation__reaction--animate{
     animation: opacity-5 2s linear, bottom-2 2s ease-out, right-4 2s ease-in;
     right: 90px;
     display: inherit;
+}
+
+.slide-image{
+    width:100%;
+}
+.slide-image__image{
+    height: 75vh;
+    width: 80%;
+    margin: auto auto 2vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.slide-image__title{
+    text-align: center;
+
+    width: 70%;
+    margin: auto;
+    word-wrap: break-word;
+    font-size: 5vh;
+}
+.slide-image__title--bottom{
+    position: absolute;
+    background: rgba(255,255,255,0.6);
+    width: 100%;
+    padding: 0 15%;
+    bottom:0;
 }

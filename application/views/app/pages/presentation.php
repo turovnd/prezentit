@@ -1,8 +1,4 @@
 
-<div id="toggleInstruction" class="presentation__header-wrapper" data-toggle="collapse" data-area="instruction" data-opened="false" onclick="document.getElementById('instruction').removeAttribute('data-height')">
-    <?= View::factory('app/blocks/header-presentation'); ?>
-</div>
-
 <div class="presentation__aside-open">
     <a role="button" class="presentation__aside-open-btn">
         <i class="fa fa-cog" aria-hidden="true"></i>
@@ -24,6 +20,9 @@
     </a>
 </div>
 
+<div id="toggleInstruction" class="presentation__header-wrapper" data-toggle="collapse" data-area="instruction" data-opened="false" onclick="document.getElementById('instruction').removeAttribute('data-height')">
+    <?= View::factory('app/blocks/header-presentation'); ?>
+</div>
 
 <div class="presentation__slides">
 
@@ -32,6 +31,7 @@
     </div>
 
     <?= View::factory('app/blocks/slide-presentation/heading'); ?>
+    <?= View::factory('app/blocks/slide-presentation/image'); ?>
 
 </div>
 
