@@ -202,6 +202,21 @@ body{
     right: 0;
 }
 
+.presentation__progress{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 13;
+}
+.presentation__progress-bar{
+    position: absolute;
+    height: 100%;
+    background: #008DA7;
+    transition: width .3s ease;
+}
+
 .presentation__slides{
     position: relative;
     overflow: hidden;

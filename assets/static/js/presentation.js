@@ -6,7 +6,8 @@ let present = function (present) {
         slidesHash      = null,
         curSlide        = null,
         nextSlideBtn    = null,
-        prevSlideBtn    = null;
+        prevSlideBtn    = null,
+        progressBar     = null;
 
 
     let prepare_ = function () {
@@ -16,6 +17,7 @@ let present = function (present) {
         slidesHash      = location.pathname;
         nextSlideBtn    = document.getElementsByClassName('presentation__navigation-btn--right')[0];
         prevSlideBtn    = document.getElementsByClassName('presentation__navigation-btn--left')[0];
+        progressBar     = document.getElementsByClassName('presentation__progress-bar')[0];
 
         if (nextSlideBtn) {
             nextSlideBtn.addEventListener('click', toNextSlide);
@@ -97,6 +99,8 @@ let present = function (present) {
 
         slides[curSlide].classList.remove('presentation__slide--after', 'presentation__slide--before');
         slides[curSlide].classList.add('presentation__slide--active');
+
+        progressBar.style.width = parseInt(curSlide/(slides.length-1) * 100) + "%";
     };
 
 

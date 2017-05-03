@@ -37,3 +37,8 @@
     </section>
 
 </div>
+
+
+<div class="presentation__progress">
+    <span class="presentation__progress-bar"></span>
+</div>
