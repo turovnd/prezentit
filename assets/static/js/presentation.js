@@ -7,7 +7,8 @@ let present = function (present) {
         curSlide        = null,
         nextSlideBtn    = null,
         prevSlideBtn    = null,
-        progressBar     = null;
+        progressBar     = null,
+        slideQuestion   = [];
 
 
     let prepare_ = function () {
@@ -26,11 +27,112 @@ let present = function (present) {
             prevSlideBtn.addEventListener('click', toPrevSlide);
         }
         prepareSlides_(slides);
+        prepareQuestions_(document.getElementsByClassName('slide-question__content'));
 
         document.addEventListener("keydown", keyDownFunction, false);
 
     };
 
+
+    let updateQuestionScore = function (element) {
+
+        element.maxScore = getMaxScore(element.question.children);
+
+        for( let i = 0; i < element.answers.length; i++ ) {
+            let answer = element.answers[i];
+
+            answer.img.width = parseFloat(answer.img.el.clientWidth / 7);
+
+            let imgHeight = (answer.img.el.getAttribute('src') === '') ? 0 : answer.img.width,
+                barHeight = parseFloat(40 * answer.score.score / element.maxScore - imgHeight / 2);
+
+            if (answer.img.el.getAttribute('src') === '') {
+                // no image
+                answer.score.bottom = parseFloat(12 + 40 * answer.score.score / element.maxScore + 1);
+                answer.bar.height = barHeight;
+            } else {
+                //with image
+                answer.bar.height = barHeight > 0 ? barHeight : 0;
+                answer.img.bottom = (barHeight < 0 || barHeight + imgHeight < 12) ? 12 : barHeight + 12;
+                answer.score.bottom = answer.img.bottom + imgHeight;
+
+                if (answer.bar.height === 0) {
+                    answer.img.el.classList.add('hide');
+                    answer.bar.height = barHeight + imgHeight / 2;
+                    answer.score.bottom = parseFloat(12 + 40 * answer.score.score / element.maxScore);
+                } else {
+                    answer.img.el.classList.remove('hide');
+                }
+            }
+
+            answer.bar.el.style.height = answer.bar.height + "vh";
+            answer.img.el.style.bottom = answer.img.bottom + "vh";
+            answer.score.el.style.bottom = answer.score.bottom + "vh";
+        }
+
+        element.question.classList.remove('invisible');
+    };
+
+
+    /**
+     * Get Max Score For Group of Answers
+     * @param answers
+     * @returns {number}
+     */
+    let getMaxScore = function (answers) {
+        let maxScore = 0;
+
+        for (let j = 0; j < answers.length; j++) {
+            let tempScore = parseInt(answers[j].getElementsByClassName('slide-question__option-score')[0].innerHTML);
+            maxScore = maxScore < tempScore ? tempScore : maxScore;
+        }
+        return maxScore
+    };
+
+    /**
+     * Prepare Question on Slide
+     * - field slideQuestion array
+     * @param questions
+     * @private
+     */
+    let prepareQuestions_ = function (questions) {
+
+        for (let i = 0; i < questions.length; i++) {
+            let question = [],
+                answers = questions[i].children,
+                answersArr = [],
+                maxScore = getMaxScore(answers);
+
+            for (let j = 0; j < answers.length; j++) {
+
+                let tempAnswer = {
+                    score: {
+                        el: answers[j].getElementsByClassName('slide-question__option-score')[0],
+                        score: parseInt(answers[j].getElementsByClassName('slide-question__option-score')[0].innerHTML),
+                        bottom: 0
+                    },
+                    img: {
+                        el: answers[j].getElementsByClassName('slide-question__option-image')[0],
+                        width: parseFloat(answers[j].getElementsByClassName('slide-question__option-image')[0].clientWidth),
+                        bottom: 0
+
+                    },
+                    bar: {
+                        el: answers[j].getElementsByClassName('slide-question__option-bar')[0],
+                        height: parseFloat(answers[j].getElementsByClassName('slide-question__option-bar')[0].clientHeight)
+                    }
+                };
+                answersArr.push(tempAnswer);
+            }
+            question = {
+                question: questions[i],
+                maxScore: maxScore,
+                answers: answersArr
+            };
+            slideQuestion.push(question);
+            updateQuestionScore(question);
+        }
+    };
 
     /**
      * Prepare Slides
@@ -101,6 +203,18 @@ let present = function (present) {
         slides[curSlide].classList.add('presentation__slide--active');
 
         progressBar.style.width = parseInt(curSlide/(slides.length-1) * 100) + "%";
+
+        if (curSlide === 0) {
+            prevSlideBtn.classList.add('hide')
+        } else {
+            prevSlideBtn.classList.remove('hide')
+        }
+
+        if (curSlide === slides.length - 1) {
+            nextSlideBtn.classList.add('hide')
+        } else {
+            nextSlideBtn.classList.remove('hide')
+        }
     };
 
 

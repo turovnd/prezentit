@@ -3,7 +3,7 @@
     <div class="form-group">
         <label for="" class="form-group__label">Вопрос</label>
         <div class="form-group__control-group">
-            <input type="text" class="form-group__control form-group__control-group-input" maxlength="90">
+            <input type="text" class="form-group__control form-group__control-group-input" maxlength="80">
             <label for="bgImage" class="form-group__control-group-addon cursor-pointer">
                 <i class="fa fa-image" aria-hidden="true"></i>
                 <input id="bgImage" type="file" class="hide">

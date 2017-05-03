@@ -13,7 +13,14 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/prezentit.bundle.css">
     <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/prezentit.bundle.js"></script>
 
-    <script type="text/javascript">
+    <!-- =============== VENDOR STYLES ===============-->
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/presentation.css">
+
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    <script defer type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
+
+    <script defer type="text/javascript">
         function ready() {
             pit.collapse.init();
             present.init();
@@ -21,15 +28,6 @@
 
         document.addEventListener("DOMContentLoaded", ready);
     </script>
-
-
-    <!-- =============== VENDOR STYLES ===============-->
-    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/presentation.css">
-
-    <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
-
 </head>
 
 <body>

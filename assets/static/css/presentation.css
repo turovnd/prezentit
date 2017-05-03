@@ -17,7 +17,7 @@ body{
 }
 .presentation__header{
     position: relative;
-    font-size: 2.5vw;
+    font-size: 5vmin;
     text-align: center;
     padding: 2vh;
     line-height: 4vh;
@@ -72,7 +72,7 @@ body{
     right: 2.5vh;
     top: 2.5vh;
     font-weight: 600;
-    font-size: 2.5vw;
+    font-size: 5vmin;
     z-index: 13;
 }
 
@@ -263,12 +263,22 @@ body{
     background: no-repeat 50%;
     background-size: cover;
 }
+.background-image--with-opacity{
+    position: absolute;
+    top:0;
+    left: 0;
+    right:0;
+    bottom:0;
+    z-index:1;
+    background: rgba(255,255,255,.8);
+}
 .presentation__content{
     padding: 0 20px;
     width: 100%;
     height:inherit;
     text-shadow: 0 0 4px #fcfcfc;
     word-wrap: break-word;
+    z-index: 2;
 }
 .presentation__content--center{
     margin: auto;
@@ -302,27 +312,30 @@ body{
 .presentation__reaction{
     position: absolute;
     bottom: 0;
-    width: 30px;
+    width: 5vmin;
     text-align: center;
     margin-bottom: 2.5vh;
     z-index: 11;
 }
 .presentation__reaction:nth-child(1){
-    right:0;
+    right: 0;
 }
 .presentation__reaction:nth-child(2){
-    right:45px;
+    right: 7vmin;
 }
 .presentation__reaction:nth-child(3){
-    right:90px;
+    right: 14vmin;
 }
 .presentation__reaction:nth-child(4){
-    right:135px;
+    right: 21vmin;
 }
 .presentation__reaction-votes{
-    font-size: 1.5em;
+    font-size: 4vmin;
     text-align: center;
-    transition: all 2s linear;
+    transition: all 1s linear;
+}
+.presentation__reaction-icon{
+    font-size: 5vmin;
 }
 .presentation__reaction--animate{
     animation: opacity-5 2s linear, bottom-2 2s ease-out, right-4 2s ease-in;
@@ -355,4 +368,53 @@ body{
     width: 100%;
     padding: 0 15%;
     bottom:0;
+}
+
+.slide-question__title{
+    width: 90%;
+    padding: 2.5vh 0 0 15px ;
+    font-size: 3.2vmin;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.slide-question__content{
+    display: flex;
+    width: 80%;
+    margin: auto;
+    height: calc(100% - 20px - 3.2vmin - 2.5vh);
+}
+.slide-question__option-wrapper{
+    height: 75%;
+    margin-top: 5vh;
+    padding: 0;
+}
+
+.slide-question__option-score{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 4vmin;
+}
+.slide-question__option-image,
+.slide-question__option-bar{
+    position: absolute;
+    width: 85%;
+    left: 7.5%;
+}
+.slide-question__option-bar{
+    bottom: 12vh;
+    max-height: 45vh;
+}
+.slide-question__option-content{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 12vh;
+    padding: 2px 1vw 0 1vw;
+    font-size: 2.5vmin;
+    word-break: break-all;
+    border-top: 3px solid #a0a0a0;
+    overflow: hidden;
+    text-align: center;
 }
