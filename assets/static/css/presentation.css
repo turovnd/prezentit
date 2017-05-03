@@ -7,6 +7,14 @@ body{
     box-shadow: 0 0 0 2px #c9c9c9;
     transition: all .2s ease;
 }
+.presentation__header-wrapper{
+    cursor: pointer;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 15;
+}
 .presentation__header{
     position: relative;
     font-size: 2.5vw;
@@ -176,4 +184,49 @@ body{
 .presentation__addition-btn:hover{
     background: rgba(0,0,0,0.05);
     color: #008DA7;
+}
+
+.presentation__navigation-btn{
+    position: absolute;
+    top: 50%;
+    padding: 8vh 3vh;
+    transform: translateY(-8vh);
+    font-size: 4vh;
+    z-index: 13;
+}
+.presentation__navigation-btn--left{
+    padding-right: 8vw;
+}
+.presentation__navigation-btn--right{
+    padding-left: 8vw;
+    right: 0;
+}
+
+.presentation__slides{
+    position: relative;
+    overflow: hidden;
+    height:100%;
+}
+.presentation__slide{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .35s ease;
+}
+.presentation__slide--before{
+    transform: translateX(-1%);
+}
+.presentation__slide--after{
+    transform: translateX(1%);
+}
+.presentation__slide--active{
+    opacity:1;
+    z-index: 2;
+    transition-delay: .25s;
+    pointer-events: all;
 }
