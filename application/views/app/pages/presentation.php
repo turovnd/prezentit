@@ -32,6 +32,7 @@
 
     <?= View::factory('app/blocks/slide-presentation/heading'); ?>
     <?= View::factory('app/blocks/slide-presentation/image'); ?>
+    <?= View::factory('app/blocks/slide-presentation/paragraph'); ?>
 
 </div>
 

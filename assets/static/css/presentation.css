@@ -267,7 +267,7 @@ body{
     padding: 0 20px;
     width: 100%;
     height:inherit;
-    text-shadow: 0 0 3px #fcfcfc;
+    text-shadow: 0 0 4px #fcfcfc;
     word-wrap: break-word;
 }
 .presentation__content--center{
@@ -285,6 +285,11 @@ body{
     padding: 2.5vh;
     margin: 0;
     font-size: 5vmin;
+}
+.presentation__content-text{
+    padding: 3vh;
+    margin: 0;
+    font-size: 4vmin;
 }
 
 .presentation__reactions-wrapper{
