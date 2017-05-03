@@ -59,17 +59,3 @@
     </ul>
 
 </nav>
-
-
-
-
-<!--<ul class="presentation__aside-menu">-->
-<!--    <li class="aside__item">-->
-<!--        <a href="--><?//=URL::site('app'); ?><!--" class="aside__link">-->
-<!--            <i class="fa fa-cubes" aria-hidden="true"></i>-->
-<!--            Во весь экран-->
-<!--        </a>-->
-<!--    </li>-->
-
-
-<!--</ul>-->
