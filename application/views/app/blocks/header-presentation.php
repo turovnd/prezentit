@@ -1,10 +1,8 @@
 <header class="presentation__header">
-    <div class="animated fade__in">
-        <span class="presentation__header-text">Перейдите на</span>
-        <b>www.prezentit.ru</b>
-        <span class="presentation__header-text">и используйте код</span>
-        <b>45 45 45</b>
-    </div>
+    <span class="presentation__header-text">Перейдите на</span>
+    <b>www.prezentit.ru</b>
+    <span class="presentation__header-text">и используйте код</span>
+    <b>45 45 45</b>
 </header>
 
 

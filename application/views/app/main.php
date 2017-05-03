@@ -52,7 +52,7 @@
     </aside>
 
 
-    <section>
+    <section class="section">
 
         <?=$section; ?>
 

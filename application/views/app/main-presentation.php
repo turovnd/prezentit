@@ -34,7 +34,7 @@
 
 <body>
 
-    <main class="presentation user-select--none">
+    <main class="presentation user-select--none animated fade__in">
         <?= View::factory('app/pages/presentation', array('presentaton' => $presentaton))?>
     </main>
 

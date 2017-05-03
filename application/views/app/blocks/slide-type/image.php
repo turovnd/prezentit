@@ -12,11 +12,11 @@
             <label for="imageFile" class="btn btn--brand btn--round"><i class="fa fa-upload m-r-5" aria-hidden="true"></i> выбрать файл</label>
         </div>
         <div class="m-t-10">
-            <input id="imageInCenter" type="checkbox" class="m-t-5 checkbox">
+            <input id="imageInCenter" name="imageposition" type="radio" class="m-t-5 checkbox" checked>
             <label for="imageInCenter" class="checkbox-label">по центру слайда</label>
         </div>
         <div class="m-t-10">
-            <input id="imageAsBackground" type="checkbox" class="m-t-5 checkbox">
+            <input id="imageAsBackground" name="imageposition" type="radio" class="m-t-5 checkbox">
             <label for="imageAsBackground" class="checkbox-label">на весь слайд</label>
         </div>
     </div>

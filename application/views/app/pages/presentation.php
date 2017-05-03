@@ -1,3 +1,4 @@
+
 <div id="toggleInstruction" class="presentation__header-wrapper" data-toggle="collapse" data-area="instruction" data-opened="false" onclick="document.getElementById('instruction').removeAttribute('data-height')">
     <?= View::factory('app/blocks/header-presentation'); ?>
 </div>
@@ -26,15 +27,11 @@
 
 <div class="presentation__slides">
 
-    <section class="presentation__slide" style="background: red">
-        <?= View::factory('app/blocks/slide-presentation/heading'); ?>
-    </section>
-    <section class="presentation__slide" style="background: blue">
-        <?= View::factory('app/blocks/slide-presentation/heading'); ?>
-    </section>
-    <section class="presentation__slide" style="background: green">
-        <?= View::factory('app/blocks/slide-presentation/heading'); ?>
-    </section>
+    <div class="presentation__brand-icon text-brand">
+        Prezentit
+    </div>
+
+    <?= View::factory('app/blocks/slide-presentation/heading'); ?>
 
 </div>
 

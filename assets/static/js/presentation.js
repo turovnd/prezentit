@@ -88,16 +88,16 @@ let present = function (present) {
         for (let i = 0; i < slides.length; i++) {
             if (i < curSlide) {
                 slides[i].classList.remove('presentation__slide--active', 'presentation__slide--after');
-                slides[i].classList.add('presentation__slide--before');
+                slides[i].classList.add('presentation__slide--before', 'presentation__slide--inactive');
                 continue;
             }
             if (i > curSlide) {
                 slides[i].classList.remove('presentation__slide--active', 'presentation__slide--before');
-                slides[i].classList.add('presentation__slide--after');
+                slides[i].classList.add('presentation__slide--after', 'presentation__slide--inactive');
             }
         }
 
-        slides[curSlide].classList.remove('presentation__slide--after', 'presentation__slide--before');
+        slides[curSlide].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
         slides[curSlide].classList.add('presentation__slide--active');
 
         progressBar.style.width = parseInt(curSlide/(slides.length-1) * 100) + "%";
