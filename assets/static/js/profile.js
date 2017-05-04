@@ -22,7 +22,7 @@ function ready() {
                 response = JSON.parse(response);
 
                 if (response.code === "40") {
-
+                    document.getElementsByClassName('header')[0].getElementsByClassName('header__title')[0].innerHTML = "Профиль - " + document.getElementById('profileName').value;
                 } else {
 
                 }
@@ -32,7 +32,7 @@ function ready() {
             }
         };
 
-        ajax.send(ajaxData);
+        pit.ajax.send(ajaxData);
     });
 
 
@@ -64,7 +64,7 @@ function ready() {
             }
         };
 
-        ajax.send(ajaxData);
+        pit.ajax.send(ajaxData);
     });
 
 

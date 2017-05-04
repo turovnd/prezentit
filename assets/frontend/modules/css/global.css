@@ -1,23 +1,17 @@
-html{
-    height: 100%;
-}
-html,body{
+html,main,.section{
     width: 100%;
+    height: 100%;
 }
 body{
     font-family: sans-serif;
     padding:0;
     margin:0;
-    color: #413a41;
+    color: #212121;
     font-size: 16px;
+    width: 100%;
 }
 
 
-
-
-/**
- * Backdrop
- */
 .backdrop{
     position: fixed;
     top: 0;
@@ -117,6 +111,21 @@ body{
     margin: 5px auto;
     overflow: hidden;
     background-color: #e5e5e5;
+}
+.b-l-0{
+    border-left: 0;
+}
+.b-r-0{
+    border-right: 0;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.cursor-default{
+    cursor: default;
+}
+.user-select--none{
+    user-select: none;
 }
 
 .m-t-100{ margin-top: 100px; }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title><?=$user->name; ?> | <?=$GLOBALS['SITE_NAME']; ?></title>
+    <title><?=$title; ?> | Prezentit</title>
     <meta charset="UTF-8">
     <meta name="author" content="<?=$content; ?>" />
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />
@@ -36,7 +36,9 @@
 <body>
 
     <header class="header clear-fix">
-        <?= View::factory('app/blocks/header', array('title' => $title)); ?>
+
+        <?= $header; ?>
+
     </header>
 
     <button id="openAside" class="aside__open-btn ">
@@ -44,13 +46,16 @@
     </button>
 
     <aside class="aside aside-app">
-        <?= View::factory('app/blocks/aside'); ?>
+
+        <?= $aside; ?>
+
     </aside>
 
 
-    <section>
+    <section class="section">
 
         <?=$section; ?>
+
     </section>
 
     <div class="backdrop hide"></div>

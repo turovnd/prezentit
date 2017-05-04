@@ -38,8 +38,8 @@
     display: inline-block;
     max-width: 100%;
     font-size: .9em;
+    font-weight: bold;
     margin-bottom: 5px;
-    letter-spacing: .04em;
     color: #413a41;
 }
 .form-group--has-success .form-group__label{
@@ -114,13 +114,13 @@
 }
 
 .form-group__control-group-addon{
-    padding: 6px 16px;
+    padding: 6px 10px;
     font-size: .9em;
     width: 1%;
     text-align: center;
     background-color: #edf1f2;
     border: 1px solid #d7d8db;
-    border-radius: 3px;
+    border-radius: 0;
     white-space: nowrap;
     vertical-align: middle;
 }
@@ -134,13 +134,11 @@
 
 .form-group__control-group-input:first-child,
 .form-group__control-group-addon:first-child {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+    border-radius: 3px 0 0 3px;
 }
 .form-group__control-group-input:last-child,
 .form-group__control-group-addon:last-child{
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+    border-radius: 0 3px 3px 0;
 }
 
 .form-group__control-group-addon > .fa {
@@ -203,6 +201,15 @@
     font-size: 1em;
     user-select: none;
 }
+
+.checkbox:focus + label:after{
+    transform:scale(1);
+    border:0;
+    border-radius:50%;
+    box-shadow:0 0 0 8px rgba(0,0,0,0.05);
+    background-color: rgba(0,0,0,0.05);
+}
+
 
 
 

@@ -39,7 +39,7 @@
                 <!-- Forget Password Form -->
                 <form class="form__body m-b-10" id="forget">
                     <div class="col-xs-12">
-                        <p class="h3 bold text-center m-b-20">Востановить пароля</p>
+                        <p class="h3 bold text-center m-b-20">Востановление пароля</p>
 
                         <div class="form-group m-b-20">
                             <div class="form-group__control-group">

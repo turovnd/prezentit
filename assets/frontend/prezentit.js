@@ -18,6 +18,7 @@ module.exports = ( function (prezentit) {
     prezentit.collapse    = require('./modules/js/collapse');
     prezentit.cookies     = require('./modules/js/cookies');
     prezentit.tabs        = require('./modules/js/tabs');
+    prezentit.form        = require('./modules/js/form');
 
     return prezentit;
 

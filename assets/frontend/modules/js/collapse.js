@@ -29,15 +29,9 @@ module.exports = (function (collapse) {
     };
 
 
-    var toggle = function (event) {
+    var toggle = function () {
 
-        collapse.btn = event.target;
-
-        if (!collapse.btn.classList.contains('aside__link')) {
-
-            collapse.btn = collapse.btn.parentNode;
-
-        }
+        collapse.btn = this;
 
         collapse.list = document.getElementById(collapse.btn.dataset.area);
 

@@ -40,7 +40,7 @@ module.exports = {
         library: "pit"
     },
 
-    watch: false,
+    watch: true,
 
     watchOptions: {
         aggregateTimeOut: 50
@@ -82,7 +82,7 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
-                drop_console: true
+                //drop_console: true
             }
         }),
 

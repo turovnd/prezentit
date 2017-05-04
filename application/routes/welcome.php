@@ -1,9 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-$DIGIT  = '\d+';
-$STRING = '\w+';
-
-
 /**
  * Welcome page
  */
@@ -31,15 +27,5 @@ Route::set('WELCOME_HOW_TO', 'how-to')
     ->defaults(array(
         'controller' => 'Welcome',
         'action'     => 'howto',
-    ))
-    ->cache();
-
-/**
- * New Subscribe
- */
-Route::set('NEW_SUBSCRIBER', 'newsubscriber')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'newsubscriber',
     ))
     ->cache();

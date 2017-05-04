@@ -10,10 +10,26 @@
 
 class Controller_App_Index extends Dispatch
 {
-    public $template = 'app/main';
+
+    /**
+     * @const ACTION_NEW [String]
+     */
+    const ACTION_PRESENTATION = 'presentation';
+
 
     public function before()
     {
+        switch ($this->request->action()) {
+
+            case self::ACTION_PRESENTATION :
+                $this->template = 'app/main-presentation';
+                break;
+
+            default :
+                $this->template = 'app/main';
+                break;
+        }
+
         parent::before();
 
         $isLogged   = self::isLogged();
@@ -31,7 +47,12 @@ class Controller_App_Index extends Dispatch
 
         $presentations = Model_Presentation::getByUserId($uid);
 
-        $this->template->title = "Презентации - " . $this->user->name;
+        $this->template->title = $this->user->name;
+
+        $this->template->header = View::factory('app/blocks/header-app', array('title' => "Презентации - " . $this->user->name));
+
+        $this->template->aside = View::factory('app/blocks/aside-app');
+
         $this->template->section = View::factory('app/pages/all-presentations')
             ->set('presentations', $presentations);
 
@@ -45,16 +66,11 @@ class Controller_App_Index extends Dispatch
 
         if ( $presentaton->id ) {
 
-            $this->template->title = $presentaton->name;
-            $this->template->section = "";
+            $this->template->presentaton = $presentaton;
 
         } else {
             throw new HTTP_Exception_404;
         }
-
-        echo Debug::vars($presentaton->name);
-        echo Debug::vars("presentation on the desk");
-        exit;
 
     }
 
@@ -63,23 +79,24 @@ class Controller_App_Index extends Dispatch
     {
         $uri = $this->request->param('uri');
 
-        $presentaton = Model_Presentation::getByFieldName('uri',$uri);
+        $presentaton = Model_Presentation::getByFieldName('uri', $uri);
 
         if ( $presentaton->id ) {
 
             $this->template->title = $presentaton->name;
-            $this->template->section = "";
+
+            $this->template->header = View::factory('app/blocks/header-slides', array('presentaton' => $presentaton));
+
+            $this->template->aside = View::factory('app/blocks/aside-slides');
+
+            $this->template->section = View::factory('app/pages/edit-presentation')
+                ->set('presentaton', $presentaton);
 
         } else {
 
             throw new HTTP_Exception_404;
 
         }
-
-        echo Debug::vars($presentaton->name);
-        echo Debug::vars("editing presentation");
-        exit;
-
 
     }
 
