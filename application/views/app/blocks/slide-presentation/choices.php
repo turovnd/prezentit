@@ -1,4 +1,4 @@
-<section class="presentation__slide presentation__slide-background-image" style="background-image: url(https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800)">
+<section class="presentation__slide presentation__slide-background-image" style="background-image: url(https://animal-id.info/img/no-user.jpg)">
     <div class="background-image--with-opacity"></div>
     <div class="presentation__content slide-question">
         <h1 class="slide-question__title">
@@ -6,57 +6,61 @@
         </h1>
 
         <div class="slide-question__content invisible">
-            <div class="col-xs-2 slide-question__option-wrapper">
+            <div class=" slide-question__option-wrapper">
                 <div class="slide-question__option-score">
-                    15
+                    0
                 </div>
-                <img class="slide-question__option-image" src="https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800" alt="Option Image">
+                <img class="slide-question__option-image" src="https://animal-id.info/img/no-user.jpg" alt="Option Image">
                 <div class="slide-question__option-bar bg-brand"></div>
                 <div class="slide-question__option-content">
                     1234567890 1234567890 1234567890 1234567890 1234567890 12345
                 </div>
             </div>
-            <div class="col-xs-2 slide-question__option-wrapper">
+            <div class=" slide-question__option-wrapper">
                 <div class="slide-question__option-score">
-                    5
+                    2
                 </div>
                 <img class="slide-question__option-image" src="">
                 <div class="slide-question__option-bar bg-brand"></div>
                 <div class="slide-question__option-content">
                     1234567890 1234567890 1234567890 1234567890 1234567890 12345
                 </div>
-            </div><div class="col-xs-2 slide-question__option-wrapper">
+            </div>
+            <div class=" slide-question__option-wrapper">
                 <div class="slide-question__option-score">
-                    1
+                    4
                 </div>
-                <img class="slide-question__option-image" src="https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800" alt="Option Image">
+                <img class="slide-question__option-image" src="https://animal-id.info/img/no-user.jpg" alt="Option Image">
                 <div class="slide-question__option-bar bg-brand"></div>
                 <div class="slide-question__option-content">
                     1234567890 1234567890 1234567890 1234567890 1234567890 12345
                 </div>
-            </div><div class="col-xs-2 slide-question__option-wrapper">
+            </div>
+            <div class=" slide-question__option-wrapper">
                 <div class="slide-question__option-score">
-                    50
+                    3
                 </div>
-                <img class="slide-question__option-image" src="https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800" alt="Option Image">
+                <img class="slide-question__option-image" src="https://animal-id.info/img/no-user.jpg" alt="Option Image">
                 <div class="slide-question__option-bar bg-brand"></div>
                 <div class="slide-question__option-content">
                     1234567890 1234567890 1234567890 1234567890 1234567890 12345
                 </div>
-            </div><div class="col-xs-2 slide-question__option-wrapper">
+            </div>
+            <div class=" slide-question__option-wrapper">
                 <div class="slide-question__option-score">
                     2
                 </div>
-                <img class="slide-question__option-image" src="https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800" alt="Option Image">
+                <img class="slide-question__option-image" src="https://animal-id.info/img/no-user.jpg" alt="Option Image">
                 <div class="slide-question__option-bar bg-brand"></div>
                 <div class="slide-question__option-content">
                     1234567890 1234567890 1234567890 1234567890 1234567890 12345
                 </div>
-            </div><div class="col-xs-2 slide-question__option-wrapper">
+            </div>
+            <div class=" slide-question__option-wrapper">
                 <div class="slide-question__option-score">
                     5
                 </div>
-                <img class="slide-question__option-image" src="https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800" alt="Option Image">
+                <img class="slide-question__option-image" src="https://animal-id.info/img/no-user.jpg" alt="Option Image">
                 <div class="slide-question__option-bar bg-brand"></div>
                 <div class="slide-question__option-content">
                     1234567890 1234567890 1234567890 1234567890 1234567890 12345

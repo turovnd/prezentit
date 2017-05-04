@@ -31,8 +31,8 @@
 <!--                    --><?//= View::factory('app/blocks/slide-type/heading')?>
 <!--                    --><?//= View::factory('app/blocks/slide-type/image')?>
 <!--                    --><?//= View::factory('app/blocks/slide-type/paragraph')?>
-                    <?= View::factory('app/blocks/slide-type/choices')?>
-<!--                    --><?//= View::factory('app/blocks/slide-type/options')?>
+<!--                    --><?//= View::factory('app/blocks/slide-type/choices')?>
+                    <?= View::factory('app/blocks/slide-type/options')?>
                 </div>
 
             </div>

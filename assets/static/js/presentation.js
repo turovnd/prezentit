@@ -34,35 +34,36 @@ let present = function (present) {
     };
 
 
+    /**
+     * Updating Question Slide
+     * - bar height
+     * - img position
+     * - score position
+     * @param element
+     * @private
+     */
     let updateQuestionScore = function (element) {
 
         element.maxScore = getMaxScore(element.question.children);
 
         for( let i = 0; i < element.answers.length; i++ ) {
-            let answer = element.answers[i];
 
-            answer.img.width = parseFloat(answer.img.el.clientWidth / 7);
-
-            let imgHeight = (answer.img.el.getAttribute('src') === '') ? 0 : answer.img.width,
+            let answer = element.answers[i],
+                answerHeight = element.answers[0].el.clientHeight,
+                imgHeight = (answer.img.el.getAttribute('src') === '') ? 0 : answer.img.height,
                 barHeight = parseFloat(40 * answer.score.score / element.maxScore - imgHeight / 2);
+
+            answer.img.height = parseFloat(answer.img.el.clientWidth / (answerHeight / 65));
 
             if (answer.img.el.getAttribute('src') === '') {
                 // no image
-                answer.score.bottom = parseFloat(12 + 40 * answer.score.score / element.maxScore + 1);
+                answer.score.bottom = 13 + barHeight;
                 answer.bar.height = barHeight;
             } else {
                 //with image
                 answer.bar.height = barHeight > 0 ? barHeight : 0;
-                answer.img.bottom = (barHeight < 0 || barHeight + imgHeight < 12) ? 12 : barHeight + 12;
+                answer.img.bottom = barHeight > 0 ? 12 + barHeight : 12;
                 answer.score.bottom = answer.img.bottom + imgHeight;
-
-                if (answer.bar.height === 0) {
-                    answer.img.el.classList.add('hide');
-                    answer.bar.height = barHeight + imgHeight / 2;
-                    answer.score.bottom = parseFloat(12 + 40 * answer.score.score / element.maxScore);
-                } else {
-                    answer.img.el.classList.remove('hide');
-                }
             }
 
             answer.bar.el.style.height = answer.bar.height + "vh";
@@ -88,7 +89,7 @@ let present = function (present) {
         }
         return maxScore
     };
-
+    
     /**
      * Prepare Question on Slide
      * - field slideQuestion array
@@ -106,6 +107,7 @@ let present = function (present) {
             for (let j = 0; j < answers.length; j++) {
 
                 let tempAnswer = {
+                    el: answers[j],
                     score: {
                         el: answers[j].getElementsByClassName('slide-question__option-score')[0],
                         score: parseInt(answers[j].getElementsByClassName('slide-question__option-score')[0].innerHTML),
@@ -113,7 +115,7 @@ let present = function (present) {
                     },
                     img: {
                         el: answers[j].getElementsByClassName('slide-question__option-image')[0],
-                        width: parseFloat(answers[j].getElementsByClassName('slide-question__option-image')[0].clientWidth),
+                        height: parseFloat(answers[j].getElementsByClassName('slide-question__option-image')[0].clientWidth),
                         bottom: 0
 
                     },
@@ -131,6 +133,11 @@ let present = function (present) {
             };
             slideQuestion.push(question);
             updateQuestionScore(question);
+
+            window.matchMedia("(max-width: 992px)").addListener(function() {
+                updateQuestionScore(question);
+            });
+
         }
     };
 
