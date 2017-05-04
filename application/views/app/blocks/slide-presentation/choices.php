@@ -4,9 +4,12 @@
         <h1 class="slide-question__title">
             heading123heading123heading123heading123heading123heading123heading123heading123
         </h1>
-
-        <div class="slide-question__content invisible">
-            <div class=" slide-question__option-wrapper">
+        <div class="slide-question__block">
+            <div class="slide-question__image animated fade__in--up" style="background-image: url(https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800)"></div>
+        </div>
+        <div class="slide-question__block">
+            <div class="slide-question__content animated fade__out--down">
+            <div class="slide-question__option-wrapper">
                 <div class="slide-question__option-score">
                     0
                 </div>
@@ -67,7 +70,16 @@
                 </div>
             </div>
         </div>
+        </div>
+        <div class="slide-question__action animated fade__in">
+            <button role="button" class="btn btn--round btn--scaled btn--brand slide-question__action-btn">
+                <i class="fa fa-angle-down slide-question__action-icon" aria-hidden="true"></i>
+                <span class="slide-question__action-text">Показать результаты</span>
+                <span class="slide-question__action-text hide">Показать изображение</span>
+            </button>
+        </div>
     </div>
+
 
     <div class="presentation__reactions-wrapper">
         <div class="presentation__reaction">

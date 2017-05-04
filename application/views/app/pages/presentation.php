@@ -27,7 +27,7 @@
 <div class="presentation__slides">
 
     <div class="presentation__brand-icon text-brand">
-        Prezentit
+        <?=$GLOBALS['SITE_NAME'];?>
     </div>
 
     <?= View::factory('app/blocks/slide-presentation/heading'); ?>

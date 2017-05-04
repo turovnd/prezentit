@@ -8,6 +8,7 @@ let present = function (present) {
         nextSlideBtn    = null,
         prevSlideBtn    = null,
         progressBar     = null,
+        slideActionBtns = null,
         slideQuestion   = [];
 
 
@@ -19,6 +20,7 @@ let present = function (present) {
         nextSlideBtn    = document.getElementsByClassName('presentation__navigation-btn--right')[0];
         prevSlideBtn    = document.getElementsByClassName('presentation__navigation-btn--left')[0];
         progressBar     = document.getElementsByClassName('presentation__progress-bar')[0];
+        slideActionBtns  = document.getElementsByClassName('slide-question__action-btn');
 
         if (nextSlideBtn) {
             nextSlideBtn.addEventListener('click', toNextSlide);
@@ -26,11 +28,32 @@ let present = function (present) {
         if (prevSlideBtn) {
             prevSlideBtn.addEventListener('click', toPrevSlide);
         }
+        for (let i = 0; i < slideActionBtns.length; i++) {
+            slideActionBtns[i].addEventListener('click', toggleSlideAction);
+        }
+
         prepareSlides_(slides);
         prepareQuestions_(document.getElementsByClassName('slide-question__content'));
 
         document.addEventListener("keydown", keyDownFunction, false);
 
+    };
+
+    /**
+     * Toggle Image and Question Action
+     */
+    let toggleSlideAction = function () {
+        let btn     = this,
+            content = this.parentNode.parentNode.getElementsByClassName('slide-question__content')[0],
+            img     = this.parentNode.parentNode.getElementsByClassName('slide-question__image')[0];
+
+        btn.children[0].classList.toggle('slide-question__action-icon--open');
+        btn.children[1].classList.toggle('hide');
+        btn.children[2].classList.toggle('hide');
+        img.classList.toggle('fade__in--up');
+        img.classList.toggle('fade__out--down');
+        content.classList.toggle('fade__in--up');
+        content.classList.toggle('fade__out--down');
     };
 
 
@@ -49,15 +72,17 @@ let present = function (present) {
         for( let i = 0; i < element.answers.length; i++ ) {
 
             let answer = element.answers[i],
-                answerHeight = element.answers[0].el.clientHeight,
-                imgHeight = (answer.img.el.getAttribute('src') === '') ? 0 : answer.img.height,
-                barHeight = parseFloat(40 * answer.score.score / element.maxScore - imgHeight / 2);
+                answerHeight = element.answers[0].el.clientHeight;
 
             answer.img.height = parseFloat(answer.img.el.clientWidth / (answerHeight / 65));
+
+            let imgHeight = (answer.img.el.getAttribute('src') === '') ? 0 : answer.img.height,
+                barHeight = parseFloat(40 * answer.score.score / element.maxScore - imgHeight / 2);
 
             if (answer.img.el.getAttribute('src') === '') {
                 // no image
                 answer.score.bottom = 13 + barHeight;
+                answer.img.el.classList.add('hide');
                 answer.bar.height = barHeight;
             } else {
                 //with image
@@ -71,7 +96,6 @@ let present = function (present) {
             answer.score.el.style.bottom = answer.score.bottom + "vh";
         }
 
-        element.question.classList.remove('invisible');
     };
 
 
@@ -89,7 +113,7 @@ let present = function (present) {
         }
         return maxScore
     };
-    
+
     /**
      * Prepare Question on Slide
      * - field slideQuestion array

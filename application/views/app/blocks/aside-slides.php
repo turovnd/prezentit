@@ -38,14 +38,6 @@
         <?= View::factory('app/blocks/slide-aside/choices')?>
     </a>
 
-    <a class="aside__item">
-        <span class="aside__item-number">5</span>
-        <span class="aside__item-action">
-            <i class="fa fa-trash aside__item-action-icon text-danger" aria-hidden="true"></i>
-        </span>
-        <?= View::factory('app/blocks/slide-aside/options')?>
-    </a>
-
 </div>
 
 <div class="aside-nav">
