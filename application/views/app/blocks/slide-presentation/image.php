@@ -1,11 +1,9 @@
-<section class="presentation__slide presentation__slide--center">
-    <div class="presentation__content presentation__content--center">
-        <h1 class="presentation__content-heading">
-            heading
+<section class="presentation__slide presentation__slide-background-image" style="background-image: url(https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800)">
+    <div class="slide-image">
+<!--        <div class="slide-image__image" style="background-image: url(https://mentimeter-user-content.imgix.net/question_images%2F236538%2Fgkeueqvf-snyat-ofis-v-chelyabinske.jpg?fit=max&w=1800)"></div>-->
+            <h1 class="slide-image__title slide-image__title--bottom">
+            heading123heading123heading123heading123heading123heading123heading123heading123heading123
         </h1>
-        <h2 class="presentation__content-subheading">
-            subheading
-        </h2>
     </div>
 
     <div class="presentation__reactions-wrapper">

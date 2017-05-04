@@ -1,11 +1,11 @@
 <section class="presentation__slide presentation__slide--center">
     <div class="presentation__content presentation__content--center">
         <h1 class="presentation__content-heading">
-            heading
+            Heading
         </h1>
-        <h2 class="presentation__content-subheading">
-            subheading
-        </h2>
+        <h3 class="presentation__content-text">
+            long text - paragraph
+        </h3>
     </div>
 
     <div class="presentation__reactions-wrapper">
