@@ -5,12 +5,14 @@
 
 <section class="section animated fade__in">
 
-    <div class="presentation-background"></div>
-
-
-    <main class="presentation" style="transform: scale(.5); pointer-events: none">
+    <main class="presentation animated fade__in" style="transform: scale(0.57) translateY(120.125px) translateX(376.238px)">
         <?= View::factory('app/pages/presentation', array('presentaton' => $presentaton)); ?>
+        <div class="presentation__loader">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw presentation__loader-icon text-brand"></i>
+        </div>
     </main>
+
+    <div class="presentation-background"></div>
 
 
     <div class="slide-block col-xs-12">
@@ -36,6 +38,7 @@
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/edit-presentation.js"></script>
 <script>
     function ready() {
         pit.tabs.init({
@@ -43,6 +46,14 @@
             counter: false
         });
         pit.form.init();
+        present.init({
+            aside: false,
+            slideNavigation: true,
+            toggleInstruction: true,
+            slideActions: false,
+            keyboard: false
+        });
+        editPresent.init();
     }
 
     document.addEventListener("DOMContentLoaded", ready);

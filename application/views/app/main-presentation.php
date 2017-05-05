@@ -18,12 +18,18 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/presentation.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-    <script defer type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
 
     <script defer type="text/javascript">
         function ready() {
             pit.collapse.init();
-            present.init();
+            present.init({
+                aside: true,
+                slideNavigation: true,
+                toggleInstruction: true,
+                slideActions: true,
+                keyboard: true
+            });
         }
 
         document.addEventListener("DOMContentLoaded", ready);
@@ -32,8 +38,11 @@
 
 <body>
 
-    <main class="presentation user-select--none animated fade__in">
+    <main class="presentation animated fade__in">
         <?= View::factory('app/pages/presentation', array('presentaton' => $presentaton))?>
+        <div class="presentation__loader">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw presentation__loader-icon text-brand"></i>
+        </div>
     </main>
 
 </body>

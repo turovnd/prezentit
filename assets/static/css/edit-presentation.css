@@ -22,6 +22,12 @@
     z-index: 15;
     transition: left .3s ease;
 }
+@media (max-width: 768px) {
+    .slide-block{
+        position: relative;
+        width: 100%;
+    }
+}
 .tabs__header{
     background: #fdfdfd;
     border-radius: 0;

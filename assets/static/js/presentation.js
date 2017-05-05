@@ -1,6 +1,7 @@
 let present = function (present) {
 
-    let instruction     = null,
+    let asideBtn        = null,
+        instruction     = null,
         fullScreenEl    = null,
         slides          = null,
         slidesHash      = null,
@@ -12,30 +13,43 @@ let present = function (present) {
         slideQuestion   = [];
 
 
-    let prepare_ = function () {
+    let prepare_ = function (options) {
         instruction     = document.getElementById('toggleInstruction');
         fullScreenEl    = document.getElementsByClassName('presentation')[0];
         slides          = document.getElementsByClassName('presentation__slide');
-        slidesHash      = location.pathname;
+        slidesHash      = location.pathname.split('/')[3];
         nextSlideBtn    = document.getElementsByClassName('presentation__navigation-btn--right')[0];
         prevSlideBtn    = document.getElementsByClassName('presentation__navigation-btn--left')[0];
         progressBar     = document.getElementsByClassName('presentation__progress-bar')[0];
-        slideActionBtns  = document.getElementsByClassName('slide-question__action-btn');
-
-        if (nextSlideBtn) {
-            nextSlideBtn.addEventListener('click', toNextSlide);
-        }
-        if (prevSlideBtn) {
-            prevSlideBtn.addEventListener('click', toPrevSlide);
-        }
-        for (let i = 0; i < slideActionBtns.length; i++) {
-            slideActionBtns[i].addEventListener('click', toggleSlideAction);
-        }
+        slideActionBtns = document.getElementsByClassName('slide-question__action-btn');
+        asideBtn        = document.getElementsByClassName('presentation__aside-open')[0];
 
         prepareSlides_(slides);
         prepareQuestions_(document.getElementsByClassName('slide-question__content'));
 
-        document.addEventListener("keydown", keyDownFunction, false);
+        if (asideBtn && ! options.aside) {
+            asideBtn.remove()
+        }
+
+        if (nextSlideBtn && options.slideNavigation) {
+            nextSlideBtn.addEventListener('click', present.toNextSlide);
+        }
+
+        if (prevSlideBtn && options.slideNavigation) {
+            prevSlideBtn.addEventListener('click', present.toPrevSlide);
+        }
+
+        for (let i = 0; i < slideActionBtns.length; i++) {
+            if (options.slideActions) {
+                slideActionBtns[i].addEventListener('click', toggleSlideAction);
+            } else {
+                slideActionBtns[i].remove();
+            }
+        }
+
+        if (options.keyboard) {
+            document.addEventListener("keydown", keyDownFunction, false);
+        }
 
     };
 
@@ -95,7 +109,6 @@ let present = function (present) {
             answer.img.el.style.bottom = answer.img.bottom + "vh";
             answer.score.el.style.bottom = answer.score.bottom + "vh";
         }
-
     };
 
 
@@ -173,19 +186,18 @@ let present = function (present) {
      */
     let prepareSlides_ = function (slides) {
         if (pit.cookies.get('cur_slide') && pit.cookies.get('cur_slide').match(new RegExp(slidesHash))) {
-            curSlide = parseInt(pit.cookies.get('cur_slide').replace(location.pathname, ''));
+            curSlide = parseInt(pit.cookies.get('cur_slide').replace(location.pathname.split('/')[3], ''));
         } else {
             curSlide = 0;
         }
-
-        switchSlides()
+        switchSlides();
     };
 
     /**
      * Switch to Next Slide
      * @private
      */
-    let toNextSlide = function () {
+    present.toNextSlide = function () {
         if (curSlide < slides.length - 1) {
             curSlide++;
             switchSlides()
@@ -196,7 +208,7 @@ let present = function (present) {
      * Switch to Previous Slide
      * @private
      */
-    let toPrevSlide = function () {
+    present.toPrevSlide = function () {
         if (curSlide > 0) {
             curSlide--;
             switchSlides()
@@ -213,7 +225,7 @@ let present = function (present) {
 
         pit.cookies.set({
             name: 'cur_slide',
-            value: location.pathname + "~" + location.pathname + curSlide,
+            value: 'presentation~' + location.pathname.split('/')[3] + curSlide,
             expires: 21600,
             path: '/'
         });
@@ -327,11 +339,11 @@ let present = function (present) {
         let keyCode = e.keyCode;
 
         if (keyCode === 39 || keyCode === 32) {
-            toNextSlide();
+            present.toNextSlide();
             return;
         }
         if (keyCode === 37) {
-            toPrevSlide();
+            present.toPrevSlide();
             return;
         }
         if (keyCode === 81) {
@@ -362,8 +374,12 @@ let present = function (present) {
     };
 
 
-    present.init = function () {
-        prepare_();
+    present.init = function (options) {
+        prepare_(options);
+        setTimeout(function () {
+            document.getElementsByClassName('presentation__loader')[0].remove();
+        },600);
+
     };
 
     return present;
