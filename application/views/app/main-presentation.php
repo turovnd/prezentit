@@ -15,10 +15,10 @@
 
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/presentation.css">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/presentation.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/presentation.js"></script>
 
     <script defer type="text/javascript">
         function ready() {

@@ -11,7 +11,7 @@ function ready() {
         shPres              = document.getElementsByClassName('presentation__share'),
         shPresMobile        = document.getElementsByClassName('presentation__share-mobile'),
         presentations       = [],
-        i, toglebtn, cancelbtn, searchingText, presentation, shownpresent, time, presentID, ajaxData, formData, row, uri;
+        i, searchingText, presentation, shownpresent, time, presentID, ajaxData, formData, row, uri;
 
 
     var td = document.createElement('td');
@@ -36,14 +36,11 @@ function ready() {
      * Open Table Mobile Actions on click
      */
     var openMobileAction = function () {
-        if (event.target.classList.contains('presentations__actions-toggle')) toglebtn = event.target;
-        else toglebtn = event.target.parentNode;
 
-        var arr = toglebtn.parentNode.parentNode.children,
-            len = toglebtn.parentNode.parentNode.children.length - 1;
+        var arr = this.parentNode.parentNode.children,
+            len = this.parentNode.parentNode.children.length - 1;
 
         arr[len].classList.add('presentations__actions-mobile--opened');
-
     };
 
 
@@ -51,10 +48,7 @@ function ready() {
      * Close Table Mobile Actions on click
      */
     var closeMobileAction = function () {
-        if (event.target.classList.contains('presentations__actions-close')) cancelbtn = event.target;
-        else cancelbtn = event.target.parentNode;
-
-        cancelbtn.parentNode.classList.remove('presentations__actions-mobile--opened');
+        this.parentNode.classList.remove('presentations__actions-mobile--opened');
     };
 
 
@@ -62,7 +56,7 @@ function ready() {
      * Search Press
      */
     var searchPres = function () {
-        searchingText = new RegExp(event.target.value.toLowerCase());
+        searchingText = new RegExp(this.value.toLowerCase());
         shownpresent = 0;
 
         for (i = 0; i < presentations.length; i++) {
@@ -147,48 +141,54 @@ function ready() {
      * Delete presentation
      */
     var deletePres = function () {
-        if (event.target.classList.contains('presentation__delete')) {
-            presentID = event.target.dataset.id;
-            row = event.target.parentNode.parentNode;
-        } else {
-            presentID = event.target.parentNode.dataset.id;
-            row = event.target.parentNode.parentNode.parentNode;
-        }
 
-        swal({
-            title: 'Подтверждение удаления',
-            text: "После удаления, у Вас не будет способа восстановить презентацию!",
-            type: 'warning',
-            confirmButtonColor: '#008DA7',
+        presentID = this.dataset.id;
+        row = this.parentNode.parentNode;
+
+        pit.notification.notify({
+            type: 'confirm',
+            message: '<h2>Подтверждение удаления</h2>' +
+                        '<p>После удаления, у Вас не будет способа восстановить презентацию!</p>',
             showCancelButton: true,
-            confirmButtonText: 'Удалить',
-            cancelButtonText: 'Отмена',
-            showLoaderOnConfirm: true,
-        }).then(function () {
+            confirmText: 'Удалить',
+            confirm: deletePresentation_
+        });
+
+        function deletePresentation_() {
+
+            var wrapper = document.getElementsByClassName('notification--confirm')[0];
 
             ajaxData = {
                 url: '/app/presentation/delete/' + presentID,
                 type: 'POST',
                 beforeSend: function () {
-                    //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                    wrapper.classList.add('loadind')
                 },
                 success: function (response) {
-                    console.log(response);
                     response = JSON.parse(response);
+
+                    pit.notification.notify({
+                        type: response.status,
+                        message: response.message
+                    });
 
                     if (response.code === "52") {
                         row.remove();
                         calcNumberRows();
                     }
 
+                    wrapper.classList.remove('loadind')
+
                 },
                 error: function (callbacks) {
-                    console.log(callbacks);
+                    pit.core.log('ajax error occur on deletePresentation','danger','authorization', callbacks);
+                    wrapper.classList.remove('loadind')
                 }
             };
 
             pit.ajax.send(ajaxData);
-        });
+
+        }
 
     };
 
@@ -197,22 +197,17 @@ function ready() {
      * Swal for sharing presentation.
      */
     var sharePres = function () {
-        if (event.target.classList.contains('presentation__share')) {
-            uri = event.target.dataset.uri;
-        } else {
-            uri = event.target.parentNode.dataset.uri;
-        }
+        uri = this.dataset.uri;
 
-        swal({
-            title: 'Поделиться ссылкой',
-            html:
-            '<div class="form-group">' +
-                '<label for="" class="form-group__label">Используй ссылку, чтобы пользователи проголосовали</label>' +
-                '<input type="text" class="form-group__control" value="' + protocol+ '//' + host + '/' + uri + '">' +
-            '</div>',
-            confirmButtonColor: '#008DA7',
-            confirmButtonText: 'Готово!',
+        pit.notification.notify({
+            type: 'confirm',
+            message: '<h2>Поделиться ссылкой</h2>' +
+                        '<div class="form-group">' +
+                            '<label for="" class="form-group__label">Используй ссылку, чтобы пользователи проголосовали</label>' +
+                            '<input type="text" class="form-group__control" value="' + protocol+ '//' + host + '/' + uri + '">' +
+                        '</div>',
         });
+
     };
     
     
