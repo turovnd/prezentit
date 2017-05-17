@@ -1,0 +1,184 @@
+.notifications-block{
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    z-index: 501;
+}
+.notification{
+    position: relative;
+    width: 350px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    color: #212121;
+    margin-bottom: 15px;
+    animation-duration: .4s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: .4s;
+    -webkit-animation-fill-mode: both;
+    z-index: 502;
+}
+.notification--danger{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.notification--success{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.notification--warning{
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.notification--alert{
+
+}
+.notification--prompt,
+.notification--confirm{
+    position: fixed;
+    width: 500px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.notification--small{
+    width: 250px;
+}
+.notification--large{
+    width: 750px;
+}
+@media (max-width: 768px) {
+    .notification--prompt,
+    .notification--confirm {
+        width: 90%;
+    }
+}
+
+.notification__message{
+    font-size: 1em;
+}
+.notification__input{
+
+}
+.notification__confirm-btn,
+.notification__cancel-btn{
+    padding: 8px 12px;
+    cursor: pointer;
+    min-width: 80px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    margin-top: 15px;
+}
+.notification__confirm-btn{
+    background: #008da7;
+    border-color: #1F6E7D;
+    color: #fff;
+}
+.notification__confirm-btn:hover{
+    background: #1F6E7D;
+}
+.notification__cancel-btn{
+    margin-left: 20px;
+    background: #dae0e8;
+    border-color: #cfcfcf;
+    color: inherit;
+}
+.notification__cancel-btn:hover{
+    background: #cfcfcf;
+}
+
+.notification__backdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 500;
+}
+
+.notification--animation-in{
+    -webkit-animation-name: animation-in;
+    animation-name: animation-in;
+}
+.notification--animation-in-down{
+    -webkit-animation-name: animation-in-down;
+    animation-name: animation-in-down;
+}
+.notification--animation-out{
+    -webkit-animation-name: animation-out;
+    animation-name: animation-out;
+}
+.notification--animation-in-up{
+    -webkit-animation-name: animation-in-up;
+    animation-name: animation-in-up;
+}
+
+
+@-webkit-keyframes animation-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes animation-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes animation-out {
+    from { opacity: 1; } to { opacity: 0; }
+}
+@keyframes animation-out {
+    from { opacity: 1; } to { opacity: 0; }
+}
+
+@-webkit-keyframes animation-in-down {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+@keyframes animation-in-down {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@-webkit-keyframes animation-in-up {
+    from { opacity: 1; }
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+}
+@keyframes animation-in-up {
+    from { opacity: 1; }
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+}

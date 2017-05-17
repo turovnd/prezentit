@@ -81,16 +81,24 @@ function ready() {
                 type: 'POST',
                 data: new FormData(signin),
                 beforeSend: function(){
-                    //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                    signin.classList.add('loading');
                 },
                 success: function(response) {
-                    console.log(response);
                     response = JSON.parse(response);
 
-                    window.location.replace(protocol + '//' + host + '/app');
+                    pit.notification.notify({
+                        type: response.status,
+                        message: response.message
+                    });
+
+                    signin.classList.remove('loading');
+
+                    if (parseInt(response.code) === 12)
+                        window.location.replace(protocol + '//' + host + '/app');
                 },
                 error: function(callbacks) {
-                    console.log(callbacks);
+                    pit.core.log('ajax error occur on signin form','danger','authorization',callbacks);
+                    signin.classList.add('loading');
                 }
             };
 
@@ -110,20 +118,25 @@ function ready() {
                 type: 'POST',
                 data: new FormData(signup),
                 beforeSend: function(){
-                    //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                    signup.classList.add('loading');
                 },
                 success: function(response) {
-                    console.log(response );
                     response = JSON.parse(response);
 
-                    if (response.code === "20") {
-                        window.location.replace(protocol + '//' + host + '/app');
-                    } else {
+                    pit.notification.notify({
+                        type: response.status,
+                        message: response.message
+                    });
 
-                    }
+                    signup.classList.remove('loading');
+
+                    if (response.code === "20")
+                        window.location.replace(protocol + '//' + host + '/app');
+
                 },
                 error: function(callbacks) {
-                    console.log(callbacks);
+                    pit.core.log('ajax error occur on signup form','danger','authorization',callbacks);
+                    signup.classList.remove('loading');
                 }
             };
 
@@ -142,20 +155,25 @@ function ready() {
                 type: 'POST',
                 data: new FormData(forget),
                 beforeSend: function(){
-                    //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                    forget.classList.add('loading');
                 },
                 success: function(response) {
-                    console.log(response );
                     response = JSON.parse(response);
 
-                    if (response.code === "62") {
-                        window.location.replace(protocol + '//' + host + '/login');
-                    } else {
+                    pit.notification.notify({
+                        type: response.status,
+                        message: response.message
+                    });
 
-                    }
+                    forget.classList.remove('loading');
+
+                    if (response.code === "62")
+                        window.location.replace(protocol + '//' + host + '/login');
+
                 },
                 error: function(callbacks) {
-                    console.log(callbacks);
+                    pit.core.log('ajax error occur on forget form','danger','authorization',callbacks);
+                    forget.classList.remove('loading');
                 }
             };
 
@@ -176,20 +194,25 @@ function ready() {
                 type: 'POST',
                 data: new FormData(reset),
                 beforeSend: function(){
-                    //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                    reset.classList.add('loading');
                 },
                 success: function(response) {
-                    console.log(response );
                     response = JSON.parse(response);
 
-                    if (response.code === "15") {
-                        window.location.reload();
-                    } else {
+                    pit.notification.notify({
+                        type: response.status,
+                        message: response.message
+                    });
 
-                    }
+                    reset.classList.remove('loading');
+
+                    if (response.code === "15")
+                        window.location.reload();
+
                 },
                 error: function(callbacks) {
-                    console.log(callbacks);
+                    pit.core.log('ajax error occur on reset form','danger','authorization',callbacks);
+                    reset.classList.remove('loading');
                 }
             };
 

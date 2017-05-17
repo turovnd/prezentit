@@ -15,20 +15,25 @@ function ready() {
             type: 'POST',
             data: new FormData(changeProfile),
             beforeSend: function(){
-                //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                changeProfile.classList.add('loading');
             },
             success: function(response) {
-                console.log(response);
                 response = JSON.parse(response);
 
-                if (response.code === "40") {
-                    document.getElementsByClassName('header')[0].getElementsByClassName('header__title')[0].innerHTML = "Профиль - " + document.getElementById('profileName').value;
-                } else {
+                pit.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
 
-                }
+                changeProfile.classList.remove('loading');
+
+                if (parseInt(response.code) === 40)
+                    document.getElementsByClassName('header')[0].getElementsByClassName('header__title')[0].innerHTML = "Профиль - " + document.getElementById('profileName').value;
+
             },
             error: function(callbacks) {
-                console.log(callbacks);
+                pit.core.log('ajax error occur on changeProfile form','danger','authorization',callbacks);
+                changeProfile.classList.remove('loading');
             }
         };
 
@@ -47,20 +52,24 @@ function ready() {
             type: 'POST',
             data: new FormData(changePassword),
             beforeSend: function(){
-                //$('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                changePassword.classList.add('loading');
             },
             success: function(response) {
-                console.log(response);
                 response = JSON.parse(response);
 
-                if (response.code === "44") {
-                    changePassword.reset();
-                } else {
+                pit.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
 
-                }
+                if (response.code === "44")
+                    changePassword.reset();
+
+                changeProfile.classList.remove('loading');
             },
             error: function(callbacks) {
-                console.log(callbacks);
+                pit.core.log('ajax error occur on changePassword form','danger','authorization',callbacks);
+                changePassword.classList.remove('loading');
             }
         };
 

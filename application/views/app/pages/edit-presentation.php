@@ -1,6 +1,6 @@
 <!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>static/css/edit-presentation.css">
-<link rel="stylesheet" href="<?=$assets; ?>static/css/presentation.css">
+<link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/edit-presentation.css">
+<link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/presentation.css">
 
 
 <section class="section animated fade__in">
@@ -37,8 +37,8 @@
 </section>
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>static/js/presentation.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>static/js/edit-presentation.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/presentation.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/edit-presentation.js"></script>
 <script>
     function ready() {
         pit.tabs.init({

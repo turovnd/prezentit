@@ -19,6 +19,7 @@
             pit.aside.init();
             pit.collapse.init();
             pit.parallax.init();
+            pit.notification.createHolder();
         }
 
         document.addEventListener("DOMContentLoaded", ready);
