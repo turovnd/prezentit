@@ -56,7 +56,7 @@
         "camelcase": [2, {
             "properties": "always"
         }],
-        "newline-after-var": [1, "always"],
+        "newline-after-var": [1, "always"]
 
     },
     "globals":{
@@ -65,7 +65,7 @@
         "require": true,
         "window": true,
         "console" : true,
-        "codex": true,
+        "pit": true,
         "VERSION" : true,
         "Promise" : true,
         "MutationObserver": true,

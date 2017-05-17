@@ -9,19 +9,20 @@
 
 require('./modules/css/main');
 
-module.exports = ( function (prezentit) {
+module.exports = ( function (pit) {
 
-    prezentit.core        = require('./modules/core');
-    prezentit.draw        = require('./modules/draw');
-    prezentit.ajax        = require('./modules/js/ajax');
-    prezentit.aside       = require('./modules/js/aside');
-    prezentit.parallax    = require('./modules/js/parallax');
-    prezentit.header      = require('./modules/js/header');
-    prezentit.collapse    = require('./modules/js/collapse');
-    prezentit.cookies     = require('./modules/js/cookies');
-    prezentit.tabs        = require('./modules/js/tabs');
-    prezentit.form        = require('./modules/js/form');
+    pit.core         = require('./modules/core');
+    pit.draw         = require('./modules/draw');
+    pit.ajax         = require('./modules/js/ajax');
+    pit.aside        = require('./modules/js/aside');
+    pit.parallax     = require('./modules/js/parallax');
+    pit.header       = require('./modules/js/header');
+    pit.collapse     = require('./modules/js/collapse');
+    pit.cookies      = require('./modules/js/cookies');
+    pit.tabs         = require('./modules/js/tabs');
+    pit.form         = require('./modules/js/form');
+    pit.notification = require('./modules/js/notification');
 
-    return prezentit;
+    return pit;
 
 })({});

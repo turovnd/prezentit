@@ -23,7 +23,7 @@
         </a>
         <ul id="helpCollapse" class="aside__collapse collapse">
             <li class="aside__collapse-item">
-                <a href="<?=URL::site('how' ); ?>" class="aside__collapse-link">
+                <a href="<?=URL::site('how-to' ); ?>" class="aside__collapse-link">
                     Как использовать
                 </a>
             </li>
