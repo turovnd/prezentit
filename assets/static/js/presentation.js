@@ -200,7 +200,8 @@ let present = function (present) {
     present.toNextSlide = function () {
         if (curSlide < slides.length - 1) {
             curSlide++;
-            switchSlides()
+            switchSlides();
+            pit.core.log("Switch to the next slide",'log','presentation');
         }
     };
 
@@ -211,7 +212,8 @@ let present = function (present) {
     present.toPrevSlide = function () {
         if (curSlide > 0) {
             curSlide--;
-            switchSlides()
+            switchSlides();
+            pit.core.log("Switch to the previous slide",'log','presentation');
         }
     };
 
@@ -268,13 +270,15 @@ let present = function (present) {
         if (fullScreenEl) {
             if (fullScreenEl.dataset.fullscreen === "true") {
                 fullScreenEl.dataset.fullscreen = false;
-                cancelFullScreen()
+                cancelFullScreen();
+                pit.core.log("Close Full Screen",'log','presentation');
             } else {
                 fullScreenEl.dataset.fullscreen = true;
-                launchFullScreen(fullScreenEl)
+                launchFullScreen(fullScreenEl);
+                pit.core.log("Open Full Screen",'log','presentation');
             }
         } else {
-            console.log("Error: full screen button doesn't exist");
+            pit.core.log("Full screen button doesn't exist",'error','presentation');
         }
     };
 
@@ -321,13 +325,15 @@ let present = function (present) {
                     instruction.children[1].removeAttribute('data-height');
                     instruction.click();
                 }
+                pit.core.log("Open instructions",'log','presentation');
 
             } else {
+                pit.core.log("Close instructions",'log','presentation');
                 instruction.click();
             }
 
         } else {
-            console.log("Error: instruction doesn't exist");
+            pit.core.log("Instructions doesn't exist",'error','presentation');
         }
     };
 
@@ -338,35 +344,35 @@ let present = function (present) {
     let keyDownFunction = function (e) {
         let keyCode = e.keyCode;
 
-        if (keyCode === 39 || keyCode === 32) {
+        if (keyCode === pit.core.keys.RIGHT || keyCode === pit.core.keys.SPACE) {
             present.toNextSlide();
             return;
         }
-        if (keyCode === 37) {
+        if (keyCode === pit.core.keys.LEFT) {
             present.toPrevSlide();
             return;
         }
-        if (keyCode === 81) {
+        if (keyCode === pit.core.keys.Q) {
             /**
              * TODO: hide||show Keyboard shortcuts
              */
             return;
         }
-        if (keyCode === 73) {
+        if (keyCode === pit.core.keys.I) {
             present.toggleInstruction();
             return;
         }
-        if (keyCode === 72) {
+        if (keyCode === pit.core.keys.H) {
             /**
              * TODO: hide||show results
              */
             return;
         }
-        if (keyCode === 70) {
+        if (keyCode === pit.core.keys.F) {
             present.toggleFullScreen();
             return;
         }
-        if (keyCode === 67) {
+        if (keyCode === pit.core.keys.C) {
             /**
              * TODO: open||close voting
              */
@@ -375,10 +381,13 @@ let present = function (present) {
 
 
     present.init = function (options) {
+
         prepare_(options);
+
         setTimeout(function () {
             document.getElementsByClassName('presentation__loader')[0].remove();
-        },600);
+            pit.core.log("Plugins loaded",'log','presentation');
+        }, 600);
 
     };
 

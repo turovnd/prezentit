@@ -11,6 +11,8 @@ require('./modules/css/main');
 
 module.exports = ( function (prezentit) {
 
+    prezentit.core        = require('./modules/core');
+    prezentit.draw        = require('./modules/draw');
     prezentit.ajax        = require('./modules/js/ajax');
     prezentit.aside       = require('./modules/js/aside');
     prezentit.parallax    = require('./modules/js/parallax');
