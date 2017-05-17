@@ -41,7 +41,7 @@
 </div>
 
 <div class="aside-nav">
-    <a class="aside-nav__item">
+    <a id="newSlide" role="button" class="aside-nav__item">
         <i class="fa fa-plus aside-nav__item-icon" aria-hidden="true"></i>
         Новый слайд
     </a>

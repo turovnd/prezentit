@@ -1,20 +1,25 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 
-Class Model_Presentation {
+Class Model_Slide {
 
     public $id;
-    public $name;
-    public $uri;
-    public $short_uri;
-    public $owner;
-    public $dt_update;
+    public $type;
+    public $presentation;
+    public $slides_order;
+    public $heading;
+    public $subheading;
+    public $paragraph;
+    public $image;
+    public $image_position;
+    public $reactions;
+    public $question;
+    public $answers;
     public $dt_create;
-    public $is_removed;
 
 
     /**
-     * Model_Presentation constructor.
+     * Model_Slide constructor.
      * get presentation info if data exist
      */
     public function __construct($id = null) {
@@ -29,38 +34,18 @@ Class Model_Presentation {
 
 
     /**
-     * Get presentation by ID
-     * @param $id - presentation ID
-     * @return Model_Presentation
+     * Get Slide
+     * @param $id
+     * @return Model_Slide
      */
     public static function get($id = 0) {
 
-        $select = Dao_Presentations::select()
+        $select = Dao_Slides::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->execute();
 
-        $model = new Model_Presentation();
-
-        return $model->fill_by_row($select);
-
-    }
-
-
-    /**
-     * Get presentations where is_removed == 0
-     * @param $id - presentation ID
-     * @return Model_Presentation
-     */
-    public static function getExisted($id) {
-
-        $select = Dao_Presentations::select()
-            ->where('id', '=', $id)
-            ->where('is_removed', '=', 0)
-            ->limit(1)
-            ->execute();
-
-        $model = new Model_Presentation();
+        $model = new Model_Slide();
 
         return $model->fill_by_row($select);
 
@@ -82,65 +67,50 @@ Class Model_Presentation {
 
 
     /**
-     * Get presentations by field name
+     * Get slide by field name
      * @param $field
      * @param $value
      * @return object
      */
     public static function getByFieldName($field, $value) {
 
-        $select = Dao_Presentations::select()
+        $select = Dao_Slides::select()
             ->where($field, '=', $value)
             ->limit(1)
             ->execute();
 
-        $presentation = new Model_Presentation($select['id']);
-        return $presentation->fill_by_row($select);
+        $slide = new Model_Slide($select['id']);
+        return $slide->fill_by_row($select);
 
     }
 
 
     /**
-     * Saves Presentations to DB
-     * @return Model_Presentation
+     * Saves Slide to DB
+     * @return Model_Slide
      */
      public function save()
      {
-        $this->is_removed = 0;
         $this->dt_create = Date::formatted_time('now');
-        $this->dt_update = Date::formatted_time('now');
 
-        $insert = Dao_Presentations::insert();
+        $insert = Dao_Slides::insert();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $id = $insert->execute();
-
-        Dao_UsersPresentations::insert()
-            ->set('u_id', $this->owner)
-            ->set('p_id', $id)
-            ->execute();
-
-        $present = self::get($id);
-
-        $present->uri = hash('md5', $id . $_SERVER['SALT']);
-        $present->short_uri = hash('adler32', $id . $_SERVER['PRESENTATIONMOBILESALT']);
-        $present->update();
-
-        return $present;
+        return self::get($insert->execute());
      }
 
 
     /**
-     * Updates user data in database
-     * @return Model_Presentation
+     * Update slide in DB
+     * @return Model_Slide
      */
      public function update()
      {
 
-        $insert = Dao_Presentations::update();
+        $insert = Dao_Slides::update();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
@@ -155,18 +125,12 @@ Class Model_Presentation {
 
 
     /**
-     * @param bool $with_slides
+     * Delete Slide
+     * @param bool
      */
-     public function delete($with_slides = false)
+     public function delete()
      {
-        $this->is_removed = 1;
-        $this->update();
-
-
-        /* удалить слайды */
-        //if ($with_slides) {
-        //}
-
+        $this->delete();
      }
 
 
@@ -185,7 +149,7 @@ Class Model_Presentation {
 
         if ($ids) {
             foreach ($ids as $id => $value) {
-                $present = Model_Presentation::getExisted($id);
+                $present = Model_Slide::getExisted($id);
 
                 if ($present->id != NULL) {
                     array_push($presentations, $present);

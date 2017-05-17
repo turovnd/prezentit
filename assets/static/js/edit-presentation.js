@@ -1,13 +1,24 @@
 let editPresent = function (editPresent) {
 
-    let presentation = null;
+    let present = null,
+        newSlideBtn = null;
 
     let prepare_ = function () {
-        presentation = document.getElementsByClassName('presentation')[0];
+        present = document.getElementsByClassName('present')[0];
+        newSlideBtn = document.getElementById('newSlide');
+
+        if (newSlideBtn)
+            newSlideBtn.addEventListener('click', openNewSlideForm_);
 
         transformPresentation();
         window.addEventListener('resize', transformPresentation);
     };
+
+
+    let openNewSlideForm_ = function () {
+        
+    };
+
 
 
     /**
@@ -20,13 +31,14 @@ let editPresent = function (editPresent) {
             offsetT = 77,
             scale   = winW > 768 ? (winW - 590) / winW : (winW - 80) / winW;
 
-        presentation.style.height = winW < 768 ? (winW - 80) * 3 /4 + "px" : '';
-        presentation.style.transform = "scale(" + scale + ") translateY(" + offsetT / scale +"px) translateX(" + offsetL / scale + "px)";
+        present.style.height = winW < 768 ? (winW - 80) * 3 /4 + "px" : '';
+        present.style.transform = "scale(" + scale + ") translateY(" + offsetT / scale +"px) translateX(" + offsetL / scale + "px)";
     };
 
 
     editPresent.init = function () {
         prepare_();
+        pit.core.log("Module loaded",'log','edit-present');
     };
 
     return editPresent;

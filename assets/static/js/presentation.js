@@ -386,7 +386,7 @@ let present = function (present) {
 
         setTimeout(function () {
             document.getElementsByClassName('presentation__loader')[0].remove();
-            pit.core.log("Plugins loaded",'log','presentation');
+            pit.core.log("Module loaded",'log','presentation');
         }, 600);
 
     };

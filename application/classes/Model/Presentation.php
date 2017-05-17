@@ -134,7 +134,7 @@ Class Model_Presentation {
 
 
     /**
-     * Updates user data in database
+     * Update presentation in DB
      * @return Model_Presentation
      */
      public function update()
@@ -163,15 +163,15 @@ Class Model_Presentation {
         $this->update();
 
 
-        /* удалить слайды */
-        //if ($with_slides) {
-        //}
+        /**
+         * TODO удалить слайды
+         */
 
      }
 
 
     /**
-     * Get all user which have access to presentation
+     * Get all presentation for user
      * @param $id - user id
      * @return array of Presentations
      */
