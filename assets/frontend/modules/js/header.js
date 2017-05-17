@@ -20,7 +20,7 @@ module.exports = (function (header) {
 
             window.onscroll = function () {
 
-                changeHeaderBlockClass();
+                changeHeaderBlockClass_();
 
             };
 
@@ -36,9 +36,10 @@ module.exports = (function (header) {
 
 
     /**
-     * chane header class in Welcome module
+     * Chane header class in Welcome module
+     * @private
      */
-    var changeHeaderBlockClass = function () {
+    function changeHeaderBlockClass_() {
 
         if ( window.scrollY > 5 ) {
 
@@ -52,7 +53,7 @@ module.exports = (function (header) {
 
         }
 
-    };
+    }
 
 
     return header;

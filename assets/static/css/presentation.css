@@ -2,10 +2,28 @@ body{
     height:100%;
 }
 .presentation{
+    user-select: none;
+    cursor: default;
     overflow: hidden;
     background-color: #FFF;
     box-shadow: 0 0 0 2px #c9c9c9;
     transition: all .2s ease;
+    perspective: 800px;
+    transform-origin: left top;
+    transform: scale(1);
+}
+.presentation__loader{
+    display: flex;
+    position: absolute;
+    top:0;;
+    left:0;
+    right:0;
+    bottom: 0;
+    z-index: 25;
+    background: white;
+}
+.presentation__loader-icon{
+    margin: auto;
 }
 .presentation__header-wrapper{
     position: relative;
@@ -380,6 +398,7 @@ body{
 .slide-question__title{
     width: 90%;
     padding: 1.5vh 0 0 15px ;
+    margin: 2.7vmin 0;
     font-size: 3.2vmin;
     white-space: nowrap;
     overflow: hidden;
