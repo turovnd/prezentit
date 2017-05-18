@@ -1,10 +1,35 @@
 let editPresent = function (editPresent) {
 
-    let present = null,
-        newSlideBtn = null;
+    let present                  = null,
+        PresentName              = null,
+        editPresentNameBtn       = null,
+        editPresentNameFrom      = null,
+        editPresentNameInput     = null,
+        editPresentNameBtnSubmit = null,
+        newSlideBtn              = null;
+
+    /**
+     * Prepare Heading For Editing Presentation Name
+     * @private
+     */
+    let prepareHeader_ = function () {
+        PresentName = document.getElementById('PresentName');
+        editPresentNameBtn = document.getElementById('editPresentNameBtn');
+        editPresentNameFrom = document.getElementById('editPresentNameFrom');
+        editPresentNameInput = document.getElementById('editPresentNameInput');
+        editPresentNameBtnSubmit = document.getElementById('editPresentNameBtnSubmit');
+
+        if (editPresentNameBtnSubmit)
+            editPresentNameBtnSubmit.addEventListener('click', saveTitle_);
+
+        if(editPresentNameBtn)
+            editPresentNameBtn.addEventListener('click', editTitle_);
+    };
+    
 
     let prepare_ = function () {
-        present = document.getElementsByClassName('present')[0];
+
+        present = document.getElementsByClassName('presentation')[0];
         newSlideBtn = document.getElementById('newSlide');
 
         if (newSlideBtn)
@@ -13,7 +38,7 @@ let editPresent = function (editPresent) {
         transformPresentation();
         window.addEventListener('resize', transformPresentation);
     };
-
+    
 
     let openNewSlideForm_ = function () {
         
@@ -36,7 +61,49 @@ let editPresent = function (editPresent) {
     };
 
 
+    /**
+     * Toggle Editing Area for Editing Presentation Name
+     * @private
+     */
+    function toggleTitle_() {
+        PresentName.classList.toggle('hide');
+        editPresentNameBtn.classList.toggle('hide');
+        editPresentNameFrom.classList.toggle('hide');
+    }
+
+
+    /**
+     * Save Presentation Name -> send to DB
+     * @private
+     */
+    function saveTitle_() {
+        toggleTitle_();
+
+        PresentName.innerHTML = editPresentNameInput.value;
+        document.getElementsByTagName('title')[0].innerHTML = editPresentNameInput.value + " | Prezentit";
+
+        /**
+         * TODO update name via AJAX
+         * editPresentNameInput.value
+         */
+
+    }
+
+
+    /**
+     * Edit Presentation Name -> open form for editing
+     * @private
+     */
+    function editTitle_() {
+        toggleTitle_();
+        editPresentNameInput.value = PresentName.innerHTML;
+        editPresentNameInput.focus();
+    }
+    
+
+
     editPresent.init = function () {
+        prepareHeader_();
         prepare_();
         pit.core.log("Module loaded",'log','edit-present');
     };

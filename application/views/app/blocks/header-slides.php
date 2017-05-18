@@ -1,6 +1,3 @@
-<!-- =============== SECTION STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>static/css/header-slides.css">
-
 <a href="<?=URL::site('/app'); ?>" class="header-app__brand fl_l">
     <?=$_SERVER['SITE_NAME'];?>
 </a>
@@ -49,6 +46,3 @@
 
     </div>
 </div>
-
-<!-- =============== SECTION STYLES ===============-->
-<script type="text/javascript" src="<?=$assets; ?>static/js/header-slides.js"></script>
