@@ -24,7 +24,8 @@ module.exports = (function (aside) {
         aside_ = document.getElementsByClassName('aside')[0];
 
         backdrop_ = document.getElementsByClassName('backdrop')[0];
-        backdrop_.addEventListener('click', closeMobileMenu, false);
+        if (backdrop_)
+            backdrop_.addEventListener('click', closeMobileMenu, false);
 
         asideLinks = document.getElementsByClassName('aside__link');
         asideCollapseLinks = document.getElementsByClassName('aside__collapse-link');

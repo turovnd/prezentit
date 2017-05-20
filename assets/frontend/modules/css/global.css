@@ -128,6 +128,7 @@ body{
     user-select: none;
 }
 .loading:before {
+    z-index: 8;
     content: "";
     position: absolute;
     top: 0;
@@ -138,6 +139,7 @@ body{
     opacity: .6;
 }
 .loading:after {
+    z-index: 9;
     content: "";
     height: 40px;
     width: 40px;
@@ -153,6 +155,15 @@ body{
 }
 @-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 @keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+
+.m-100{ margin: 100px; }
+.m-50{ margin: 50px; }
+.m-30{ margin: 30px; }
+.m-20{ margin: 20px; }
+.m-15{ margin: 15px; }
+.m-10{ margin: 10px; }
+.m-5{ margin: 5px; }
+.m-0{ margin: 0; }
 
 .m-t-100{ margin-top: 100px; }
 .m-t-50{ margin-top: 50px; }
@@ -191,6 +202,14 @@ body{
 .m-b-0{ margin-bottom: 0; }
 
 
+.p-100{ padding: 100px; }
+.p-50{ padding: 50px; }
+.p-30{ padding: 30px; }
+.p-20{ padding: 20px; }
+.p-15{ padding: 15px; }
+.p-10{ padding: 10px; }
+.p-5{ padding: 5px; }
+.p-0{ padding: 0; }
 
 .p-t-100{ padding-top: 100px; }
 .p-t-50{ padding-top: 50px; }

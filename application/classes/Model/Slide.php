@@ -4,17 +4,10 @@
 Class Model_Slide {
 
     public $id;
-    public $type;
+    public $content_id;
+    public $type;           //1 - heading, 2 - image, 3 - paragraph, 4 - choices
     public $presentation;
-    public $slides_order;
-    public $heading;
-    public $subheading;
-    public $paragraph;
-    public $image;
-    public $image_position;
-    public $reactions;
-    public $question;
-    public $answers;
+    public $slides_order = "[]";
     public $dt_create;
 
 
@@ -28,8 +21,6 @@ Class Model_Slide {
             $this->get($id);
         }
 
-        return false;
-
     }
 
 
@@ -38,16 +29,14 @@ Class Model_Slide {
      * @param $id
      * @return Model_Slide
      */
-    public static function get($id = 0) {
+    public function get($id = 0) {
 
         $select = Dao_Slides::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->execute();
 
-        $model = new Model_Slide();
-
-        return $model->fill_by_row($select);
+        return $this->fill_by_row($select);
 
     }
 
@@ -70,7 +59,7 @@ Class Model_Slide {
      * Get slide by field name
      * @param $field
      * @param $value
-     * @return object
+     * @return Model_Slide
      */
     public static function getByFieldName($field, $value) {
 
@@ -125,13 +114,21 @@ Class Model_Slide {
 
 
     /**
-     * Delete Slide
-     * @param bool
+     * Delete
+     * @param null $id
+     * @return $bool
      */
-     public function delete()
-     {
-        $this->delete();
-     }
+    public static function delete($id = null)
+    {
+        if (!$id) return false;
+
+        $delete = Dao_Slides::delete()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute();
+
+        return $delete;
+    }
 
 
     /**
@@ -158,6 +155,50 @@ Class Model_Slide {
         }
 
         return $presentations;
+    }
+
+    public static function getByPresentationId($id)
+    {
+        $db_selection = Dao_Slides::select()
+            ->where('presentation', '=', $id)
+            ->execute();
+
+        $slides = array();
+
+        if ($db_selection ) {
+            foreach ($db_selection as $key => $slide) {
+
+                $slides[$key] = new Model_Slide($slide["id"]);
+
+                switch ($slide["type"]) {
+
+                    case 1:
+                        $slides[$key]->view = "heading";
+                        $slides[$key]->content = new Model_Slideheading($slide["content_id"]);
+                        break;
+
+                    case 2:
+                        $slides[$key]->view = "image";
+                        $slides[$key]->content = new Model_Slideimage($slide["content_id"]);
+                        break;
+
+                    case 3:
+                        $slides[$key]->view = "paragraph";
+                        $slides[$key]->content = new Model_Slideparagraph($slide["content_id"]);
+                        break;
+
+                    case 4:
+                        $slides[$key]->view = "choices";
+                        $slides[$key]->content = new Model_Slidechoices($slide["content_id"]);
+                        break;
+
+                }
+
+            }
+
+        }
+
+        return $slides;
     }
 
 }

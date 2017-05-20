@@ -3,7 +3,7 @@
 /**
  * Class Controller_App_Index
  *
- * @copyright presentit
+ * @copyright prezentit
  * @author Nikolai Turov
  * @version 0.0.0
  */
@@ -83,11 +83,13 @@ class Controller_App_Index extends Dispatch
 
         if ( $presentaton->id ) {
 
+            $slides = Model_Slide::getByPresentationId($presentaton->id);
+
             $this->template->title = $presentaton->name;
 
             $this->template->header = View::factory('app/blocks/header-slides', array('presentaton' => $presentaton));
 
-            $this->template->aside = View::factory('app/blocks/aside-slides');
+            $this->template->aside = View::factory('app/blocks/aside-slides', array('slides' => $slides));
 
             $this->template->section = View::factory('app/pages/edit-presentation')
                 ->set('presentaton', $presentaton);

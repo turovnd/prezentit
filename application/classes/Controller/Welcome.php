@@ -3,7 +3,7 @@
 /**
  * Class Controller_Welcome
  *
- * @copyright presentit
+ * @copyright prezentit
  * @author Nikolai Turov
  * @version 0.0.0
  */

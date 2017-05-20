@@ -271,11 +271,9 @@ let present = function (present) {
             if (fullScreenEl.dataset.fullscreen === "true") {
                 fullScreenEl.dataset.fullscreen = false;
                 cancelFullScreen();
-                pit.core.log("Close Full Screen",'log','presentation');
             } else {
                 fullScreenEl.dataset.fullscreen = true;
                 launchFullScreen(fullScreenEl);
-                pit.core.log("Open Full Screen",'log','presentation');
             }
         } else {
             pit.core.log("Full screen button doesn't exist",'error','presentation');
@@ -325,10 +323,8 @@ let present = function (present) {
                     instruction.children[1].removeAttribute('data-height');
                     instruction.click();
                 }
-                pit.core.log("Open instructions",'log','presentation');
 
             } else {
-                pit.core.log("Close instructions",'log','presentation');
                 instruction.click();
             }
 

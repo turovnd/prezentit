@@ -20,5 +20,9 @@ class Model_Response_Presentation extends Model_Response_Abstract
         'message' => 'Success deleting'
     );
 
-
+    protected $_PRESENTATION_ID_REQUIRE_ERROR = array (
+        'type' => 'create_slides',
+        'code' => '53',
+        'message' => 'Presentation id is require'
+    );
 }

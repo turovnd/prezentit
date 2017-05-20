@@ -21,7 +21,9 @@
 </div>
 
 <div id="toggleInstruction" class="presentation__header-wrapper" data-toggle="collapse" data-area="instruction" data-opened="false" onclick="document.getElementById('instruction').removeAttribute('data-height')">
+
     <?= View::factory('app/blocks/header-presentation'); ?>
+
 </div>
 
 <div class="presentation__slides">

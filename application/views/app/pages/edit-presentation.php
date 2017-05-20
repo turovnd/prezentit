@@ -34,6 +34,8 @@
         </div>
     </div>
 
+    <input type="hidden" id="presentation_id" value="<?= $presentaton->id; ?>">
+
 </section>
 
 <!-- =============== PAGE SCRIPTS ===============-->
@@ -48,7 +50,7 @@
         pit.form.init();
         present.init({
             aside: false,
-            slideNavigation: true,
+            slideNavigation: false,
             toggleInstruction: true,
             slideActions: false,
             keyboard: false

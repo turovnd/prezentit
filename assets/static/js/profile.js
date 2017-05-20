@@ -65,7 +65,7 @@ function ready() {
                 if (response.code === "44")
                     changePassword.reset();
 
-                changeProfile.classList.remove('loading');
+                changePassword.classList.remove('loading');
             },
             error: function(callbacks) {
                 pit.core.log('ajax error occur on changePassword form','danger','authorization',callbacks);

@@ -47,6 +47,7 @@ module.exports = (function (notification) {
      *      size             - width of notification block (small || large)
      *      message          - notification message
      *      showCancelButton - show Cancel button (true/false)
+     *      validation       - true || false - customer validation
      *      confirmText      - confirm button text (default - 'Ok')
      *      cancelText       - cancel button text (default - 'Cancel'). Only for confirm and prompt types
      *      confirm          - function-handler for ok button click
@@ -64,12 +65,14 @@ module.exports = (function (notification) {
             type          = null,
             confirm       = null,
             inputField    = null,
-            backdrop      = null;
+            backdrop      = null,
+            validation    = null;
 
 
         var confirmHandler = function () {
 
-            close();
+            if (!validation)
+                close();
 
             if (typeof confirm !== 'function' ) {
 
@@ -172,6 +175,7 @@ module.exports = (function (notification) {
 
             notifyWrapper = wrapper;
             type = settings.type;
+            validation = settings.validation;
             confirm = settings.confirm;
             cancel = settings.cancel;
             inputField = input;
