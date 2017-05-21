@@ -25,4 +25,5 @@ class Model_Response_Presentation extends Model_Response_Abstract
         'code' => '53',
         'message' => 'Presentation id is require'
     );
+
 }

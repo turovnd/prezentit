@@ -183,7 +183,7 @@ class Dispatch extends Controller_Template
         $secret = Cookie::get('secret');
         $hash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
 
-        if ($redis->get('presentit:sessions:secrets:' . $hash) && $hash == $secret) {
+        if ($redis->get('prezentit:sessions:secrets:' . $hash) && $hash == $secret) {
 
             // Создаем новую сессию
             $auth = new Model_Auth();
@@ -192,7 +192,7 @@ class Dispatch extends Controller_Template
             $sid = $session->id();
             $uid = $session->get('uid');
 
-            $redis->delete('presentit:sessions:secrets:' . $hash);
+            $redis->delete('prezentit:sessions:secrets:' . $hash);
 
             // генерируем новый хэш c новый session id
             $newHash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
@@ -201,7 +201,7 @@ class Dispatch extends Controller_Template
             Cookie::set('secret', $newHash, Date::DAY);
 
             // сохраняем в редис
-            $redis->set('presentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+            $redis->set('prezentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
 
         } else {
             return false;
