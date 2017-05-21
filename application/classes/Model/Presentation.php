@@ -3,7 +3,13 @@
 
 Class Model_Presentation {
 
+    /** Min and Max random value as presentation code */
+    const MIN_RAND_VALUE = 100000;
+    const MAX_RAND_VALUE = 999999;
+    const EVENTCODE_KEY  = 'prezentit:presentations:codes';
+
     public $id;
+    public $code;
     public $name;
     public $uri;
     public $short_uri;
@@ -153,21 +159,22 @@ Class Model_Presentation {
         return self::get($this->id);
      }
 
-
     /**
-     * @param bool $with_slides
+     * Delete
+     * @param null $id
+     * @return $bool
      */
-     public function delete($with_slides = false)
-     {
-        $this->is_removed = 1;
-        $this->update();
+    public static function delete($id = null)
+    {
+        if (!$id) return false;
 
+        $delete = Dao_Presentations::delete()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute();
 
-        /**
-         * TODO удалить слайды
-         */
-
-     }
+        return $delete;
+    }
 
 
     /**
@@ -194,6 +201,40 @@ Class Model_Presentation {
         }
 
         return $presentations;
+    }
+
+
+    /**
+     * Generate code for seeing presentation
+     * @param $id_event
+     * @return int
+     */
+    public static function generateCode($id_event) {
+
+        $redis = Dispatch::redisInstance();
+        $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
+
+        /** try until we find */
+        while ( $redis->hExists(self::EVENTCODE_KEY, $generatedCode) ) {
+            $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
+        }
+
+        $redis->hset(self::EVENTCODE_KEY, $generatedCode, $id_event);
+
+        return $generatedCode;
+
+    }
+
+    /**
+     * Get presentation by code
+     * @param $code
+     * @return string
+     */
+    public static function getByCode($code) {
+
+        $redis = Dispatch::redisInstance();
+        return $redis->hget(self::EVENTCODE_KEY, $code);
+
     }
 
 }

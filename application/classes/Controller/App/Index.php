@@ -66,6 +66,7 @@ class Controller_App_Index extends Dispatch
 
         if ( $presentaton->id ) {
 
+            $presentaton->slides = Model_Slide::getByPresentationId($presentaton->id);
             $this->template->presentaton = $presentaton;
 
         } else {
@@ -87,12 +88,15 @@ class Controller_App_Index extends Dispatch
 
             $this->template->title = $presentaton->name;
 
-            $this->template->header = View::factory('app/blocks/header-slides', array('presentaton' => $presentaton));
+            $this->template->header = View::factory('app/blocks/header-slides')
+                ->set('presentaton', $presentaton);
 
-            $this->template->aside = View::factory('app/blocks/aside-slides', array('slides' => $slides));
+            $this->template->aside = View::factory('app/blocks/aside-slides')
+                ->set('slides', $slides);
 
             $this->template->section = View::factory('app/pages/edit-presentation')
-                ->set('presentaton', $presentaton);
+                ->set('presentaton', $presentaton)
+                ->set('slides', $slides);
 
         } else {
 

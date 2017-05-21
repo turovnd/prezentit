@@ -33,13 +33,16 @@ class Controller_App_Ajax extends Ajax
         }
 
         $presentation = new Model_Presentation();
-
         $presentation->name     = $name;
         $presentation->owner    = $this->session->get('uid');
 
-        $result = $presentation->save();
+        $presentation = $presentation->save();
 
-        $response = new Model_Response_Presentation('PRESENTATION_CREATE_SUCCESS', 'success', array('uri' => $result->uri));
+        $presentation->code     = Model_Presentation::generateCode($presentation->id);
+
+        $presentation->update();
+
+        $response = new Model_Response_Presentation('PRESENTATION_CREATE_SUCCESS', 'success', array('uri' => $presentation->uri));
         $this->response->body(@json_encode($response->get_response()));
 
     }
@@ -50,11 +53,36 @@ class Controller_App_Ajax extends Ajax
      */
     public function action_delete()
     {
-        $id = $this->request->param('id');
+        $id = Arr::get($_POST, 'id');
 
-        $presentation = Model_Presentation::get($id);
+        $slides = Model_Slide::getByPresentationId($id);
 
-        $presentation->delete(true);
+        foreach ($slides as $slide) {
+
+            switch ($slide->type) {
+
+                case 1:
+                    Model_Slideheading::delete($slide->content_id);
+                    break;
+
+                case 2:
+                    Model_Slideimage::delete($slide->content_id);
+                    break;
+
+                case 3:
+                    Model_Slideparagraph::delete($slide->content_id);
+                    break;
+
+                case 4:
+                    Model_Slidechoices::delete($slide->content_id);
+                    break;
+            }
+
+            Model_Slide::delete($slide->id);
+
+        }
+
+        Model_Presentation::delete($id);
 
         $response = new Model_Response_Presentation('PRESENTATION_DELETE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
