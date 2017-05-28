@@ -190,7 +190,7 @@ let present = function (present) {
         } else {
             curSlide = 0;
         }
-        switchSlides();
+        //switchSlides();
     };
 
     /**

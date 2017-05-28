@@ -13,36 +13,33 @@
     </main>
 
     <div class="presentation-background"></div>
+    
+    <div class="config">
 
+        <ul class="config__header">
+            <li class="config__btn">
+                Содержание
+            </li>
+            <li class="fl_r config__status">
+                <span class="config__status-icon">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <i class="fa fa-check"></i>
+                    <i class="fa fa-close"></i>
+                </span>
+                <span class="config__status-text">Сохранено</span>
+            </li>
+        </ul>
 
-    <div class="slide-block col-xs-12">
-        <div id="slide-block__1">
-            <ul class="tabs__header">
-                <li class="tabs__btn tabs__btn--active" data-toggle="tabs" data-block="slideContent">
-                    Содержание
-                </li>
-                <li class="fl_r update-status">
-                    <span class="fl_l update-status__icon">
-                        <i class="fa fa-spinner fa-pulse"></i>
-                        <i class="fa fa-check"></i>
-                        <i class="fa fa-close"></i>
-                    </span>
-                    <span class="fl_l update-status__text">Сохранено</span>
-                </li>
-            </ul>
-            <div class="tabs__content fl_l">
-                <div id="slideContent" class="tabs__block tabs__block--active">
+        <ul id="configContent" class="config__content">
 
-                    <? foreach ($slides as $slide) : ?>
+            <? foreach ($slides as $slide) : ?>
 
-                        <?= View::factory('app/blocks/slide-type/' . $slide->view, array('slide' => $slide->content))?>
+                <?= View::factory('app/blocks/slide-type/' . $slide->view, array('slide' => $slide->content))?>
 
-                    <? endforeach; ?>
+            <? endforeach; ?>
 
-                </div>
+        </ul>
 
-            </div>
-        </div>
     </div>
 
     <input type="hidden" id="presentation_id" value="<?= $presentaton->id; ?>">

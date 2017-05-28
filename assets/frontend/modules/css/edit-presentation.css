@@ -192,7 +192,7 @@
     padding: 0;
     background: #EEEEEE;
 }
-.slide-block{
+.config{
     position: fixed;
     margin-top: 57px;
     top: 0;
@@ -200,27 +200,82 @@
     bottom: 0;
     width: 350px;
     background: #fdfdfd;
-    padding-bottom: 50px;
+    padding: 0 15px 20px;
     border-left: 1px solid #cfcfcf;
     overflow-y: auto;
     z-index: 15;
     transition: left .3s ease;
 }
+.config__header{
+    position: relative;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+    float: left;
+    background: #fdfdfd;
+    padding: 10px 10px 0;
+}
+.config__btn{
+    display: block;
+    padding: 10px 6px;
+    margin: 0 8px -1px;
+    border-bottom: 2px solid #008da7;
+    outline: none;
+    float: left;
+    cursor: pointer;
+}
+
+.config__status{
+    margin: 9.5px 0;
+    font-size: .95em;
+}
+.config__status-icon{
+    padding: 3px;
+    font-size: .8em;
+    margin-right: 5px;
+    text-align: center;
+    float: left;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #FFF;
+    background: #7EE194;
+}
+.config__status-icon .fa{
+    display: none;
+    padding: 1px;
+}
+.config__status--updating .config__status-icon{
+    color: #413a41;
+    text-shadow: 0;
+    background: inherit;
+}
+.config__status--error .config__status-icon{
+    background: #ff0000;
+}
+
+.config__status .fa-check,
+.config__status--updating .config__status-icon .fa-spinner,
+.config__status--error .config__status-icon .fa-close{
+    display: block;
+}
+.config__status--updating .config__status-icon .fa-check,
+.config__status--error .config__status-icon .fa-check{
+    display: none;
+}
+.config__content{
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+}
+
 @media (max-width: 768px) {
-    .slide-block{
+    .config{
         position: relative;
         width: 100%;
     }
 }
-.tabs__header{
-    background: #fdfdfd;
-    border-radius: 0;
-    border-right: 0;
-    padding-top: 10px;
-}
-.tabs__btn{
-    padding: 10px 6px;
-}
+
+
 .reaction-tooltip-icon{
     color: #a0a0a0;
 }
@@ -325,43 +380,5 @@
 
 .new-slide__block--selected .new-slide__name,
 .new-slide__block--selected .new-slide__icon{
-    display: none;
-}
-
-.update-status{
-    margin: 8.5px 0;
-    font-size: .95em;
-}
-.update-status__icon{
-    padding: 3px;
-    font-size: .8em;
-    margin-right: 5px;
-    text-align: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    color: #FFF;
-    background: #7EE194;
-}
-.update-status__icon .fa{
-    display: none;
-    padding: 1px;
-}
-.update-status--updating .update-status__icon{
-    color: #413a41;
-    text-shadow: 0;
-    background: inherit;
-}
-.update-status--error .update-status__icon{
-    background: #ff0000;
-}
-
-.update-status .fa-check,
-.update-status--updating .update-status__icon .fa-spinner,
-.update-status--error .update-status__icon .fa-close{
-    display: block;
-}
-.update-status--updating .update-status__icon .fa-check,
-.update-status--error .update-status__icon .fa-check{
     display: none;
 }

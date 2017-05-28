@@ -16,6 +16,8 @@ let editPresent = function (editPresent) {
         deleteSlideModal         = null,
         deleted_id               = null,
         slides_order             = null,
+        slidesHash               = null,
+        curSlideId               = null,
         updateStatus             = null;
 
 
@@ -102,8 +104,9 @@ let editPresent = function (editPresent) {
         present         = document.getElementsByClassName('presentation')[0];
         newSlideBtn     = document.getElementById('newSlide');
         presentationId  = document.getElementById('presentation_id').value;
-        slides_order    = document.getElementById('slides_order').value.split(',');
+        slides_order    = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
         updateStatus    = document.getElementsByClassName('update-status')[0];
+        slidesHash      = location.pathname.split('/')[3];
 
         if (newSlideBtn)
             newSlideBtn.addEventListener('click', openNewSlideForm_);
@@ -119,16 +122,37 @@ let editPresent = function (editPresent) {
 
     let prepareAside_ = function () {
         let asideSelectBtns = document.getElementsByClassName('js-select-slide'),
-            asideDeleteBtns = document.getElementsByClassName('js-delete-slide');
+            asideDeleteBtns = document.getElementsByClassName('js-delete-slide'),
+            existCurSlideId = false;
 
-        for ( let i = 0; i < asideSelectBtns.length; i++) {
-            asideSelectBtns[i].addEventListener('click', selectSlide_);
-            asideDeleteBtns[i].addEventListener('click', openDeleteSlide_);
+        if (pit.cookies.get('cur_slide') && pit.cookies.get('cur_slide').match(new RegExp(slidesHash))) {
+            curSlideId = parseInt(pit.cookies.get('cur_slide').replace(location.pathname.split('/')[3], ''));
         }
 
-        /**
-         * TODO get from cookie current slide and set class 'aside__item--active'
-         */
+        for ( let i = 0; i < asideSelectBtns.length; i++) {
+            asideSelectBtns[i].addEventListener('click', switchSlide_);
+            asideDeleteBtns[i].addEventListener('click', openDeleteSlide_);
+
+            if (asideSelectBtns[i].parentNode.id === 'aside_' + curSlideId)
+                existCurSlideId = true;
+        }
+
+
+        if (asideSelectBtns.length > 0) {
+
+            if (!existCurSlideId) {
+                curSlideId = asideSelectBtns[0].parentNode.id.split('_')[1];
+                pit.cookies.set({
+                    name: 'cur_slide',
+                    value: 'presentation~' + location.pathname.split('/')[3] + curSlideId,
+                    expires: 21600,
+                    path: '/'
+                });
+            }
+
+            selectSlide_(curSlideId);
+        }
+
     };
 
 
@@ -304,6 +328,8 @@ let editPresent = function (editPresent) {
 
                 changeOrder_('add', response.slideId);
 
+                selectSlide_(response.slideId);
+
                 pit.core.log('New slide with type=' + type + ' has been created', '', coreLogPrefix);
                 newSlideModal.close();
                 newSlideModal = null;
@@ -320,16 +346,35 @@ let editPresent = function (editPresent) {
 
 
     /**
-     * Select Slide On Click
+     * Switch slide - get new ID of selected slide
      * @private
      */
-    let selectSlide_ = function () {
-        let selected_id = this.id === "" ? this.parentNode.id : this.id;
+    let switchSlide_ = function () {
+
+        curSlideId = this.parentNode.id.split('_')[1];
+
+        pit.cookies.set({
+            name: 'cur_slide',
+            value: 'presentation~' + location.pathname.split('/')[3] + curSlideId,
+            expires: 21600,
+            path: '/'
+        });
+
+        selectSlide_(curSlideId);
+    };
+
+
+    /**
+     * Open selected slide in aside + presentation + config areas
+     * @private
+     */
+    let selectSlide_ = function (id) {
 
         if (document.getElementsByClassName('aside__item--active')[0])
             document.getElementsByClassName('aside__item--active')[0].classList.remove('aside__item--active');
 
-        document.getElementById(selected_id).classList.add('aside__item--active');
+        // set aside active
+        document.getElementById('aside_' + id).classList.add('aside__item--active');
 
     };
 
@@ -421,14 +466,23 @@ let editPresent = function (editPresent) {
                             '</span>' + html;
 
         asideMenu.appendChild(asideEl);
-        document.getElementById('aside_' + s_id).addEventListener('click', selectSlide_);
+        document.getElementById('aside_' + s_id).getElementsByClassName('js-select-slide')[0].addEventListener('click', switchSlide_);
         document.getElementById('delete_' + s_id).addEventListener('click', openDeleteSlide_);
     };
 
 
     let removeAside_ = function (id) {
-        document.getElementById('aside_'+id).removeEventListener('click', selectSlide_);
+        document.getElementById('aside_'+id).getElementsByClassName('js-select-slide')[0].removeEventListener('click', switchSlide_);
         document.getElementById('delete_'+id).removeEventListener('click', deleteSlide_);
+        let changed_id = null;
+        if (document.getElementById('aside_'+id).classList.contains('aside__item--active') && slides_order.length > 1) {
+            if (slides_order.indexOf(id) === 0) {
+                changed_id = slides_order[1];
+            } else {
+                changed_id = slides_order[slides_order.indexOf(id) - 1];
+            }
+            document.getElementById('aside_' + changed_id).classList.add('aside__item--active');
+        }   
         document.getElementById('aside_'+id).remove();
         updateAsideNumbers_();
     };
@@ -448,13 +502,8 @@ let editPresent = function (editPresent) {
                 break;
             case 'remove':
                 let pos = 0;
-                for (let i = 0; i < slides_order.length; i++) {
-                    if (slides_order[i] === id1) {
-                        pos = i;
-                        break;
-                    }
-                }
-                slides_order.splice(pos,1);
+                pos = slides_order.indexOf(id1);
+                slides_order.splice(pos, 1);
                 break;
             default:
                 /**
