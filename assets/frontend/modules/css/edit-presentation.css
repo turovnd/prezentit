@@ -225,7 +225,7 @@
 }
 
 .config__status{
-    margin: 9.5px 0;
+    margin: 9.5px 8px 9.5px 0;
     font-size: .95em;
 }
 .config__status-icon{
@@ -246,7 +246,7 @@
 }
 .config__status--updating .config__status-icon{
     color: #413a41;
-    text-shadow: 0;
+    text-shadow: none;
     background: inherit;
 }
 .config__status--error .config__status-icon{
@@ -266,6 +266,12 @@
     float: left;
     margin-top: 20px;
     width: 100%;
+}
+.config__item{
+    display: none;
+}
+.config__item--active{
+    display: block;
 }
 
 @media (max-width: 768px) {

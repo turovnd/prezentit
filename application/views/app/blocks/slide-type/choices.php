@@ -1,55 +1,52 @@
-<div class="m-t-20">
+<div class="form-group">
+    <label for="" class="form-group__label">Вопрос</label>
+    <div class="form-group__control-group">
+        <input type="text" class="form-group__control form-group__control-group-input" maxlength="80">
+        <label for="bgImage" class="form-group__control-group-addon cursor-pointer">
+            <i class="fa fa-image" aria-hidden="true"></i>
+            <input id="bgImage" type="file" class="hide">
+        </label>
+    </div>
+</div>
 
-    <div class="form-group">
-        <label for="" class="form-group__label">Вопрос</label>
-        <div class="form-group__control-group">
-            <input type="text" class="form-group__control form-group__control-group-input" maxlength="80">
-            <label for="bgImage" class="form-group__control-group-addon cursor-pointer">
-                <i class="fa fa-image" aria-hidden="true"></i>
-                <input id="bgImage" type="file" class="hide">
-            </label>
-        </div>
+<div class="form-group clear-fix">
+    <label class="form-group__label">Варианты ответа</label>
+    <ul id="optionsList" class="m-b-10">
+        <li class="form-group__control-group m-b-5">
+            <input type="text" class="form-group__control form-group__control-group-input" maxlength="60">
+            <a class="form-group__control-group-addon deleteOption">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li class="form-group__control-group m-b-5">
+            <input type="text" class="form-group__control form-group__control-group-input" maxlength="60">
+            <a class="form-group__control-group-addon deleteOption">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+    <button id="addOption" role="button" class="btn btn--brand col-xs-12">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        добавить
+    </button>
+</div>
+
+<div class="form-group">
+
+    <label class="form-group__label">Дополнительно</label>
+
+    <div class="m-t-5">
+        <input id="showInPercents" type="checkbox" class="checkbox">
+        <label for="showInPercents" class="checkbox-label">показать результаты в %</label>
     </div>
 
-    <div class="form-group clear-fix">
-        <label class="form-group__label">Варианты ответа</label>
-        <ul id="optionsList" class="m-b-10">
-            <li class="form-group__control-group m-b-5">
-                <input type="text" class="form-group__control form-group__control-group-input" maxlength="60">
-                <a class="form-group__control-group-addon deleteOption">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li class="form-group__control-group m-b-5">
-                <input type="text" class="form-group__control form-group__control-group-input" maxlength="60">
-                <a class="form-group__control-group-addon deleteOption">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul>
-        <button id="addOption" role="button" class="btn btn--brand col-xs-12">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            добавить
-        </button>
-    </div>
-
-    <div class="form-group">
-
-        <label class="form-group__label">Дополнительно</label>
-
-        <div class="m-t-5">
-            <input id="showInPercents" type="checkbox" class="checkbox">
-            <label for="showInPercents" class="checkbox-label">показать результаты в %</label>
-        </div>
-
-        <div class="m-t-5">
-            <input id="optionsWithImage" type="checkbox" class="checkbox">
-            <label for="optionsWithImage" class="checkbox-label">ответы с изображением</label>
-        </div>
-
+    <div class="m-t-5">
+        <input id="optionsWithImage" type="checkbox" class="checkbox">
+        <label for="optionsWithImage" class="checkbox-label">ответы с изображением</label>
     </div>
 
 </div>
+
 
 
 <script>

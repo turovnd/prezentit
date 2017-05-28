@@ -13,12 +13,14 @@ let editPresent = function (editPresent) {
         newSlideBlocks           = null,
         selectedNewSlide         = null,
         asideMenu                = null,
+        configContent            = null,
         deleteSlideModal         = null,
         deleted_id               = null,
         slides_order             = null,
         slidesHash               = null,
         curSlideId               = null,
-        updateStatus             = null;
+        configStatus             = null,
+        editedFields             = null;
 
 
     const newSlidesContent = [
@@ -105,17 +107,22 @@ let editPresent = function (editPresent) {
         newSlideBtn     = document.getElementById('newSlide');
         presentationId  = document.getElementById('presentation_id').value;
         slides_order    = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
-        updateStatus    = document.getElementsByClassName('update-status')[0];
+        configStatus    = document.getElementsByClassName('config__status')[0];
         slidesHash      = location.pathname.split('/')[3];
+        configContent   = document.getElementById('configContent');
+        asideMenu = document.getElementsByClassName('aside__menu')[0];
+        editedFields    = document.getElementsByClassName('js-ajax-edited');
 
-        if (newSlideBtn)
+        if (newSlideBtn) {
             newSlideBtn.addEventListener('click', openNewSlideForm_);
+        }
 
         transformPresentation();
         window.addEventListener('resize', transformPresentation);
 
-
-        asideMenu = document.getElementsByClassName('aside__menu')[0];
+        for (let i = 0; i < editedFields.length; i++) {
+            editedFields[i].addEventListener('keyup', updateFieldData_);
+        }
 
     };
 
@@ -325,9 +332,9 @@ let editPresent = function (editPresent) {
                 }
 
                 insertAsideSlide_(response.aside, response.slideId);
+                insertConfigSlide_(response.config, response.slideId);
 
                 changeOrder_('add', response.slideId);
-
                 selectSlide_(response.slideId);
 
                 pit.core.log('New slide with type=' + type + ' has been created', '', coreLogPrefix);
@@ -352,15 +359,8 @@ let editPresent = function (editPresent) {
     let switchSlide_ = function () {
 
         curSlideId = this.parentNode.id.split('_')[1];
-
-        pit.cookies.set({
-            name: 'cur_slide',
-            value: 'presentation~' + location.pathname.split('/')[3] + curSlideId,
-            expires: 21600,
-            path: '/'
-        });
-
         selectSlide_(curSlideId);
+
     };
 
 
@@ -373,14 +373,25 @@ let editPresent = function (editPresent) {
         if (document.getElementsByClassName('aside__item--active')[0])
             document.getElementsByClassName('aside__item--active')[0].classList.remove('aside__item--active');
 
-        // set aside active
+        if (document.getElementsByClassName('config__item--active')[0])
+            document.getElementsByClassName('config__item--active')[0].classList.remove('config__item--active');
+
+        // set active classes
         document.getElementById('aside_' + id).classList.add('aside__item--active');
+        document.getElementById('config_' + id).classList.add('config__item--active');
+
+        pit.cookies.set({
+            name: 'cur_slide',
+            value: 'presentation~' + location.pathname.split('/')[3] + id,
+            expires: 21600,
+            path: '/'
+        });
 
     };
 
 
     /**
-     * Delete existed slide
+     * Open modal form for deleting slide
      * @private
      */
     let openDeleteSlide_ = function () {
@@ -401,6 +412,10 @@ let editPresent = function (editPresent) {
     };
 
 
+    /**
+     * Delete slide from DB and page
+     * @private
+     */
     let deleteSlide_ = function () {
 
         let formData = new FormData(),
@@ -434,6 +449,8 @@ let editPresent = function (editPresent) {
                 }
 
                 removeAside_(deleted_id);
+                removeConfig_(deleted_id);
+
                 changeOrder_('remove', deleted_id);
 
                 pit.core.log('Slide with id=' + deleted_id + ' has been deleted', '', coreLogPrefix);
@@ -471,6 +488,12 @@ let editPresent = function (editPresent) {
     };
 
 
+    /**
+     * Remove aside item by slide id
+     * - change on existed slide
+     * @param id - slide ID
+     * @private
+     */
     let removeAside_ = function (id) {
         document.getElementById('aside_'+id).getElementsByClassName('js-select-slide')[0].removeEventListener('click', switchSlide_);
         document.getElementById('delete_'+id).removeEventListener('click', deleteSlide_);
@@ -481,12 +504,57 @@ let editPresent = function (editPresent) {
             } else {
                 changed_id = slides_order[slides_order.indexOf(id) - 1];
             }
-            document.getElementById('aside_' + changed_id).classList.add('aside__item--active');
-        }   
+            selectSlide_(changed_id);
+        }
         document.getElementById('aside_'+id).remove();
         updateAsideNumbers_();
     };
 
+
+    /**
+     * Inserting new config area
+     * - add listeners on inputs elements
+     * @param html - HTML String of config
+     * @param s_id - slide ID
+     * @private
+     */
+    let insertConfigSlide_ = function (html, s_id) {
+        let config = pit.draw.node('LI', 'config__item', {id: 'config_' + s_id});
+        config.innerHTML = html;
+        configContent.appendChild(config);
+
+        let inputsArea = config.getElementsByClassName('js-ajax-edited');
+
+        for (let i = 0; i < inputsArea.length; i++) {
+            inputsArea[i].addEventListener('keyup', updateFieldData_);
+        }
+
+
+        config = null;
+        inputsArea = null;
+    };
+
+
+    /**
+     * Remove config area by slide id
+     * @param id - slide ID
+     * @private
+     */
+    let removeConfig_ = function (id) {
+        let inputsArea = document.getElementById('config_'+id).getElementsByClassName('js-ajax-edited');
+
+        for (let i = 0; i < inputsArea.length; i++) {
+            inputsArea[i].removeEventListener('keyup', updateFieldData_);
+        }
+
+        document.getElementById('config_'+id).remove();
+    };
+
+
+    /**
+     * Updating slides number in aside menu
+     * @private
+     */
     let updateAsideNumbers_ = function () {
         let asideNumbers = document.getElementsByClassName('aside__item-number');
         for (let i = 0; i < asideNumbers.length; i++) {
@@ -495,6 +563,13 @@ let editPresent = function (editPresent) {
     };
 
 
+    /**
+     * Update Slides order
+     * @param action - add || remove slide
+     * @param id1
+     * @param id2
+     * @private
+     */
     let changeOrder_ = function (action, id1, id2) {
         switch (action) {
             case 'add':
@@ -550,6 +625,58 @@ let editPresent = function (editPresent) {
 
         present.style.height = winW < 768 ? (winW - 80) * 3 /4 + "px" : '';
         present.style.transform = "scale(" + scale + ") translateY(" + offsetT / scale +"px) translateX(" + offsetL / scale + "px)";
+    };
+
+
+    /**
+     * Update Field of input || textarea areas
+     * @private
+     */
+    let updateFieldData_ = function () {
+        let formData = new FormData(),
+            name     = this.dataset.name,
+            value    = this.value,
+            slideId  = this.closest('.config__item').id.split('_')[1];
+
+        if (name === 'heading')
+            document.getElementById('aside_' + slideId).getElementsByClassName('aside__item-name')[0].textContent = value !== "" ? value : this.placeholder;
+
+        formData.append('id', slideId);
+        formData.append('name', name);
+        formData.append('value', value);
+
+        let ajaxData = {
+            url: '/slide/update/field',
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                configStatus.classList.remove('config__status--error');
+                configStatus.classList.add('config__status--updating')
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                configStatus.classList.remove('config__status--updating');
+                if (parseInt(response.code) !== 76) {
+                    pit.notification.notify({
+                        type: 'warning',
+                        message: response.message
+                    });
+                    pit.core.log(response.message, 'warning', coreLogPrefix);
+                    configStatus.classList.add('config__status--error');
+                    return false;
+                }
+
+            },
+            error: function(callbacks) {
+                pit.core.log('ajax error occur on updating field of slide content','error', coreLogPrefix, callbacks);
+                configStatus.classList.remove('config__status--updating');
+                configStatus.classList.add('config__status--error');
+                return false;
+            }
+        };
+
+        pit.ajax.send(ajaxData);
+
     };
 
 

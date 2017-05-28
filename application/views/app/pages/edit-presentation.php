@@ -34,7 +34,11 @@
 
             <? foreach ($slides as $slide) : ?>
 
-                <?= View::factory('app/blocks/slide-type/' . $slide->view, array('slide' => $slide->content))?>
+                <li id="config_<?=$slide->id; ?>" class="config__item">
+
+                    <?= View::factory('app/blocks/slide-type/' . $slide->view, array('slide' => $slide->content)); ?>
+
+                </li>
 
             <? endforeach; ?>
 

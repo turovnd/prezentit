@@ -19,7 +19,7 @@ Route::set('SLIDES_ACTIONS', 'slide/<action>',
  */
 Route::set('SLIDE_UPDATE', 'slide/update/<action>',
     array(
-        'action'  => 'order'
+        'action'  => 'order|field'
     ))
     ->filter(function ($route, $params, $request) {
         $params['controller']   = 'Slides_Ajax';

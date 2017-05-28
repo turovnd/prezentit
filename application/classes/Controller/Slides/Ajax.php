@@ -50,8 +50,8 @@ class Controller_Slides_Ajax extends Ajax
                 $content = new Model_Slideheading();
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/heading', array('slide' => $content));
-                $slide_content = View::factory('app/blocks/slide-presentation/heading');
-                $slide_config = View::factory('app/blocks/slide-type/heading');
+                $slide_content = View::factory('app/blocks/slide-presentation/heading', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-type/heading', array('slide' => $content));
                 break;
 
             case 2:
@@ -59,16 +59,16 @@ class Controller_Slides_Ajax extends Ajax
                 $content->image_position = Arr::get($_POST, 'image_position', '1');
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/image', array('slide' => $content));
-                $slide_content = View::factory('app/blocks/slide-presentation/image');
-                $slide_config = View::factory('app/blocks/slide-type/image');
+                $slide_content = View::factory('app/blocks/slide-presentation/image', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-type/image', array('slide' => $content));
                 break;
 
             case 3:
                 $content = new Model_Slideparagraph();
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/paragraph', array('slide' => $content));
-                $slide_content = View::factory('app/blocks/slide-presentation/paragraph');
-                $slide_config = View::factory('app/blocks/slide-type/paragraph');
+                $slide_content = View::factory('app/blocks/slide-presentation/paragraph', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-type/paragraph', array('slide' => $content));
                 break;
 
             case 4:
@@ -77,8 +77,8 @@ class Controller_Slides_Ajax extends Ajax
                 $content->results_in_percents = Arr::get($_POST, 'results_in_percents', '0');
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/choices', array('slide' => $content));
-                $slide_content = View::factory('app/blocks/slide-presentation/choices');
-                $slide_config = View::factory('app/blocks/slide-type/choices');
+                $slide_content = View::factory('app/blocks/slide-presentation/choices', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-type/choices', array('slide' => $content));
                 break;
         }
 
@@ -151,6 +151,7 @@ class Controller_Slides_Ajax extends Ajax
 
         $presentation = new Model_Presentation($present_id);
 
+
         if (! $presentation->id)
         {
             $response = new Model_Response_Presentation('PRESENTATION_DOES_NOT_EXIST_ERROR', 'error');
@@ -159,11 +160,59 @@ class Controller_Slides_Ajax extends Ajax
         }
 
         $presentation->slides_order = $order;
+        $presentation->dt_update = Date::formatted_time('now');
         $presentation->update();
 
         $response = new Model_Response_Slides('SLIDE_UPDATE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
     }
 
+    /**
+     * Update field data
+     */
+    public function action_update_field()
+    {
+        $id     = Arr::get($_POST, 'id');
+        $name   = Arr::get($_POST, 'name');
+        $value  = Arr::get($_POST, 'value');
 
+        if (!$id || !$name) {
+            $response = new Model_Response_Slides('SLIDE_CONTENT_UPDATE_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $slide = new Model_Slide($id);
+
+        if (!$slide) {
+            $response = new Model_Response_Slides('SLIDE_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        switch ($slide->type) {
+            case 1:
+                $content = new Model_Slideheading($slide->content_id);
+                $content->$name = $value;
+                $content->update();
+                break;
+            case 2:
+                $content = new Model_Slideimage($slide->content_id);
+                $content->$name = $value;
+                $content->update();
+                break;
+            case 3:
+                $content = new Model_Slideparagraph($slide->content_id);
+                $content->$name = $value;
+                $content->update();
+                break;
+        }
+
+        $presentation = new Model_Presentation($slide->presentation);
+        $presentation->dt_update = Date::formatted_time('now');
+        $presentation->update();
+
+        $response = new Model_Response_Slides('SLIDE_CONTENT_UPDATE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
 }

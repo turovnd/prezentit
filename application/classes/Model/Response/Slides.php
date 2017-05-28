@@ -32,5 +32,17 @@ class Model_Response_Slides extends Model_Response_Abstract
         'message' => "Slide has been updated"
     );
 
+    protected $_SLIDE_CONTENT_UPDATE_ERROR = array (
+        'type' => 'slide_content',
+        'code' => '75',
+        'message' => "Slide content has NOT been updated"
+    );
+
+    protected $_SLIDE_CONTENT_UPDATE_SUCCESS = array (
+        'type' => 'slide_content',
+        'code' => '76',
+        'message' => "Slide content has been updated"
+    );
+
 
 }
