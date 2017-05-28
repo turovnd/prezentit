@@ -276,7 +276,7 @@
     cursor: pointer;
 }
 .new-slide__content{
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #cfcfcf;
     background: #fff;
 }
@@ -301,6 +301,11 @@
     display: inline-block;
     margin: 15px;
 }
+.new-slide__image{
+    margin: auto;
+    max-width: 300px;
+    width: 100%;
+}
 .new-slide__image,
 .new-slide__close-icon,
 .new-slide__options-wrapper{
@@ -311,9 +316,7 @@
     width: 80%;
     cursor: default;
 }
-.new-slide__block--selected .new-slide__content{
-    height: 200px;
-}
+
 .new-slide__block--selected .new-slide__image,
 .new-slide__block--selected .new-slide__close-icon,
 .new-slide__block--selected .new-slide__options-wrapper{

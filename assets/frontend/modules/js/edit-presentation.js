@@ -24,12 +24,12 @@ let editPresent = function (editPresent) {
             'type': 1,
             'name': 'Заголовок',
             'icon': 'fa-header',
-            'image': '/'
+            'image': 'heading_ru.png'
         },{
             'type': 2,
             'name': 'Изображение',
             'icon': 'fa-image',
-            'image': '/',
+            'image': 'image_ru.png',
             'options' : [
                 {
                     'id': 'image_position_center',
@@ -51,12 +51,12 @@ let editPresent = function (editPresent) {
             'type': 3,
             'name': 'Параграф',
             'icon': 'fa-paragraph',
-            'image': '/'
+            'image': 'paragraph_ru.png'
         },{
             'type': 4,
             'name': 'Слайд с вопросом',
             'icon': 'fa-bar-chart',
-            'image': '/',
+            'image': 'choices_ru.png',
             'options' : [
                 {
                     'id': '4_answers_with_image',
@@ -180,7 +180,7 @@ let editPresent = function (editPresent) {
                             '<i class="fa fa-close new-slide__close-icon" aria-hidden="true"></i>' +
                             '<div class="new-slide__content">' +
                                 '<p class="new-slide__name">' + newSlidesContent[i].name +'</p>' +
-                                '<image class="new-slide__image" scr="' + newSlidesContent[i].image + '">'+
+                                '<img class="new-slide__image" src="/assets/static/img/slides/types/' + newSlidesContent[i].image + '">'+
                                 '<i class="fa ' + newSlidesContent[i].icon + ' new-slide__icon" aria-hidden="true"></i>' +
                             '</div>';
 
@@ -266,6 +266,8 @@ let editPresent = function (editPresent) {
             options = selectedNewSlide.nextSibling,
             input = null;
 
+        selectedNewSlide = null;
+
         formData.append('type', type);
         formData.append('presentation', presentationId);
 
@@ -314,8 +316,6 @@ let editPresent = function (editPresent) {
         };
 
         pit.ajax.send(ajaxData);
-        newSlideWrapper.classList.remove('loading');
-
     };
 
 
