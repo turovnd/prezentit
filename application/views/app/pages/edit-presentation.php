@@ -21,13 +21,24 @@
                 <li class="tabs__btn tabs__btn--active" data-toggle="tabs" data-block="slideContent">
                     Содержание
                 </li>
+                <li class="fl_r update-status">
+                    <span class="fl_l update-status__icon">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                        <i class="fa fa-check"></i>
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <span class="fl_l update-status__text">Сохранено</span>
+                </li>
             </ul>
             <div class="tabs__content fl_l">
                 <div id="slideContent" class="tabs__block tabs__block--active">
-                    <?= View::factory('app/blocks/slide-type/heading')?>
-                    <?= View::factory('app/blocks/slide-type/image')?>
-                    <?= View::factory('app/blocks/slide-type/paragraph')?>
-                    <?= View::factory('app/blocks/slide-type/choices')?>
+
+                    <? foreach ($slides as $slide) : ?>
+
+                        <?= View::factory('app/blocks/slide-type/' . $slide->view, array('slide' => $slide->content))?>
+
+                    <? endforeach; ?>
+
                 </div>
 
             </div>
@@ -35,6 +46,7 @@
     </div>
 
     <input type="hidden" id="presentation_id" value="<?= $presentaton->id; ?>">
+    <input type="hidden" id="slides_order" value="<?= $presentaton->slides_order; ?>">
 
 </section>
 

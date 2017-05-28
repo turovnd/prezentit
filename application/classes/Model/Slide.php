@@ -7,7 +7,6 @@ Class Model_Slide {
     public $content_id;
     public $type;           //1 - heading, 2 - image, 3 - paragraph, 4 - choices
     public $presentation;
-    public $slides_order = "[]";
     public $dt_create;
 
 

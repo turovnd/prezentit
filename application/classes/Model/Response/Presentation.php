@@ -26,4 +26,10 @@ class Model_Response_Presentation extends Model_Response_Abstract
         'message' => 'Presentation id is require'
     );
 
+    protected $_PRESENTATION_DOES_NOT_EXIST_ERROR = array (
+        'type' => 'create_slides',
+        'code' => '53',
+        'message' => 'Presentation does not exist'
+    );
+
 }

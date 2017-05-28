@@ -254,7 +254,7 @@ class Controller_Auth_Ajax extends Auth
      */
     public function action_reset()
     {
-        //$this->checkRequest();
+        $this->checkRequest();
 
         $hash = Cookie::get('reset_link');
         $id = $this->redis->get('prezentit:reset:password:' . $hash);
@@ -320,12 +320,12 @@ class Controller_Auth_Ajax extends Auth
     {
         $hash = $this->makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
 
-        Cookie::set('secret', $hash, Date::DAY);
+        Cookie::set('secret', $hash, Date::MONTH);
 
         /**
          * save session in Redis server
          */
-        $this->redis->set('prezentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+        $this->redis->set('prezentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 2629744));
 
     }
 

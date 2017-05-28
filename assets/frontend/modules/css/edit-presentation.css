@@ -84,6 +84,7 @@
 }
 .aside__item--active{
     background: #eee;
+    border: 0;
 }
 .aside__item-action,
 .aside__item-number{
@@ -321,5 +322,43 @@
 
 .new-slide__block--selected .new-slide__name,
 .new-slide__block--selected .new-slide__icon{
+    display: none;
+}
+
+.update-status{
+    margin: 8.5px 0;
+    font-size: .95em;
+}
+.update-status__icon{
+    padding: 3px;
+    font-size: .8em;
+    margin-right: 5px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #FFF;
+    background: #7EE194;
+}
+.update-status__icon .fa{
+    display: none;
+    padding: 1px;
+}
+.update-status--updating .update-status__icon{
+    color: #413a41;
+    text-shadow: 0;
+    background: inherit;
+}
+.update-status--error .update-status__icon{
+    background: #ff0000;
+}
+
+.update-status .fa-check,
+.update-status--updating .update-status__icon .fa-spinner,
+.update-status--error .update-status__icon .fa-close{
+    display: block;
+}
+.update-status--updating .update-status__icon .fa-check,
+.update-status--error .update-status__icon .fa-check{
     display: none;
 }

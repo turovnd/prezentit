@@ -26,5 +26,11 @@ class Model_Response_Slides extends Model_Response_Abstract
         'message' => "Slide has been deleted"
     );
 
+    protected $_SLIDE_UPDATE_SUCCESS = array (
+        'type' => 'slide',
+        'code' => '74',
+        'message' => "Slide has been updated"
+    );
+
 
 }

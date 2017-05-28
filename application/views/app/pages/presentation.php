@@ -1,4 +1,4 @@
-
+<?=Debug::vars($presentaton)?>
 <div class="presentation__aside-open">
     <a role="button" class="presentation__aside-open-btn">
         <i class="fa fa-cog" aria-hidden="true"></i>

@@ -23,7 +23,7 @@ class Controller_Slides_Ajax extends Ajax
     public function action_add()
     {
         $type = Arr::get($_POST, 'type');
-        $presentation = Arr::get($_POST, 'presentation');
+        $presentation_id = Arr::get($_POST, 'presentation');
 
         if ( ! $type) {
             $response = new Model_Response_Slides('SLIDE_ADD_ERROR', 'error');
@@ -31,7 +31,7 @@ class Controller_Slides_Ajax extends Ajax
             return;
         }
 
-        if ( ! $presentation) {
+        if ( ! $presentation_id) {
             $response = new Model_Response_Presentation('PRESENTATION_ID_REQUIRE_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
@@ -40,10 +40,9 @@ class Controller_Slides_Ajax extends Ajax
         $slide = new Model_Slide();
 
         $slide->type            = $type;
-        $slide->presentation    = $presentation;
+        $slide->presentation    = $presentation_id;
 
         $slide = $slide->save();
-
 
         switch ($type) {
 
@@ -140,6 +139,30 @@ class Controller_Slides_Ajax extends Ajax
         $response = new Model_Response_Slides('SLIDE_DELETED_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
 
+    }
+
+    /**
+     * Update slides order
+     */
+    public function action_update_order()
+    {
+        $present_id = Arr::get($_POST, 'presentation');
+        $order = Arr::get($_POST, 'order');
+
+        $presentation = new Model_Presentation($present_id);
+
+        if (! $presentation->id)
+        {
+            $response = new Model_Response_Presentation('PRESENTATION_DOES_NOT_EXIST_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $presentation->slides_order = $order;
+        $presentation->update();
+
+        $response = new Model_Response_Slides('SLIDE_UPDATE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
     }
 
 

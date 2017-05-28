@@ -12,6 +12,7 @@ Class Model_Presentation {
     public $code;
     public $name;
     public $uri;
+    public $slides_order = "[]";
     public $short_uri;
     public $owner;
     public $dt_update;
@@ -29,8 +30,6 @@ Class Model_Presentation {
             $this->get($id);
         }
 
-        return false;
-
     }
 
 
@@ -39,16 +38,14 @@ Class Model_Presentation {
      * @param $id - presentation ID
      * @return Model_Presentation
      */
-    public static function get($id = 0) {
+    public function get($id = 0) {
 
         $select = Dao_Presentations::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->execute();
 
-        $model = new Model_Presentation();
-
-        return $model->fill_by_row($select);
+        return $this->fill_by_row($select);
 
     }
 

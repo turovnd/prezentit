@@ -14,7 +14,9 @@ let editPresent = function (editPresent) {
         selectedNewSlide         = null,
         asideMenu                = null,
         deleteSlideModal         = null,
-        deleted_id               = null;
+        deleted_id               = null,
+        slides_order             = null,
+        updateStatus             = null;
 
 
     const newSlidesContent = [
@@ -97,9 +99,11 @@ let editPresent = function (editPresent) {
 
     let prepare_ = function () {
 
-        present = document.getElementsByClassName('presentation')[0];
-        newSlideBtn = document.getElementById('newSlide');
-        presentationId = document.getElementById('presentation_id');
+        present         = document.getElementsByClassName('presentation')[0];
+        newSlideBtn     = document.getElementById('newSlide');
+        presentationId  = document.getElementById('presentation_id').value;
+        slides_order    = document.getElementById('slides_order').value.split(',');
+        updateStatus    = document.getElementsByClassName('update-status')[0];
 
         if (newSlideBtn)
             newSlideBtn.addEventListener('click', openNewSlideForm_);
@@ -254,13 +258,16 @@ let editPresent = function (editPresent) {
             return false;
         }
 
+        let newSlideWrapper = document.getElementsByClassName('new-slide')[0];
+        newSlideWrapper.classList.add('loading');
+
         let formData = new FormData(),
             type = selectedNewSlide.parentNode.dataset.type,
             options = selectedNewSlide.nextSibling,
             input = null;
 
         formData.append('type', type);
-        formData.append('presentation', presentationId.value);
+        formData.append('presentation', presentationId);
 
         if (options) {
             for (let i = 0; i < options.childElementCount; i++) {
@@ -270,15 +277,10 @@ let editPresent = function (editPresent) {
             }
         }
 
-        let newSlideWrapper = document.getElementsByClassName('new-slide')[0];
-
         let ajaxData = {
             url: '/slide/add',
             type: 'POST',
             data: formData,
-            beforeSend: function(){
-                newSlideWrapper.classList.add('loading');
-            },
             success: function(response) {
                 response = JSON.parse(response);
 
@@ -297,6 +299,8 @@ let editPresent = function (editPresent) {
                 }
 
                 insertAsideSlide_(response.aside, response.slideId);
+
+                changeOrder_('add', response.slideId);
 
                 pit.core.log('New slide with type=' + type + ' has been created', '', coreLogPrefix);
                 newSlideModal.close();
@@ -322,7 +326,9 @@ let editPresent = function (editPresent) {
     let selectSlide_ = function () {
         let selected_id = this.id === "" ? this.parentNode.id : this.id;
 
-        document.getElementsByClassName('aside__item--active')[0].classList.remove('aside__item--active');
+        if (document.getElementsByClassName('aside__item--active')[0])
+            document.getElementsByClassName('aside__item--active')[0].classList.remove('aside__item--active');
+
         document.getElementById(selected_id).classList.add('aside__item--active');
 
     };
@@ -356,6 +362,7 @@ let editPresent = function (editPresent) {
             deleteWrapper = document.getElementsByClassName('delete-slide')[0];
 
         formData.append('id', deleted_id);
+        formData.append('presentation', presentationId);
 
         let ajaxData = {
             url: '/slide/delete',
@@ -382,6 +389,7 @@ let editPresent = function (editPresent) {
                 }
 
                 removeAside_(deleted_id);
+                changeOrder_('remove', deleted_id);
 
                 pit.core.log('Slide with id=' + deleted_id + ' has been deleted', '', coreLogPrefix);
                 deleteSlideModal.close();
@@ -432,6 +440,54 @@ let editPresent = function (editPresent) {
         }
     };
 
+
+    let changeOrder_ = function (action, id1, id2) {
+        switch (action) {
+            case 'add':
+                slides_order.push(id1);
+                break;
+            case 'remove':
+                let pos = 0;
+                for (let i = 0; i < slides_order.length; i++) {
+                    if (slides_order[i] === id1) {
+                        pos = i;
+                        break;
+                    }
+                }
+                slides_order.splice(pos,1);
+                break;
+            default:
+                /**
+                * TODO менять эдементы местами при смене порядка слайда
+                */
+                break;
+        }
+
+        let formData = new FormData();
+        formData.append('presentation', presentationId);
+        formData.append('order', slides_order.join(','));
+
+        let ajaxData = {
+            url: '/slide/update/order',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                response = JSON.parse(response);
+
+                if (parseInt(response.code) !== 74) {
+                    pit.core.log(response.message, 'error', coreLogPrefix);
+                    return false;
+                }
+            },
+            error: function(callbacks) {
+                pit.core.log('ajax error occur on deleting slide','error', coreLogPrefix, callbacks);
+                return false;
+            }
+        };
+
+        pit.ajax.send(ajaxData);
+
+    };
 
     /**
      * Transform Presentation Block on Resize
