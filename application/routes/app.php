@@ -18,7 +18,7 @@ Route::set('APP', 'app')
  */
 Route::set('NEW_PRESENTATION', 'presentation/<action>',
     array(
-        'action'    => 'new|delete'
+        'action'    => 'new|delete|editname'
     ))
     ->defaults(array(
         'controller'  => 'App_Ajax',

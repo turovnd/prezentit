@@ -32,4 +32,10 @@ class Model_Response_Presentation extends Model_Response_Abstract
         'message' => 'Presentation does not exist'
     );
 
+    protected $_PRESENTATION_UPDATE_SUCCESS = array (
+        'type' => 'update',
+        'code' => '54',
+        'message' => 'Presentation successfully update'
+    );
+
 }

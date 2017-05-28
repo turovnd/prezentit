@@ -89,4 +89,25 @@ class Controller_App_Ajax extends Ajax
 
     }
 
+
+    public function action_editname()
+    {
+        $id = Arr::get($_POST, 'id');
+        $name = Arr::get($_POST, 'name');
+
+        $presentation = new Model_Presentation($id);
+
+        if (empty($presentation)) {
+            $response = new Model_Response_Presentation('PRESENTATION_DOES_NOT_EXIST_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $presentation->name = $name;
+        $presentation->update();
+
+        $response = new Model_Response_Presentation('PRESENTATION_UPDATE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
 }

@@ -64,7 +64,7 @@
         present.init({
             aside: false,
             slideNavigation: false,
-            toggleInstruction: true,
+            toggleInstruction: false,
             slideActions: false,
             keyboard: false
         });

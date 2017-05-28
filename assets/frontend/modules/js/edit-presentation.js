@@ -685,7 +685,7 @@ let editPresent = function (editPresent) {
      * @private
      */
     function toggleTitle_() {
-       presentationName.classList.toggle('hide');
+        presentationName.classList.toggle('hide');
         editPresentNameBtn.classList.toggle('hide');
         editPresentNameFrom.classList.toggle('hide');
     }
@@ -696,15 +696,46 @@ let editPresent = function (editPresent) {
      * @private
      */
     function saveTitle_() {
+
         toggleTitle_();
+        let formData = new FormData();
+        formData.append('id', presentationId);
+        formData.append('name', editPresentNameInput.value);
 
-       presentationName.innerHTML = editPresentNameInput.value;
-        document.getElementsByTagName('title')[0].innerHTML = editPresentNameInput.value + " | Prezentit";
+        let ajaxData = {
+            url: '/presentation/editname',
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                configStatus.classList.remove('config__status--error');
+                configStatus.classList.add('config__status--updating')
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                configStatus.classList.remove('config__status--updating');
+                if (parseInt(response.code) !== 54) {
+                    pit.notification.notify({
+                        type: response.type,
+                        message: response.message
+                    });
+                    pit.core.log(response.message, response.type, coreLogPrefix);
+                    configStatus.classList.add('config__status--error');
+                    return false;
+                }
 
-        /**
-         * TODO update name via AJAX
-         * editPresentNameInput.value
-         */
+                presentationName.innerHTML = editPresentNameInput.value;
+                document.getElementsByTagName('title')[0].innerHTML = editPresentNameInput.value + " | Prezentit";
+
+            },
+            error: function(callbacks) {
+                pit.core.log('ajax error occur on updating presentation name','error', coreLogPrefix, callbacks);
+                configStatus.classList.remove('config__status--updating');
+                configStatus.classList.add('config__status--error');
+                return false;
+            }
+        };
+
+        pit.ajax.send(ajaxData);
 
     }
 
