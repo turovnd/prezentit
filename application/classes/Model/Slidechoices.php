@@ -6,7 +6,7 @@ Class Model_Slidechoices {
     public $id;
     public $heading;                    //question
     public $image;
-    public $answers;
+    public $answers = '';
     public $answers_with_image = 0;     //0 - false, 1 - true
     public $results_in_percents	= 0;    //0 - false, 1 - true
 

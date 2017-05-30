@@ -4,11 +4,12 @@
 
     <div class="form-group__control-group">
 
-        <input id="heading_paragraph_<?=$slide->id; ?>" type="text" class="form-group__control form-group__control-group-input js-ajax-edited" maxlength="90" placeholder="Заголовок" value="<?=$slide->heading; ?>" data-id="<?=$slide->id; ?>" data-name="heading">
+        <input id="heading_paragraph_<?=$slide->id; ?>" type="text" class="form-group__control form-group__control-group-input js-ajax-edited" maxlength="90" placeholder="Заголовок" value="<?=$slide->heading; ?>" data-name="heading">
 
-        <label for="bgImage" class="form-group__control-group-addon cursor-pointer" title="Фоновая картинка">
-            <i class="fa fa-image" aria-hidden="true"></i>
-            <input id="bgImage" type="file" class="hide">
+        <label class="form-group__control-group-addon bg-image <? echo $slide->image == (NULL || '') ? '' : 'bg-image--with-image'; ?>" title="Фоновая картинка">
+            <i class="fa fa-image bg-image__icon" aria-hidden="true"></i>
+            <i class="fa fa-close bg-image__close" aria-hidden="true"></i>
+            <img src="<?=URL::site('uploads/slides/s_' . $slide->image); ?>" class="bg-image__image">
         </label>
 
     </div>
@@ -19,6 +20,6 @@
 
     <label for="paragraph_paragraph_<?=$slide->id; ?>"  class="form-group__label">Параграф</label>
 
-    <textarea id="paragraph_paragraph_<?=$slide->id; ?>" class="form-group__control js-ajax-edited" maxlength="300" rows="6" placeholder="Параграф" data-id="<?=$slide->id; ?>" data-name="paragraph"><?=$slide->paragraph; ?></textarea>
+    <textarea id="paragraph_paragraph_<?=$slide->id; ?>" class="form-group__control js-ajax-edited" maxlength="300" rows="6" placeholder="Параграф" data-name="paragraph"><?=$slide->paragraph; ?></textarea>
 
 </div>

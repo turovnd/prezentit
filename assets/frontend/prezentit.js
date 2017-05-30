@@ -13,6 +13,7 @@ module.exports = ( function (pit) {
 
     pit.core         = require('./modules/core');
     pit.draw         = require('./modules/draw');
+    pit.transport    = require('./modules/transport');
     pit.ajax         = require('./modules/js/ajax');
     pit.aside        = require('./modules/js/aside');
     pit.parallax     = require('./modules/js/parallax');

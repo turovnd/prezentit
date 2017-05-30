@@ -26,7 +26,9 @@
                     <i class="fa fa-check"></i>
                     <i class="fa fa-close"></i>
                 </span>
-                <span class="config__status-text">Сохранено</span>
+                <span class="config__status-text config__status-text--saved">Сохранено</span>
+                <span class="config__status-text config__status-text--updating">Сохранение</span>
+                <span class="config__status-text config__status-text--error">Ошибка</span>
             </li>
         </ul>
 

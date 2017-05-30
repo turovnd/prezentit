@@ -198,10 +198,10 @@ class Dispatch extends Controller_Template
             $newHash = self::makeHash('sha256', self::SALT . $sid . self::AUTHSALT . $uid);
 
             // меняем хэш в куки
-            Cookie::set('secret', $newHash, Date::DAY);
+            Cookie::set('secret', $newHash, Date::MONTH);
 
             // сохраняем в редис
-            $redis->set('prezentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+            $redis->set('prezentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 2629744));
 
         } else {
             return false;

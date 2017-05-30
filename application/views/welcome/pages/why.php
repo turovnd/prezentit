@@ -5,7 +5,7 @@
     <div class="section--md valign">
         <div class="container animated fade__in p-t-50">
             <h1 class="h1 h1--sale text-white">
-                Почему <?=$GLOBALS['SITE_NAME']; ?>
+                Почему Prezentit
             </h1>
         </div>
     </div>
@@ -15,13 +15,12 @@
     <div class="container m-t-50 m-b-100">
 
         <h2 class="h2--sale text-brand">
-            Преимущества <?=$GLOBALS['SITE_NAME']; ?>
+            Преимущества Prezentit
         </h2>
 
-        <div class="h4 h4--sale m-t-50 m-b-50">
-            <?=$GLOBALS['SITE_NAME']; ?> - это сервис, позволяющий сделать быстро и качественно презентацию.
-            С помощью <?=$GLOBALS['SITE_NAME']; ?> Вы можете создавать забавные и интерактивные презентации.
-            Мы поможем сделать Ваши выступления, презентации, лекции и семинары интерактивными и запоминающимися.
+        <div class="h4 h4--sale col-xs-12 col-sm-6">
+            Prezentit - позволяtn сделать презентацию быстро и качественно. С помощью Prezentit Ваши выступления,
+            презентации, лекции и семинары станут интерактивными и запоминающимися.
         </div>
 
         <div class="row m-t-50">
@@ -29,7 +28,7 @@
                 <div>
                     <h3 class="h2">Интерактивные презентации</h3>
                     <p class="h4 m-t-20">
-                        Вовлекайте аудиторию в обсуждения: задавайте им вопросы и обсуждайте ответы в реальном времени. С <span class="text-brand"><?=$GLOBALS['SITE_NAME']; ?></span> ни одно мнение не останется в стороне, система позволяет учесть голос каждого.
+                        Вовлекайте аудиторию в обсуждения: задавайте вопросы и обсуждайте ответы в реальном времени. С <span class="text-brand">Prezentit</span> ни одно мнение не останется в стороне, система позволяет учесть голос каждого.
                     </p>
                 </div>
             </div>
@@ -43,7 +42,7 @@
                 <div>
                     <h3 class="h2">Легко использовать</h3>
                     <p class="h4 m-t-20">
-                        Начните использовать <span class="text-brand"><?=$GLOBALS['SITE_NAME']; ?></span> уже сегодня! Удобный интерфейс и мощный функционал помогут сделать презентацию достойную внимания.
+                        Начните использовать <span class="text-brand">Prezentit</span> уже сегодня! Удобный интерфейс и мощный функционал помогут сделать презентацию достойную внимания.
                     </p>
                 </div>
             </div>
@@ -57,7 +56,7 @@
                 <div>
                     <h3 class="h2">Для любого устройства</h3>
                     <p class="h4 m-t-20">
-                        <span class="text-brand"><?=$GLOBALS['SITE_NAME']; ?></span> - веб-приложение, не требующее загрузки из магазина. Запустите приложени в считанные секунды, используя любое устройство: смартфон, планшет или компьютер.
+                        <span class="text-brand">Prezentit</span> - не требует загрузки. Запустите приложение в считанные секунды и используйте на любых устройствах: смартфонах, планшетах или компьютерах.
                     </p>
                 </div>
             </div>
@@ -71,7 +70,7 @@
                 <div>
                     <h3 class="h2">Надежный и безопасный</h3>
                     <p class="h4 m-t-20">
-                        <span class="text-brand"><?=$GLOBALS['SITE_NAME']; ?></span> - надежный и безопасный. Трафик зашифрован с помощью SSL-сертификатов, поэтому доступ к презентациям имеете только Вы.
+                        <span class="text-brand">Prezentit</span> - надежный и безопасный. Трафик зашифрован с помощью SSL-сертификатов, поэтому доступ к презентациям имеете только Вы.
                     </p>
                 </div>
             </div>
@@ -86,8 +85,8 @@
 <div class="container">
     <div class="m-t-10 divider"></div>
     <div class="m-t-100 m-b-100 m-l-auto m-r-auto clear-fix text-center ">
-        <a role="button" class="btn btn--lg in-circle btn--brand btn--scaled col-xs-12 col-sm-auto subscribe fl_n m-b-0">
-            Подписаться на бета-версию
+        <a href="<?=URL::site('signup'); ?>" class="btn btn--lg in-circle btn--brand btn--scaled col-xs-12 col-sm-auto fl_n m-b-0 m-r-0">
+            Зарегистрироваться
         </a>
     </div>
     <div class="m-b-10 divider"></div>
@@ -98,11 +97,11 @@
     <div class="container m-t-50 m-b-100">
 
         <h1 class="h1 h2--sale text-brand">
-            Варианты использования <?=$GLOBALS['SITE_NAME']; ?>
+            Варианты использования Prezentit
         </h1>
 
-        <div class="h4 h4--sale m-t-50 m-b-50">
-            Исследуйте различные ситуации, когда <?=$GLOBALS['SITE_NAME']; ?> можно использовать для взаимодействия с вашей аудиторией.
+        <div class="h4 h4--sale m-t-50 m-b-50 col-xs-12 col-sm-6">
+            Исследуйте различные ситуации, когда Prezentit можно использовать для взаимодействия с вашей аудиторией.
         </div>
 
         <div class="row">
@@ -112,7 +111,7 @@
                         Встречи
                     </h3>
                     <p class="usecase__text">
-                        Обеспечьте эффективную и продуктивную встречу, визуализируя мнения всех людей с помощью <span class="text-brand"><?=$GLOBALS['SITE_NAME'];?></span>.
+                        Обеспечьте эффективную и продуктивную встречу, визуализируя мнения всех людей с помощью <span class="text-brand">Prezentit</span>.
                     </p>
                 </div>
             </div>
@@ -122,7 +121,7 @@
                         Семинары
                     </h3>
                     <p class="usecase__text">
-                        Сделайте свою семинар максимально полезным, включив в презентацию опрос, что позволит Вам сэкономить время на обработку результатов опроса.
+                        Сделайте свой семинар максимально полезным, включив в презентацию опрос, что позволит Вам сэкономить время на обработку результатов результатов.
                     </p>
                 </div>
             </div>
@@ -142,7 +141,7 @@
                         Образование
                     </h3>
                     <p class="usecase__text">
-                        Сделайте свое обучение более интерактивным, позволяя студентам активно участвовать в лекциях, используя <span class="text-brand"><?=$GLOBALS['SITE_NAME'];?></span> в качестве инструмента для оценки.
+                        Сделайте свое обучение более интерактивным, позволяя студентам активно участвовать в лекциях, используя <span class="text-brand">Prezentit</span> в качестве инструмента для оценки.
                     </p>
                 </div>
             </div>
@@ -152,7 +151,7 @@
                         Конференции
                     </h3>
                     <p class="usecase__text">
-                        Используйте <span class="text-brand"><?=$GLOBALS['SITE_NAME'];?></span> для своей конференции, чтобы увеличить энергию и дать каждому возможность высказать свое мнение.
+                        Используйте <span class="text-brand">Prezentit</span> для конференции, чтобы оживить аудиторию и дать возможность высказать свое мнение каждому.
                     </p>
                 </div>
             </div>
@@ -162,7 +161,7 @@
                         Мероприятия
                     </h3>
                     <p class="usecase__text">
-                        Оживите аудиторию на мероприятие с <span class="text-brand"><?=$GLOBALS['SITE_NAME'];?></span>, позволив ей участвовать в интерактивных презентациях.
+                        Оживите аудиторию на мероприятие с <span class="text-brand">Prezentit</span>, позволив ей участвовать в интерактивных презентациях.
                     </p>
                 </div>
             </div>
@@ -181,11 +180,11 @@
     <div class="valign section--md">
         <div class="container">
             <p class="h1 h1--sale text-white">
-                Хотите попробовать <?=$GLOBALS["SITE_NAME"]; ?>?
+                Хотите попробовать Prezentit?
             </p>
             <div class="text-center m-t-50">
-                <a role="button" class="btn btn--lg in-circle btn--hollow btn--scaled col-xs-12 col-sm-auto subscribe">
-                    Подписаться на бета-версию
+                <a href="<?=URL::site('signup')?>" class="btn btn--lg in-circle btn--hollow btn--scaled col-xs-12 col-sm-auto">
+                    Зарегистрироваться
                 </a>
             </div>
         </div>

@@ -20,7 +20,8 @@ let editPresent = function (editPresent) {
         slidesHash               = null,
         curSlideId               = null,
         configStatus             = null,
-        editedFields             = null;
+        editedFields             = null,
+        choiceAnswers              = null;
 
 
     const newSlidesContent = [
@@ -63,7 +64,7 @@ let editPresent = function (editPresent) {
             'image': 'choices_ru.png',
             'options' : [
                 {
-                    'id': '4_answers_with_image',
+                    'id': '4_answer_with_image',
                     'type': 'checkbox',
                     'name': '4_answers_with_image',
                     'data_name': 'answers_with_image',
@@ -80,14 +81,10 @@ let editPresent = function (editPresent) {
             ]
         }
     ];
-
-
-    /**
-     * Prepare Heading For Editing Presentation Name
-     * @private
-     */
+    
+    
     let prepareHeader_ = function () {
-       presentationName = document.getElementById('PresentName');
+        presentationName = document.getElementById('PresentName');
         editPresentNameBtn = document.getElementById('editPresentNameBtn');
         editPresentNameFrom = document.getElementById('editPresentNameFrom');
         editPresentNameInput = document.getElementById('editPresentNameInput');
@@ -110,7 +107,7 @@ let editPresent = function (editPresent) {
         configStatus    = document.getElementsByClassName('config__status')[0];
         slidesHash      = location.pathname.split('/')[3];
         configContent   = document.getElementById('configContent');
-        asideMenu = document.getElementsByClassName('aside__menu')[0];
+        asideMenu       = document.getElementsByClassName('aside__menu')[0];
         editedFields    = document.getElementsByClassName('js-ajax-edited');
 
         if (newSlideBtn) {
@@ -122,6 +119,21 @@ let editPresent = function (editPresent) {
 
         for (let i = 0; i < editedFields.length; i++) {
             editedFields[i].addEventListener('keyup', updateFieldData_);
+        }
+
+        let updateImage = document.getElementsByClassName('bg-image');
+
+        for (let i = 0; i < updateImage.length; i++) {
+            if (updateImage[i].classList.contains('bg-image--with-image'))
+                updateImage[i].addEventListener('click', removeBackground_);
+            else
+                updateImage[i].addEventListener('click', transportBackground_);
+        }
+
+        let checkbox = document.getElementsByClassName('checkbox');
+
+        for (let i = 0; i < checkbox.length; i++) {
+            checkbox[i].addEventListener('click',updateCheckboxData_)
         }
 
     };
@@ -162,6 +174,359 @@ let editPresent = function (editPresent) {
 
     };
 
+
+    let prepareChoiceOptions_ = function () {
+
+        choiceAnswers = [];
+
+        let answers = document.getElementsByClassName('answer'),
+            options = null,
+            answer  = null,
+            items   = null;
+
+        for (let i = 0; i < answers.length; i++) {
+
+            options = [];
+            answers[i].dataset.answer = i;
+
+            items = answers[i].getElementsByClassName('answer__item');
+
+            for (let j = 0; j < items.length; j++) {
+
+                items[j].getElementsByClassName('js-option-delete')[0].addEventListener('click', removeAnswer_);
+                items[j].getElementsByClassName('js-option-delete')[0].dataset.number = j;
+
+                let input = items[j].getElementsByClassName('answer__value')[0],
+                    image = items[j].getElementsByClassName('answer__image')[0];
+
+                answer = {
+                    'text': input.value,
+                    'image': (image && image.getElementsByClassName('bg-image__image')[0].dataset.src !== '') ? image.getElementsByClassName('bg-image__image')[0].dataset.src : '',
+                };
+
+                input.addEventListener('keyup', updateInputAnswers_);
+                input.dataset.number = j;
+
+                if (image) {
+                    if (image.getElementsByClassName('bg-image__image')[0].dataset.src === '')
+                        image.addEventListener('click', transportAnswerImage_);
+                    else
+                        image.addEventListener('click', removeAnswerImage_);
+                    image.dataset.number = j;
+                }
+
+                image = input = null;
+                options.push(answer);
+            }
+
+            choiceAnswers.push(options);
+
+        }
+
+        let toggleImage   = document.getElementsByClassName('answers-with-image'),
+            addOptionBtns = document.getElementsByClassName('js-option-add');
+
+        for (let i = 0; i < toggleImage.length; i++) {
+            toggleImage[i].addEventListener('click', answerWithImage_);
+        }
+
+        for (let i = 0; i < addOptionBtns.length; i++) {
+            addOptionBtns[i].addEventListener('click', addAnswer_);
+        }
+
+    };
+
+    /**
+     * Remove answer from answers list
+     * @private
+     */
+    let removeAnswer_ = function () {
+
+        let slide   = this.closest('.config__item').id.split('_')[1],
+            answer  = this.closest('.answer'),
+            number  = parseInt(this.dataset.number);
+
+        if (choiceAnswers[answer.dataset.answer].length <= 2) {
+            pit.notification.notify({
+                type: 'warning',
+                message: 'Минимальное количество ответов - 2'
+            });
+            return false;
+        }
+
+        if (answer.dataset.image === "true")
+            this.removeEventListener('click', transportAnswerImage_);
+
+        answer.getElementsByTagName('input')[number].removeEventListener('keyup', updateInputAnswers_);
+        answer.getElementsByClassName('js-option-delete')[number].removeEventListener('click', removeAnswer_);
+
+        for ( let i = number + 1; i < choiceAnswers[answer.dataset.answer].length; i++) {
+            let elements = answer.querySelectorAll('[data-number="' + i + '"]');
+
+            for (let j = 0; j < elements.length; j++) {console.log(elements[j].dataset.number );
+                elements[j].dataset.number = i - 1;
+                console.log(elements[j].dataset.number );
+            }
+
+        }
+
+        choiceAnswers[answer.dataset.answer].splice(number, 1);
+        answer.querySelector('.answer__item:nth-child(' + ( number + 1) + ')').remove();
+
+        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer.dataset.answer]));
+    };
+
+
+    /**
+     * Add answer to answers list
+     * @private
+     */
+    let addAnswer_ = function () {
+
+        let slide   = this.closest('.config__item').id.split('_')[1],
+            answer  = this.closest('.answer');
+
+        if (choiceAnswers[answer.dataset.answer].length >= 8) {
+            pit.notification.notify({
+                type: 'warning',
+                message: 'Макисмальное количество ответов - 8'
+            });
+            return false;
+        }
+
+        let block = pit.draw.node('LI','form-group__control-group answer__item');
+        block.innerHTML = '<input type="text" class="form-group__control form-group__control-group-input answer__value input-with-counter" maxlength="60" data-number="' + choiceAnswers[answer.dataset.answer].length + '">';
+
+        if (answer.dataset.image === "true")
+            block.innerHTML += '<a class="form-group__control-group-addon b-l-0 answer__image " title="Картинка ответа" data-number="' + choiceAnswers[answer.dataset.answer].length + '">' +
+                                    '<i class="fa fa-image bg-image__icon" aria-hidden="true"></i>' +
+                                    '<i class="fa fa-close bg-image__close" aria-hidden="true"></i>' +
+                                    '<img src="/" class="bg-image__image" data-src="">' +
+                                '</a>';
+
+        block.innerHTML += '<a class="form-group__control-group-addon js-option-delete" data-number="' + choiceAnswers[answer.dataset.answer].length + '">' +
+                                '<i class="fa fa-trash" aria-hidden="true"></i>' +
+                            '</a>';
+
+        if (answer.dataset.image === "true")
+            block.getElementsByClassName('answer__image')[0].addEventListener('click', transportAnswerImage_);
+
+        block.getElementsByTagName('input')[0].addEventListener('keyup', updateInputAnswers_);
+        pit.form.createCounter(block.getElementsByTagName('input')[0], 60);
+
+        block.getElementsByClassName('js-option-delete')[0].addEventListener('click', removeAnswer_);
+
+        answer.getElementsByClassName('answer__list')[0].appendChild(block);
+
+        choiceAnswers[answer.dataset.answer].push({
+            'text': '',
+            'image': '',
+        });
+
+        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer.dataset.answer]));
+    };
+
+    
+    /**
+     * Transport answer image 
+     * @private
+     */
+    let transportAnswerImage_ = function () {
+
+        let slide   = this.closest('.config__item').id.split('_')[1],
+            answer  = this.closest('.answer').dataset.answer,
+            image   = this.dataset.number,
+            block   = this,
+            holder  = this.getElementsByClassName('bg-image__image')[0];
+
+        pit.transport.init({
+            url : '/transport/2',
+            beforeSend : function () {
+                let fileReader = new FileReader(),
+                    input = pit.transport.getInput(),
+                    file = input.files[0];
+
+                fileReader.readAsDataURL(file);
+                block.classList.add('bg-image--with-image');
+                configStatus.classList.remove('config__status--error');
+                configStatus.classList.add('config__status--updating');
+
+                fileReader.onload = function(event) {
+                    holder.classList.add('bg-image--loading');
+                    holder.src = event.target.result;
+                }
+            },
+            success : function (response) {
+                response = JSON.parse(response);
+                configStatus.classList.remove('config__status--updating');
+
+                pit.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+
+                if (parseInt(response.code) === 88) {
+                    holder.src = response.icon_url;
+                    holder.classList.remove('bg-image--loading');
+                    block.removeEventListener('click', transportAnswerImage_);
+                    block.addEventListener('click', removeAnswerImage_);
+                    choiceAnswers[answer][image].image = response.name;
+                    updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]))
+                } else {
+                    block.classList.remove('bg-image--with-image');
+                    configStatus.classList.add('config__status--error');
+                    return false;
+                }
+            },
+            error : function (callbacks) {
+                pit.core.log('ajax error occur on updating answer image','error', coreLogPrefix, callbacks);
+                configStatus.classList.remove('config__status--updating');
+                configStatus.classList.add('config__status--error');
+                return false;
+            }
+        });
+
+    };
+
+
+    /**
+     * Remove answer image
+     * @private
+     */
+    let removeAnswerImage_ = function () {
+        let slide   = this.closest('.config__item').id.split('_')[1],
+            answer  = this.closest('.answer').dataset.answer,
+            block   = this,
+            image   = this.dataset.number;
+
+        block.classList.remove('bg-image--with-image');
+        block.removeEventListener('click', removeAnswerImage_);
+        block.addEventListener('click', transportAnswerImage_);
+        choiceAnswers[answer][image].image = '';
+        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]))
+    };
+
+    
+    /**
+     * Update answer text  
+     * @private
+     */
+    let updateInputAnswers_ = function () {
+        let slide  = this.closest('.config__item').id.split('_')[1],
+            answer = this.closest('.answer').dataset.answer,
+            input  = this.dataset.number;
+
+        choiceAnswers[answer][input].text = this.value;
+        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]))
+    };
+
+
+    /**
+     * Update answer as JSON string
+     * @param s_id - slide id
+     * @param JSON_Str - answers string
+     * @private
+     */
+    let updateAnswers_ = function (s_id, JSON_Str) {
+
+        let formData = new FormData();
+
+        formData.append("id", s_id);
+        formData.append("name", "answers");
+        formData.append("value", JSON_Str);
+
+        let ajaxDate = {
+            url: '/slide/update/field',
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                configStatus.classList.remove('config__status--error');
+                configStatus.classList.add('config__status--updating')
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                configStatus.classList.remove('config__status--updating');
+
+                if (parseInt(response.code) !== 76) {
+                    pit.core.log(response.message, 'warning', coreLogPrefix);
+                    configStatus.classList.add('config__status--error');
+                    return false;
+                }
+
+            },
+            error: function(callbacks) {
+                pit.core.log('ajax error occur on remove background from slide','error', coreLogPrefix, callbacks);
+                configStatus.classList.remove('config__status--updating');
+                configStatus.classList.add('config__status--error');
+                return false;
+            }
+        };
+
+        pit.ajax.send(ajaxDate);
+
+
+    };
+
+
+    /**
+     * Listener for checkbox answer-with-image
+     * @private
+     */
+    let answerWithImage_ = function () {
+        if (this.checked)
+            answerWithImageBuild_(this.closest('.config__item').getElementsByClassName('answer__item'));
+        else
+            answerWithImageDestroy_(this.closest('.config__item').getElementsByClassName('answer__item'));
+    };
+
+
+    /**
+     * Build answer-with-image
+     * @param elements - all answers
+     * @private
+     */
+    let answerWithImageBuild_ = function (elements) {
+
+        elements[0].closest('.answer').dataset.image = true;
+
+        let element = null;
+        for (let i = 0; i < elements.length; i++) {
+
+            element = pit.draw.node('A', 'form-group__control-group-addon b-l-0 answer__image ', {title:"Картинка ответа", 'data-number': i});
+            element.innerHTML = '<i class="fa fa-image bg-image__icon" aria-hidden="true"></i>'+
+                '<i class="fa fa-close bg-image__close" aria-hidden="true"></i>'+
+                '<img src="/" class="bg-image__image" data-src="">';
+
+            pit.core.insertBefore(elements[i].getElementsByClassName('js-option-delete')[0], element);
+            element.addEventListener('click', transportAnswerImage_);
+            element = null;
+        }
+
+    };
+
+
+    /**
+     * Destroy answer-with-image
+     * @param elements - all answers
+     * @private
+     */
+    let answerWithImageDestroy_ = function (elements) {
+
+        elements[0].closest('.answer').dataset.image = false;
+
+        let slide  = elements[0].closest('.config__item').id.split('_')[1],
+            answer = elements[0].closest('.answer').dataset.answer;
+
+        for (let i = 0; i < choiceAnswers[answer].length; i++) {
+            elements[i].getElementsByClassName('answer__image')[0].removeEventListener('click', transportAnswerImage_);
+            elements[i].getElementsByClassName('bg-image__image')[0].dataset.src = '';
+            elements[i].getElementsByClassName('answer__image')[0].remove();
+            choiceAnswers[answer][i].image = '';
+        }
+        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]));
+
+    };
+    
 
     /**
      * Open New Slide On Click `newSlideBtn`
@@ -496,7 +861,7 @@ let editPresent = function (editPresent) {
      */
     let removeAside_ = function (id) {
         document.getElementById('aside_'+id).getElementsByClassName('js-select-slide')[0].removeEventListener('click', switchSlide_);
-        document.getElementById('delete_'+id).removeEventListener('click', deleteSlide_);
+        document.getElementById('delete_'+id).removeEventListener('click', openDeleteSlide_);
         let changed_id = null;
         if (document.getElementById('aside_'+id).classList.contains('aside__item--active') && slides_order.length > 1) {
             if (slides_order.indexOf(id) === 0) {
@@ -523,15 +888,64 @@ let editPresent = function (editPresent) {
         config.innerHTML = html;
         configContent.appendChild(config);
 
-        let inputsArea = config.getElementsByClassName('js-ajax-edited');
+        let inputsArea  = config.getElementsByClassName('js-ajax-edited'),
+            bgImage     = config.getElementsByClassName('bg-image'),
+            checkbox    = config.getElementsByClassName('checkbox'),
+            answer     = config.getElementsByClassName('answer')[0];
 
         for (let i = 0; i < inputsArea.length; i++) {
             inputsArea[i].addEventListener('keyup', updateFieldData_);
         }
 
+        for (let i = 0; i < bgImage.length; i++) {
+            bgImage[i].addEventListener('click', transportBackground_);
+        }
 
-        config = null;
-        inputsArea = null;
+        for (let i = 0; i < checkbox.length; i++) {
+            checkbox[i].addEventListener('click', updateCheckboxData_);
+        }
+
+        if (answer) {
+
+            answer.dataset.answer = choiceAnswers.length;
+
+            let items   = answer.getElementsByClassName('answer__item'),
+                options = [];
+
+            for (let j = 0; j < items.length; j++) {
+
+                items[j].getElementsByClassName('js-option-delete')[0].addEventListener('click', removeAnswer_);
+                items[j].getElementsByClassName('js-option-delete')[0].dataset.number = j;
+
+                let input = items[j].getElementsByClassName('answer__value')[0],
+                    image = items[j].getElementsByClassName('answer__image')[0];
+
+                answer = {
+                    'text': '',
+                    'image': '',
+                };
+
+                input.addEventListener('keyup', updateInputAnswers_);
+                input.dataset.number = j;
+
+                if (image) {
+                    image.addEventListener('click', transportAnswerImage_);
+                    image.dataset.number = j;
+                }
+
+                image = input = null;
+                options.push(answer);
+            }
+
+            choiceAnswers.push(options);
+
+        }
+
+        config      = null;
+        inputsArea  = null;
+        bgImage     = null;
+        checkbox    = null;
+        answer      = null;
     };
 
 
@@ -541,11 +955,25 @@ let editPresent = function (editPresent) {
      * @private
      */
     let removeConfig_ = function (id) {
-        let inputsArea = document.getElementById('config_'+id).getElementsByClassName('js-ajax-edited');
+        let inputsArea  = document.getElementById('config_'+id).getElementsByClassName('js-ajax-edited'),
+            bgImage     = document.getElementById('config_'+id).getElementsByClassName('bg-image'),
+            checkbox    = document.getElementById('config_'+id).getElementsByClassName('checkbox');
 
         for (let i = 0; i < inputsArea.length; i++) {
             inputsArea[i].removeEventListener('keyup', updateFieldData_);
         }
+
+        for (let i = 0; i < bgImage.length; i++) {
+            bgImage[i].removeEventListener('click', transportBackground_);
+        }
+
+        for (let i = 0; i < checkbox.length; i++) {
+            checkbox[i].removeEventListener('click', updateCheckboxData_);
+        }
+
+        inputsArea  = null;
+        bgImage     = null;
+        checkbox    = null;
 
         document.getElementById('config_'+id).remove();
     };
@@ -632,14 +1060,18 @@ let editPresent = function (editPresent) {
      * Update Field of input || textarea areas
      * @private
      */
-    let updateFieldData_ = function () {
+    let updateFieldData_ = function (el) {
+
+        if (el.nodeType !== 1)
+            el = this;
+
         let formData = new FormData(),
-            name     = this.dataset.name,
-            value    = this.value,
-            slideId  = this.closest('.config__item').id.split('_')[1];
+            name     = el.dataset.name,
+            value    = el.value,
+            slideId  = el.closest('.config__item').id.split('_')[1];
 
         if (name === 'heading')
-            document.getElementById('aside_' + slideId).getElementsByClassName('aside__item-name')[0].textContent = value !== "" ? value : this.placeholder;
+            document.getElementById('aside_' + slideId).getElementsByClassName('aside__item-name')[0].textContent = value !== "" ? value : el.placeholder;
 
         formData.append('id', slideId);
         formData.append('name', name);
@@ -676,6 +1108,22 @@ let editPresent = function (editPresent) {
         };
 
         pit.ajax.send(ajaxData);
+
+    };
+
+
+    /**
+     * Update Checkbox Fields
+     * @private
+     */
+    let updateCheckboxData_ = function () {
+
+        if(this.checked)
+            this.value = this.dataset.value;
+        else
+            this.value = 0;
+
+        updateFieldData_(this);
 
     };
 
@@ -741,6 +1189,116 @@ let editPresent = function (editPresent) {
 
 
     /**
+     * Send Background Image
+     * @private
+     */
+    function transportBackground_() {
+
+        let id     = this.closest('.config__item').id.split('_')[1],
+            block  = this,
+            holder = this.getElementsByClassName('bg-image__image')[0];
+
+        pit.transport.init({
+            url : '/transport/1',
+            params : {
+                id : id
+            },
+            beforeSend : function () {
+                let fileReader = new FileReader(),
+                    input = pit.transport.getInput(),
+                    file = input.files[0];
+
+                fileReader.readAsDataURL(file);
+                block.classList.add('bg-image--with-image');
+                configStatus.classList.remove('config__status--error');
+                configStatus.classList.add('config__status--updating');
+                fileReader.onload = function(event) {
+                    holder.classList.add('bg-image--loading');
+                    holder.src = event.target.result;
+                }
+            },
+            success : function (response) {
+                response = JSON.parse(response);
+                configStatus.classList.remove('config__status--updating');
+
+                pit.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+
+                if (parseInt(response.code) === 88) {
+                    holder.src = response.icon_url;
+                    holder.classList.remove('bg-image--loading');
+                    block.removeEventListener('click', transportBackground_);
+                    block.addEventListener('click', removeBackground_)
+                } else {
+                    block.classList.remove('bg-image--with-image');
+                    configStatus.classList.add('config__status--error');
+                    return false;
+                }
+            },
+            error : function (callbacks) {
+                pit.core.log('ajax error occur on updating background','error', coreLogPrefix, callbacks);
+                configStatus.classList.remove('config__status--updating');
+                configStatus.classList.add('config__status--error');
+                return false;
+            }
+        });
+
+    }
+
+
+    /**
+     * Remove Background Image
+     * @private
+     */
+    function removeBackground_() {
+        let id       = this.closest('.config__item').id.split('_')[1],
+            block    = this,
+            holder   = this.getElementsByClassName('bg-image__image')[0],
+            formData = new FormData();
+
+        formData.append('id', id);
+        formData.append('name', 'image');
+        formData.append('value', '');
+
+        let ajaxDate = {
+            url: '/slide/update/field',
+            type: 'POST',
+            data: formData,
+            beforeSend: function () {
+                configStatus.classList.remove('config__status--error');
+                configStatus.classList.add('config__status--updating')
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                configStatus.classList.remove('config__status--updating');
+
+                if (parseInt(response.code) !== 76) {
+                    pit.core.log(response.message, 'warning', coreLogPrefix);
+                    configStatus.classList.add('config__status--error');
+                    return false;
+                }
+
+                block.classList.remove('bg-image--with-image');
+                block.removeEventListener('click', removeBackground_);
+                block.addEventListener('click', transportBackground_);
+                holder.src = '/';
+            },
+            error: function(callbacks) {
+                pit.core.log('ajax error occur on remove background from slide','error', coreLogPrefix, callbacks);
+                configStatus.classList.remove('config__status--updating');
+                configStatus.classList.add('config__status--error');
+                return false;
+            }
+        };
+
+        pit.ajax.send(ajaxDate);
+
+    }
+
+
+    /**
      * Edit Presentation Name -> open form for editing
      * @private
      */
@@ -749,7 +1307,6 @@ let editPresent = function (editPresent) {
         editPresentNameInput.value =presentationName.innerHTML;
         editPresentNameInput.focus();
     }
-
     
 
 
@@ -757,7 +1314,7 @@ let editPresent = function (editPresent) {
         prepareHeader_();
         prepare_();
         prepareAside_();
-
+        prepareChoiceOptions_();
 
         pit.core.log("Module loaded",'log',coreLogPrefix);
     };

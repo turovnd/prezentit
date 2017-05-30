@@ -206,6 +206,11 @@ class Controller_Slides_Ajax extends Ajax
                 $content->$name = $value;
                 $content->update();
                 break;
+            case 4:
+                $content = new Model_Slidechoices($slide->content_id);
+                $content->$name = $value;
+                $content->update();
+                break;
         }
 
         $presentation = new Model_Presentation($slide->presentation);
