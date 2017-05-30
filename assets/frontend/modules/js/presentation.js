@@ -10,6 +10,7 @@ let present = function (present) {
         prevSlideBtn    = null,
         progressBar     = null,
         slideActionBtns = null,
+        slides_order    = null,
         slideQuestion   = [];
 
 
@@ -23,6 +24,11 @@ let present = function (present) {
         progressBar     = document.getElementsByClassName('presentation__progress-bar')[0];
         slideActionBtns = document.getElementsByClassName('slide-question__action-btn');
         asideBtn        = document.getElementsByClassName('presentation__aside-open')[0];
+        slides_order    = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
+
+        for (let i = 0; i < slides_order.length; i++) {
+            slides_order[i] = parseInt(slides_order[i]);
+        }
 
         prepareSlides_(slides);
         prepareQuestions_(document.getElementsByClassName('slide-question__content'));
@@ -187,10 +193,12 @@ let present = function (present) {
     let prepareSlides_ = function (slides) {
         if (pit.cookies.get('cur_slide') && pit.cookies.get('cur_slide').match(new RegExp(slidesHash))) {
             curSlide = parseInt(pit.cookies.get('cur_slide').replace(location.pathname.split('/')[3], ''));
+            if (!slides_order.indexOf(curSlide))
+                curSlide = slides_order[0];
         } else {
-            curSlide = 0;
+            curSlide = slides_order[0];
         }
-        //switchSlides();
+        switchSlides();
     };
 
     /**
@@ -198,8 +206,8 @@ let present = function (present) {
      * @private
      */
     present.toNextSlide = function () {
-        if (curSlide < slides.length - 1) {
-            curSlide++;
+        if (slides_order.indexOf(curSlide) < slides.length - 1) {
+            curSlide = slides_order[slides_order.indexOf(curSlide) + 1];
             switchSlides();
             pit.core.log("Switch to the next slide",'log','presentation');
         }
@@ -210,8 +218,8 @@ let present = function (present) {
      * @private
      */
     present.toPrevSlide = function () {
-        if (curSlide > 0) {
-            curSlide--;
+        if (slides_order.indexOf(curSlide) > 0) {
+            curSlide = slides_order[slides_order.indexOf(curSlide) - 1];
             switchSlides();
             pit.core.log("Switch to the previous slide",'log','presentation');
         }
@@ -233,29 +241,29 @@ let present = function (present) {
         });
 
         for (let i = 0; i < slides.length; i++) {
-            if (i < curSlide) {
+            if (i < slides_order.indexOf(curSlide)) {
                 slides[i].classList.remove('presentation__slide--active', 'presentation__slide--after');
                 slides[i].classList.add('presentation__slide--before', 'presentation__slide--inactive');
                 continue;
             }
-            if (i > curSlide) {
+            if (i > slides_order.indexOf(curSlide)) {
                 slides[i].classList.remove('presentation__slide--active', 'presentation__slide--before');
                 slides[i].classList.add('presentation__slide--after', 'presentation__slide--inactive');
             }
         }
 
-        slides[curSlide].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
-        slides[curSlide].classList.add('presentation__slide--active');
+        slides[slides_order.indexOf(curSlide)].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
+        slides[slides_order.indexOf(curSlide)].classList.add('presentation__slide--active');
 
-        progressBar.style.width = parseInt(curSlide/(slides.length-1) * 100) + "%";
+        progressBar.style.width = parseInt(slides_order.indexOf(curSlide)/(slides.length-1) * 100) + "%";
 
-        if (curSlide === 0) {
+        if (slides_order.indexOf(curSlide) === 0) {
             prevSlideBtn.classList.add('hide')
         } else {
             prevSlideBtn.classList.remove('hide')
         }
 
-        if (curSlide === slides.length - 1) {
+        if (slides_order.indexOf(curSlide) === slides.length - 1) {
             nextSlideBtn.classList.add('hide')
         } else {
             nextSlideBtn.classList.remove('hide')

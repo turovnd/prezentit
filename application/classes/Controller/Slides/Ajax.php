@@ -194,22 +194,26 @@ class Controller_Slides_Ajax extends Ajax
             case 1:
                 $content = new Model_Slideheading($slide->content_id);
                 $content->$name = $value;
-                $content->update();
+                $content = $content->update();
+                $slideContent = View::factory('app/blocks/slide-presentation/heading')->set('slide', $content)->render();
                 break;
             case 2:
                 $content = new Model_Slideimage($slide->content_id);
                 $content->$name = $value;
-                $content->update();
+                $content = $content->update();
+                $slideContent = View::factory('app/blocks/slide-presentation/image')->set('slide', $content)->render();
                 break;
             case 3:
                 $content = new Model_Slideparagraph($slide->content_id);
                 $content->$name = $value;
-                $content->update();
+                $content = $content->update();
+                $slideContent = View::factory('app/blocks/slide-presentation/paragraph')->set('slide', $content)->render();
                 break;
             case 4:
                 $content = new Model_Slidechoices($slide->content_id);
                 $content->$name = $value;
-                $content->update();
+                $content = $content->update();
+                $slideContent = View::factory('app/blocks/slide-presentation/choices')->set('slide', $content)->render();
                 break;
         }
 
@@ -217,7 +221,7 @@ class Controller_Slides_Ajax extends Ajax
         $presentation->dt_update = Date::formatted_time('now');
         $presentation->update();
 
-        $response = new Model_Response_Slides('SLIDE_CONTENT_UPDATE_SUCCESS', 'success');
+        $response = new Model_Response_Slides('SLIDE_CONTENT_UPDATE_SUCCESS', 'success', array('slide' => $slideContent));
         $this->response->body(@json_encode($response->get_response()));
     }
 }

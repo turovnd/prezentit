@@ -34,7 +34,7 @@
 
         <ul id="configContent" class="config__content">
 
-            <? foreach ($slides as $slide) : ?>
+            <? foreach ($presentaton->slides as $slide) : ?>
 
                 <li id="config_<?=$slide->id; ?>" class="config__item">
 

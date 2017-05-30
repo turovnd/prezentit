@@ -6,8 +6,8 @@ Class Model_Slideheading {
     public $id;
     public $heading;
     public $subheading;
-    public $image;
-    public $reactions;
+    public $image = "";
+    public $reactions = "";
 
 
     /**

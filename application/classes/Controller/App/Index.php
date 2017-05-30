@@ -70,7 +70,9 @@ class Controller_App_Index extends Dispatch
             $this->template->presentaton = $presentaton;
 
         } else {
+
             throw new HTTP_Exception_404;
+
         }
 
     }
@@ -94,9 +96,9 @@ class Controller_App_Index extends Dispatch
             $this->template->aside = View::factory('app/blocks/aside-slides')
                 ->set('slides', $slides);
 
+            $presentaton->slides = $slides;
             $this->template->section = View::factory('app/pages/edit-presentation')
-                ->set('presentaton', $presentaton)
-                ->set('slides', $slides);
+                ->set('presentaton', $presentaton);
 
         } else {
 

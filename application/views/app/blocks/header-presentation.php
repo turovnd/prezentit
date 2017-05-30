@@ -2,7 +2,7 @@
     <span class="presentation__header-text">Перейдите на</span>
     <b>www.prezentit.ru</b>
     <span class="presentation__header-text">и используйте код</span>
-    <b>45 45 45</b>
+    <span class="presentation__code"><?= $code; ?></span>
 </header>
 
 
@@ -27,7 +27,7 @@
             <img src="<?=$assets; ?>static/img/welcome/entercode.png" alt="Graph Phone" class="presentation__instruction-image">
             <p class="presentation__instruction-text">
                 <span class="presentation__instruction-number bg-brand">3</span>
-                Введите код <b>45 45 45</b> <br> и оценивайте
+                Введите код <span class="presentation__code"><?= $code; ?></span> <br> и оценивайте
             </p>
         </li>
     </ul>

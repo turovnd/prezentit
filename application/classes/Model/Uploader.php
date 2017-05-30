@@ -70,29 +70,10 @@ class Model_Uploader extends Model
         switch ($type) {
             case self::SLIDE_BACKGROUND:
                 $this->filename = $savedFilename;
-                $slide = new Model_Slide($params->id);
-                $this->update_editing_presentation_time($slide->presentation);
-                switch ($slide->type) {
-                    case 1:
-                        $content = new Model_Slideheading($slide->content_id);
-                        break;
-                    case 2:
-                        $content = new Model_Slideimage($slide->content_id);
-                        break;
-                    case 3:
-                        $content = new Model_Slideparagraph($slide->content_id);
-                        break;
-                    case 4:
-                        $content = new Model_Slidechoices($slide->content_id);
-                        break;
-                }
-                $content->image = $savedFilename;
-                $content->update();
                 break;
 
             case self::SLIDE_ANSWER_IMAGE:
                 $this->filename = $savedFilename;
-                break;
 
         }
 
@@ -209,14 +190,6 @@ class Model_Uploader extends Model
         $file = Upload::save($file, $filename, $path);
         if ($file) return $filename;
         return FALSE;
-    }
-
-
-    private function update_editing_presentation_time($id)
-    {
-        $presentation = new Model_Presentation($id);
-        $presentation->dt_update = Date::formatted_time('now');
-        $presentation->update();
     }
 
 }
