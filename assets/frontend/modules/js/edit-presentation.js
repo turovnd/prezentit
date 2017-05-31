@@ -1184,8 +1184,7 @@ module.exports = function (editPresent) {
      */
     function removeAnswer_() {
 
-        var slide   = this.closest('.config__item').id.split('_')[1],
-            answer  = this.closest('.answer'),
+        var answer  = this.closest('.answer'),
             number  = parseInt(this.dataset.number);
 
         if (choiceAnswers[answer.dataset.answer].length <= 2) {
@@ -1219,7 +1218,9 @@ module.exports = function (editPresent) {
         choiceAnswers[answer.dataset.answer].splice(number, 1);
         answer.querySelector('.answer__item:nth-child(' + ( number + 1) + ')').remove();
 
-        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer.dataset.answer]));
+        answer.getElementsByClassName('js-answers-json')[0].value = JSON.stringify(choiceAnswers[answer.dataset.answer]);
+
+        updateFieldData_(answer.getElementsByClassName('js-answers-json')[0]);
 
     }
 
@@ -1230,8 +1231,7 @@ module.exports = function (editPresent) {
      */
     function addAnswer_() {
 
-        var slide   = this.closest('.config__item').id.split('_')[1],
-            answer  = this.closest('.answer');
+        var answer  = this.closest('.answer');
 
         if (choiceAnswers[answer.dataset.answer].length >= 8) {
 
@@ -1273,7 +1273,9 @@ module.exports = function (editPresent) {
             'image': '',
         });
 
-        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer.dataset.answer]));
+        answer.getElementsByClassName('js-answers-json')[0].value = JSON.stringify(choiceAnswers[answer.dataset.answer]);
+
+        updateFieldData_(answer.getElementsByClassName('js-answers-json')[0]);
 
     }
 
@@ -1284,8 +1286,7 @@ module.exports = function (editPresent) {
      */
     function transportAnswerImage_() {
 
-        var slide   = this.closest('.config__item').id.split('_')[1],
-            answer  = this.closest('.answer').dataset.answer,
+        var answer  = this.closest('.answer'),
             image   = this.dataset.number,
             block   = this,
             holder  = this.getElementsByClassName('bg-image__image')[0];
@@ -1327,8 +1328,10 @@ module.exports = function (editPresent) {
                     holder.classList.remove('bg-image--loading');
                     block.removeEventListener('click', transportAnswerImage_);
                     block.addEventListener('click', removeAnswerImage_);
-                    choiceAnswers[answer][image].image = response.name;
-                    updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]));
+                    choiceAnswers[answer.dataset.answer][image].image = response.name;
+
+                    answer.getElementsByClassName('js-answers-json')[0].value = JSON.stringify(choiceAnswers[answer.dataset.answer]);
+                    updateFieldData_(answer.getElementsByClassName('js-answers-json')[0]);
 
                 } else {
 
@@ -1358,16 +1361,18 @@ module.exports = function (editPresent) {
      */
     function removeAnswerImage_() {
 
-        var slide   = this.closest('.config__item').id.split('_')[1],
-            answer  = this.closest('.answer').dataset.answer,
+        var answer  = this.closest('.answer'),
             block   = this,
             image   = this.dataset.number;
 
         block.classList.remove('bg-image--with-image');
         block.removeEventListener('click', removeAnswerImage_);
         block.addEventListener('click', transportAnswerImage_);
-        choiceAnswers[answer][image].image = '';
-        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]));
+        choiceAnswers[answer.dataset.answer][image].image = '';
+
+        answer.getElementsByClassName('js-answers-json')[0].value = JSON.stringify(choiceAnswers[answer.dataset.answer]);
+
+        updateFieldData_(answer.getElementsByClassName('js-answers-json')[0]);
 
     }
 
@@ -1378,66 +1383,14 @@ module.exports = function (editPresent) {
      */
     function updateInputAnswers_() {
 
-        var slide  = this.closest('.config__item').id.split('_')[1],
-            answer = this.closest('.answer').dataset.answer,
+        var answer = this.closest('.answer'),
             input  = this.dataset.number;
 
-        choiceAnswers[answer][input].text = this.value;
-        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]));
+        choiceAnswers[answer.dataset.answer][input].text = this.value;
 
-    }
+        answer.getElementsByClassName('js-answers-json')[0].value = JSON.stringify(choiceAnswers[answer.dataset.answer]);
 
-
-    /**
-     * Update answer as JSON string
-     * @param sID - slide id
-     * @param jsonString - answers string
-     * @private
-     */
-    function updateAnswers_(sID, jsonString) {
-
-        var formData = new FormData();
-
-        formData.append('id', sID);
-        formData.append('name', 'answers');
-        formData.append('value', jsonString);
-
-        var ajaxDate = {
-            url: '/slide/update/field',
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-
-                configStatus.classList.remove('config__status--error');
-                configStatus.classList.add('config__status--updating');
-
-            },
-            success: function (response) {
-
-                response = JSON.parse(response);
-                configStatus.classList.remove('config__status--updating');
-
-                if (parseInt(response.code) !== 76) {
-
-                    pit.core.log(response.message, 'warning', coreLogPrefix);
-                    configStatus.classList.add('config__status--error');
-                    return false;
-
-                }
-
-            },
-            error: function (callbacks) {
-
-                pit.core.log('ajax error occur on remove background from slide', 'error', coreLogPrefix, callbacks);
-                configStatus.classList.remove('config__status--updating');
-                configStatus.classList.add('config__status--error');
-                return false;
-
-            }
-        };
-
-        pit.ajax.send(ajaxDate);
-
+        updateFieldData_(answer.getElementsByClassName('js-answers-json')[0]);
 
     }
 
@@ -1492,18 +1445,20 @@ module.exports = function (editPresent) {
 
         elements[0].closest('.answer').dataset.image = false;
 
-        var slide  = elements[0].closest('.config__item').id.split('_')[1],
-            answer = elements[0].closest('.answer').dataset.answer;
+        var answer = elements[0].closest('.answer');
 
-        for (var i = 0; i < choiceAnswers[answer].length; i++) {
+        for (var i = 0; i < choiceAnswers[answer.dataset.answer].length; i++) {
 
             elements[i].getElementsByClassName('answer__image')[0].removeEventListener('click', transportAnswerImage_);
             elements[i].getElementsByClassName('bg-image__image')[0].dataset.src = '';
             elements[i].getElementsByClassName('answer__image')[0].remove();
-            choiceAnswers[answer][i].image = '';
+            choiceAnswers[answer.dataset.answer][i].image = '';
 
         }
-        updateAnswers_(slide, JSON.stringify(choiceAnswers[answer]));
+
+        answer.getElementsByClassName('js-answers-json')[0].value = JSON.stringify(choiceAnswers[answer.dataset.answer]);
+
+        updateFieldData_(answer.getElementsByClassName('js-answers-json')[0]);
 
     }
 

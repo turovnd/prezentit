@@ -21,7 +21,7 @@
 
     <div class="slide-choices__block">
 
-        <div class="slide-choices__content animated <? echo $slide->image != "" ? 'fade__out--down hide' : 'fade__in'; ?>">
+        <div class="slide-choices__content animated <? echo $slide->image != "" ? '' : 'fade__in'; ?>">
 
             <?
             $defaultAnswers = '[{"text": "", "image": ""}, {"text": "", "image": ""}]';
@@ -37,7 +37,7 @@
 
                     <? if ($answer->image != "") : ?>
 
-                        <img class="slide-choices__option-image" src="<?=URL::site('uploads/slides/answers/o_' . $answer->image);?>">
+                        <img class="slide-choices__option-image" src="<?=URL::site('uploads/slides/answers/b_' . $answer->image);?>">
 
                     <? endif; ?>
 

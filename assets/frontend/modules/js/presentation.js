@@ -49,13 +49,15 @@ module.exports = function (present) {
 
         }
 
-        if (options.toggleAnswers)
+        if (options.toggleAnswers) {
 
             var toggleAnswerBtns = document.getElementsByClassName('slide-choices__action-btn');
 
-        for (var i = 0; i < toggleAnswerBtns.length; i++) {
+            for (var i = 0; i < toggleAnswerBtns.length; i++) {
 
-            toggleAnswerBtns[i].addEventListener('click', toggleAnswers_);
+                toggleAnswerBtns[i].addEventListener('click', toggleAnswers_);
+
+            }
 
         }
 
