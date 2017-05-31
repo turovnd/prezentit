@@ -1,4 +1,7 @@
 /* hide presentation slides style */
+.presentation__slides{
+    user-select: none;
+}
 .presentation__navigation-btns,
 .presentation__progress{
     display: none;

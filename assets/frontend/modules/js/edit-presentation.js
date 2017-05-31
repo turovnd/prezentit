@@ -8,7 +8,6 @@ let editPresent = function (editPresent) {
         editPresentNameFrom      = null,
         editPresentNameInput     = null,
         editPresentNameBtnSubmit = null,
-        newSlideBtn              = null,
         newSlideModal            = null,
         newSlideBlocks           = null,
         selectedNewSlide         = null,
@@ -91,62 +90,45 @@ let editPresent = function (editPresent) {
         editPresentNameInput = document.getElementById('editPresentNameInput');
         editPresentNameBtnSubmit = document.getElementById('editPresentNameBtnSubmit');
 
-        if (editPresentNameBtnSubmit)
-            editPresentNameBtnSubmit.addEventListener('click', saveTitle_);
+        if (!editPresentNameBtnSubmit || !editPresentNameBtn)
+            return false;
 
-        if(editPresentNameBtn)
-            editPresentNameBtn.addEventListener('click', editTitle_);
+        editPresentNameBtnSubmit.addEventListener('click', saveTitle_);
+        editPresentNameBtn.addEventListener('click', editTitle_);
+
+        return true;
+    };
+
+    let prepareNewSlide_ = function () {
+
+        let newSlideBtn = document.getElementById('newSlide');
+
+        if (!newSlideBtn)
+            return false;
+
+        newSlideBtn.addEventListener('click', openNewSlideForm_);
+
+        return true;
     };
 
 
-    let prepare_ = function () {
+    let prepareSlides_ = function () {
 
         present         = document.getElementsByClassName('presentation')[0];
-        newSlideBtn     = document.getElementById('newSlide');
         presentationId  = document.getElementById('presentation_id').value;
-        slides_order    = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
-        configStatus    = document.getElementsByClassName('config__status')[0];
-        slidesHash      = location.pathname.split('/')[3];
-        configContent   = document.getElementById('configContent');
-        asideMenu       = document.getElementsByClassName('aside__menu')[0];
-        editedFields    = document.getElementsByClassName('js-ajax-edited');
-
-        if (newSlideBtn) {
-            newSlideBtn.addEventListener('click', openNewSlideForm_);
-        }
 
         transformPresentation();
         window.addEventListener('resize', transformPresentation);
 
-        for (let i = 0; i < editedFields.length; i++) {
-            editedFields[i].addEventListener('keyup', updateFieldData_);
-        }
-
-        let updateImage = document.getElementsByClassName('bg-image');
-
-        for (let i = 0; i < updateImage.length; i++) {
-            if (updateImage[i].classList.contains('bg-image--with-image'))
-                updateImage[i].addEventListener('click', removeBackground_);
-            else
-                updateImage[i].addEventListener('click', transportBackground_);
-        }
-
-        let checkbox = document.getElementsByClassName('checkbox');
-
-        for (let i = 0; i < checkbox.length; i++) {
-            checkbox[i].addEventListener('click',updateCheckboxData_)
-        }
-
-        slides = document.getElementsByClassName('presentation__slide');
-
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].classList.remove('presentation__slide--after', 'presentation__slide--before')
-        }
-
+        return true;
     };
 
 
     let prepareAside_ = function () {
+        asideMenu       = document.getElementsByClassName('aside__menu')[0];
+        slides_order    = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
+        slidesHash      = location.pathname.split('/')[3];
+
         let asideSelectBtns = document.getElementsByClassName('js-select-slide'),
             asideDeleteBtns = document.getElementsByClassName('js-delete-slide'),
             existCurSlideId = false;
@@ -179,6 +161,42 @@ let editPresent = function (editPresent) {
             selectSlide_(curSlideId);
         }
 
+        return true;
+    };
+
+
+    let prepareConfig_ = function () {
+
+        configStatus    = document.getElementsByClassName('config__status')[0];
+        configContent   = document.getElementById('configContent');
+        editedFields    = document.getElementsByClassName('js-ajax-edited');
+
+        for (let i = 0; i < editedFields.length; i++) {
+            editedFields[i].addEventListener('keyup', updateFieldData_);
+        }
+
+        let updateImage = document.getElementsByClassName('bg-image');
+
+        for (let i = 0; i < updateImage.length; i++) {
+            if (updateImage[i].classList.contains('bg-image--with-image'))
+                updateImage[i].addEventListener('click', removeBackground_);
+            else
+                updateImage[i].addEventListener('click', transportBackground_);
+        }
+
+        let checkbox = document.getElementsByClassName('checkbox');
+
+        for (let i = 0; i < checkbox.length; i++) {
+            checkbox[i].addEventListener('click',updateCheckboxData_)
+        }
+
+        slides = document.getElementsByClassName('presentation__slide');
+
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('presentation__slide--after', 'presentation__slide--before')
+        }
+
+        return true;
     };
 
 
@@ -241,6 +259,7 @@ let editPresent = function (editPresent) {
             addOptionBtns[i].addEventListener('click', addAnswer_);
         }
 
+        return true;
     };
 
 
@@ -1308,12 +1327,12 @@ let editPresent = function (editPresent) {
 
 
     editPresent.init = function () {
-        prepareHeader_();
-        prepare_();
-        prepareAside_();
-        prepareChoiceOptions_();
+        let is_load =  prepareHeader_() === prepareNewSlide_() === prepareSlides_() === prepareAside_() === prepareConfig_() === prepareChoiceOptions_();
 
-        pit.core.log("Module loaded",'log',coreLogPrefix);
+        if (is_load)
+            pit.core.log("Module loaded",'log',coreLogPrefix);
+        else
+            pit.core.log("Module has not loaded",'error',coreLogPrefix);
     };
 
     return editPresent;

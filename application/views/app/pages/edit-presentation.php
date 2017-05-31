@@ -63,14 +63,14 @@
             counter: false
         });
         pit.form.init();
+        editPresent.init();
         present.init({
             aside: false,
             slideNavigation: false,
             toggleInstruction: false,
-            slideActions: false,
+            toggleAnswers: false,
             keyboard: false
         });
-        editPresent.init();
     }
 
     document.addEventListener("DOMContentLoaded", ready);

@@ -13,7 +13,6 @@ return array(
          */
         'sizes' => array(
             'o'  => array(false, 1500, 1500),
-            'm'  => array(true , 100),
             's'  => array(true , 50),
         ),
 
@@ -30,7 +29,6 @@ return array(
          */
         'sizes' => array(
             'o'  => array(false, 1500, 1500),
-            'b'  => array(true , 200),
             's'  => array(true , 50),
         ),
 
