@@ -23,7 +23,13 @@
 
         <div class="slide-choices__content animated">
 
-            <? foreach (json_decode($slide->answers) as $answer) : ?>
+            <?
+            $defaultAnswers = '[{"text": "", "image": ""}, {"text": "", "image": ""}]';
+
+            $answers = json_decode($slide->answers) != NULL ? json_decode($slide->answers) : json_decode($defaultAnswers);
+            ?>
+
+            <? foreach ($answers as $answer) : ?>
 
                 <div class="slide-choices__option-wrapper">
 

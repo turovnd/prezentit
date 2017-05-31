@@ -1,91 +1,109 @@
-let present = function (present) {
+module.exports = function (present) {
 
-    let asideBtn        = null,
-        instruction     = null,
-        fullScreenEl    = null,
-        slides          = null,
-        slidesHash      = null,
-        curSlide        = null,
-        nextSlideBtn    = null,
-        prevSlideBtn    = null,
-        progressBar     = null,
-        toggleAnswerBtns = null,
-        slides_order    = null,
-        choicesSlides    = null;
+    var asideBtn            = null,
+        instruction         = null,
+        fullScreenEl        = null,
+        slides              = null,
+        slidesHash          = null,
+        curSlide            = null,
+        nextSlideBtn        = null,
+        prevSlideBtn        = null,
+        progressBar         = null,
+        toggleAnswerBtns    = null,
+        slidesOrder         = null,
+        choicesSlides       = null;
 
 
-    let prepare_ = function (options) {
+    function prepare_(options) {
+
         asideBtn         = document.getElementsByClassName('presentation__aside-open')[0];
         instruction      = document.getElementById('toggleInstruction');
         fullScreenEl     = document.getElementsByClassName('presentation')[0];
         slides           = document.getElementsByClassName('presentation__slide');
-        slidesHash       = location.pathname.split('/')[3];
+        slidesHash       = window.location.pathname.split('/')[3];
         nextSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--right')[0];
         prevSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--left')[0];
         progressBar      = document.getElementsByClassName('presentation__progress-bar')[0];
-        slides_order     = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
+        slidesOrder      = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
         toggleAnswerBtns = document.getElementsByClassName('slide-choices__action-btn');
 
-        for (let i = 0; i < slides_order.length; i++) {
-            slides_order[i] = parseInt(slides_order[i]);
+        for (var i = 0; i < slidesOrder.length; i++) {
+
+            slidesOrder[i] = parseInt(slidesOrder[i]);
+
         }
 
         if (asideBtn && ! options.aside) {
-            asideBtn.remove()
+
+            asideBtn.remove();
+
         }
 
         if (nextSlideBtn && options.slideNavigation) {
+
             nextSlideBtn.addEventListener('click', present.toNextSlide);
+
         }
 
         if (prevSlideBtn && options.slideNavigation) {
+
             prevSlideBtn.addEventListener('click', present.toPrevSlide);
+
         }
 
         if (options.toggleAnswers)
-            for (let i = 0; i < toggleAnswerBtns.length; i++) {
+            for (var i = 0; i < toggleAnswerBtns.length; i++) {
+
                 toggleAnswerBtns[i].addEventListener('click', toggleAnswers_);
+
             }
 
         if (options.keyboard) {
-            document.addEventListener("keydown", keyDownFunction_);
+
+            document.addEventListener('keydown', keyDownFunction_);
+
         }
 
         // select current slide from cookie
         if (pit.cookies.get('cur_slide') && pit.cookies.get('cur_slide').match(new RegExp(slidesHash))) {
-            curSlide = parseInt(pit.cookies.get('cur_slide').replace(location.pathname.split('/')[3], ''));
-            if (!slides_order.indexOf(curSlide))
-                curSlide = slides_order[0];
+
+            curSlide = parseInt(pit.cookies.get('cur_slide').replace(window.location.pathname.split('/')[3], ''));
+            if (!slidesOrder.indexOf(curSlide))
+                curSlide = slidesOrder[0];
+
         } else {
-            curSlide = slides_order[0];
+
+            curSlide = slidesOrder[0];
+
         }
 
         switchSlides();
 
         prepareChoicesSlides_();
 
-    };
+    }
 
 
     /**
      * Prepare Answers on Choices Slide
      * @private
      */
-    let prepareChoicesSlides_ = function () {
+    function prepareChoicesSlides_() {
 
         choicesSlides = [];
-        
-        let choicesSl = document.getElementsByClassName('slide-choices');
 
-        for (let i = 0; i < choicesSl.length; i++) {
-            let slide       = [],
+        var choicesSl = document.getElementsByClassName('slide-choices');
+
+        for (var i = 0; i < choicesSl.length; i++) {
+
+            var slide       = [],
                 answers     = choicesSl[i].getElementsByClassName('slide-choices__option-wrapper'),
                 answer      = null,
                 answersArr  = [],
                 maxScore    = getMaxScore(answers),
                 score, image, bar;
 
-            for (let j = 0; j < answers.length; j++) {
+            for (var j = 0; j < answers.length; j++) {
 
                 score = answers[j].getElementsByClassName('slide-choices__option-score')[0];
                 image = answers[j].getElementsByClassName('slide-choices__option-image')[0];
@@ -110,38 +128,49 @@ let present = function (present) {
                 };
 
                 score.addEventListener('change', updateChoicesSlideScore_);
-                
+
                 answersArr.push(answer);
+
             }
 
             slide = {
                 wrapper: choicesSl[i],
                 maxScore: maxScore,
                 answers: answersArr,
-                in_percents: parseInt(choicesSl[i].getElementsByClassName('results-in-percents')[0].value)
+                inPercents: parseInt(choicesSl[i].getElementsByClassName('results-in-percents')[0].value)
             };
 
             choicesSlides.push(slide);
             updateChoicesSlideView_(slide);
 
-            window.matchMedia("(max-width: 992px)").addListener(function() {
+            window.matchMedia('(max-width: 992px)').addListener(function () {
+
                 updateChoicesSlideView_(slide);
+
             });
 
         }
-        console.log(choicesSlides);
-    };
 
-    let updateChoicesSlideScore_= function () {
+    }
+
+
+    /**
+     * Update choices slide score by 'this' element
+     * @private
+     */
+    function updateChoicesSlideScore_() {
+
         updateChoicesSlideView_(this.closest('.slide-choices__option-wrapper'));
-    };
+
+    }
 
 
     /**
      * Toggle Image and Question Action
      */
-    let toggleAnswers_ = function () {
-        let btn     = this,
+    function toggleAnswers_() {
+
+        var btn     = this,
             content = this.parentNode.parentNode.getElementsByClassName('slide-choices__content')[0],
             img     = this.parentNode.parentNode.getElementsByClassName('slide-choices__image')[0];
 
@@ -152,7 +181,8 @@ let present = function (present) {
         img.classList.toggle('fade__out--down');
         content.classList.toggle('fade__in--up');
         content.classList.toggle('fade__out--down');
-    };
+
+    }
 
 
     /**
@@ -163,39 +193,45 @@ let present = function (present) {
      * @private
      * @param slide
      */
-    let updateChoicesSlideView_ = function (slide) {
+    function updateChoicesSlideView_(slide) {
 
         slide.maxScore = getMaxScore(slide.wrapper.getElementsByClassName('slide-choices__option-wrapper'));
 
-        for( let i = 0; i < slide.answers.length; i++ ) {
+        for( var i = 0; i < slide.answers.length; i++ ) {
 
-            let answer = slide.answers[i],
+            var answer = slide.answers[i],
                 answerHeight = slide.answers[0].wrapper.clientHeight;
 
             answer.img.height = answer.img.wrapper !== undefined ? parseFloat(answer.img.wrapper.clientWidth / (answerHeight / 70)) : 0;
 
-            let imgHeight = answer.img.wrapper !== undefined ? answer.img.height : 0,
+            var imgHeight = answer.img.wrapper !== undefined ? answer.img.height : 0,
                 barHeight = answer.score.score === 0 ? 0 : parseFloat(48 * answer.score.score / slide.maxScore - imgHeight / 2);
 
             if (answer.img.wrapper === undefined) {
+
                 // no image
                 answer.score.bottom = 12 + barHeight;
                 answer.bar.height = barHeight;
+
             } else {
-                //with image
+
+                // with image
                 answer.bar.height = barHeight > 0 ? barHeight : 0;
                 answer.img.bottom = barHeight > 0 ? 12 + barHeight : 12;
                 answer.score.bottom = answer.img.bottom + imgHeight;
+
             }
 
-            answer.bar.wrapper.style.height = answer.bar.height + "vh";
-            answer.score.wrapper.style.bottom = answer.score.bottom + "vh";
-            answer.score.wrapper.textContent = slide.in_percents === 0 ? answer.score.score : parseInt(answer.score.score / getTotalScore(slide.wrapper.getElementsByClassName('slide-choices__option-wrapper')) * 100) + "%";
+            answer.bar.wrapper.style.height = answer.bar.height + 'vh';
+            answer.score.wrapper.style.bottom = answer.score.bottom + 'vh';
+            answer.score.wrapper.textContent = slide.inPercents === 0 ? answer.score.score : parseInt(answer.score.score / getTotalScore(slide.wrapper.getElementsByClassName('slide-choices__option-wrapper')) * 100) + '%';
 
             if (answer.img.wrapper !== undefined )
-                answer.img.wrapper.style.bottom = answer.img.bottom + "vh";
+                answer.img.wrapper.style.bottom = answer.img.bottom + 'vh';
+
         }
-    };
+
+    }
 
 
     /**
@@ -205,9 +241,9 @@ let present = function (present) {
      */
     function getMaxScore(answers) {
 
-        let maxScore = 0, tempScore = 0;
+        var maxScore = 0, tempScore = 0;
 
-        for (let j = 0; j < answers.length; j++) {
+        for (var j = 0; j < answers.length; j++) {
 
             tempScore = parseInt(answers[j].getElementsByClassName('slide-choices__option-score')[0].dataset.score);
 
@@ -219,11 +255,17 @@ let present = function (present) {
 
     }
 
+
+    /**
+     * Get totol score for Choice slide
+     * @param answers
+     * @returns {number}
+     */
     function getTotalScore(answers) {
 
-        let totalScore = 0;
+        var totalScore = 0;
 
-        for (let j = 0; j < answers.length; j++) {
+        for (var j = 0; j < answers.length; j++) {
 
             totalScore += parseInt(answers[j].getElementsByClassName('slide-choices__option-score')[0].dataset.score );
 
@@ -242,10 +284,12 @@ let present = function (present) {
      * @param answer - answer position in array `choicesSlides[slide].answers`
      */
     present.addScore = function (slide, answer) {
+
         choicesSlides[slide].answers[answer].score.score += 1;
         choicesSlides[slide].answers[answer].score.wrapper.dataset.score = choicesSlides[slide].answers[answer].score.score;
 
         updateChoicesSlideView_(choicesSlides[slide]);
+
     };
 
 
@@ -254,11 +298,15 @@ let present = function (present) {
      * @private
      */
     present.toNextSlide = function () {
-        if (slides_order.indexOf(curSlide) < slides.length - 1) {
-            curSlide = slides_order[slides_order.indexOf(curSlide) + 1];
+
+        if (slidesOrder.indexOf(curSlide) < slides.length - 1) {
+
+            curSlide = slidesOrder[slidesOrder.indexOf(curSlide) + 1];
             switchSlides();
-            pit.core.log("Switch to the next slide",'log','presentation');
+            pit.core.log('Switch to the next slide', 'log', 'presentation');
+
         }
+
     };
 
     /**
@@ -266,11 +314,15 @@ let present = function (present) {
      * @private
      */
     present.toPrevSlide = function () {
-        if (slides_order.indexOf(curSlide) > 0) {
-            curSlide = slides_order[slides_order.indexOf(curSlide) - 1];
+
+        if (slidesOrder.indexOf(curSlide) > 0) {
+
+            curSlide = slidesOrder[slidesOrder.indexOf(curSlide) - 1];
             switchSlides();
-            pit.core.log("Switch to the previous slide",'log','presentation');
+            pit.core.log('Switch to the previous slide', 'log', 'presentation');
+
         }
+
     };
 
 
@@ -279,62 +331,89 @@ let present = function (present) {
      * - include updating current slide in Cookie
      * @private
      */
-    let switchSlides = function () {
+    function switchSlides() {
 
         pit.cookies.set({
             name: 'cur_slide',
-            value: 'presentation~' + location.pathname.split('/')[3] + curSlide,
+            value: 'presentation~' + window.location.pathname.split('/')[3] + curSlide,
             expires: 21600,
             path: '/'
         });
 
-        for (let i = 0; i < slides.length; i++) {
-            if (i < slides_order.indexOf(curSlide)) {
+        for (var i = 0; i < slides.length; i++) {
+
+            if (i < slidesOrder.indexOf(curSlide)) {
+
                 slides[i].classList.remove('presentation__slide--active', 'presentation__slide--after');
                 slides[i].classList.add('presentation__slide--before', 'presentation__slide--inactive');
                 continue;
+
             }
-            if (i > slides_order.indexOf(curSlide)) {
+            if (i > slidesOrder.indexOf(curSlide)) {
+
                 slides[i].classList.remove('presentation__slide--active', 'presentation__slide--before');
                 slides[i].classList.add('presentation__slide--after', 'presentation__slide--inactive');
+
             }
+
         }
 
-        if (slides_order.indexOf(curSlide) !== -1) {
-            slides[slides_order.indexOf(curSlide)].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
-            slides[slides_order.indexOf(curSlide)].classList.add('presentation__slide--active');
-            progressBar.style.width = parseInt(slides_order.indexOf(curSlide)/(slides.length-1) * 100) + "%";
+        if (slidesOrder.indexOf(curSlide) !== -1) {
+
+            slides[slidesOrder.indexOf(curSlide)].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
+            slides[slidesOrder.indexOf(curSlide)].classList.add('presentation__slide--active');
+            progressBar.style.width = parseInt(slidesOrder.indexOf(curSlide)/(slides.length-1) * 100) + '%';
+
         }
 
-        if (slides_order.indexOf(curSlide) === 0) {
-            prevSlideBtn.classList.add('hide')
+        if (slidesOrder.indexOf(curSlide) === 0) {
+
+            prevSlideBtn.classList.add('hide');
+
         } else {
-            prevSlideBtn.classList.remove('hide')
+
+            prevSlideBtn.classList.remove('hide');
+
         }
 
-        if (slides_order.indexOf(curSlide) === slides.length - 1) {
-            nextSlideBtn.classList.add('hide')
+        if (slidesOrder.indexOf(curSlide) === slides.length - 1) {
+
+            nextSlideBtn.classList.add('hide');
+
         } else {
-            nextSlideBtn.classList.remove('hide')
+
+            nextSlideBtn.classList.remove('hide');
+
         }
-    };
+
+    }
 
 
     /**
      * Full Screen
      */
     present.toggleFullScreen = function () {
+
         if (fullScreenEl) {
-            if (fullScreenEl.dataset.fullscreen === "true") {
+
+            if (fullScreenEl.dataset.fullscreen === 'true') {
+
                 fullScreenEl.dataset.fullscreen = false;
                 cancelFullScreen();
+
             } else {
+
                 fullScreenEl.dataset.fullscreen = true;
                 launchFullScreen(fullScreenEl);
+
             }
+
         } else {
-            pit.core.log("Full screen button doesn't exist",'error','presentation');
+
+            pit.core.log("Full screen button doesn't exist", 'error', 'presentation');
+
         }
+
     };
 
     /**
@@ -342,88 +421,127 @@ let present = function (present) {
      * @param element
      * @private
      */
-    let launchFullScreen = function (element) {
+    function launchFullScreen(element) {
+
         if (element.requestFullScreen) {
+
             element.requestFullScreen();
+
         } else if (element.mozRequestFullScreen) {
+
             element.mozRequestFullScreen();
+
         } else if (element.webkitRequestFullScreen) {
+
             element.webkitRequestFullScreen();
+
         }
-    };
+
+    }
 
     /**
      * Close Full Screen On Click
      * @private
      */
-    let cancelFullScreen = function () {
+    function cancelFullScreen() {
+
         if (document.cancelFullScreen) {
+
             document.cancelFullScreen();
+
         } else if (document.mozCancelFullScreen) {
+
             document.mozCancelFullScreen();
+
         } else if (document.webkitCancelFullScreen) {
+
             document.webkitCancelFullScreen();
+
         }
-    };
+
+    }
 
 
     /**
      * Toggle Instruction on Page
      */
     present.toggleInstruction = function () {
+
         if (instruction) {
 
-            if (instruction.dataset.opened === "false") {
+            if (instruction.dataset.opened === 'false') {
+
                 instruction.classList.toggle('hide');
 
                 if (!instruction.classList.contains('hide')) {
+
                     instruction.children[1].removeAttribute('data-height');
                     instruction.click();
+
                 }
 
             } else {
+
                 instruction.click();
+
             }
 
         } else {
-            pit.core.log("Instructions doesn't exist",'error','presentation');
+
+            pit.core.log("Instructions doesn't exist", 'error', 'presentation');
+
         }
+
     };
+
 
     /**
      * Key Down Navigation
      * @param e
      */
-    let keyDownFunction_ = function (e) {
-        let keyCode = e.keyCode;
+    function keyDownFunction_(e) {
+
+        var keyCode = e.keyCode;
 
         if (keyCode === pit.core.keys.RIGHT || keyCode === pit.core.keys.SPACE) {
+
             present.toNextSlide();
             return;
+
         }
         if (keyCode === pit.core.keys.LEFT) {
+
             present.toPrevSlide();
             return;
+
         }
         if (keyCode === pit.core.keys.Q) {
+
             /**
              * TODO: hide||show Keyboard shortcuts
              */
             return;
+
         }
         if (keyCode === pit.core.keys.I) {
+
             present.toggleInstruction();
             return;
+
         }
         if (keyCode === pit.core.keys.H) {
+
             /**
              * TODO: hide||show results
              */
             return;
+
         }
         if (keyCode === pit.core.keys.F) {
+
             present.toggleFullScreen();
             return;
+
         }
         if (keyCode === pit.core.keys.C) {
             /**
@@ -431,20 +549,20 @@ let present = function (present) {
              */
         }
         if (keyCode === pit.core.keys.E) {
+
             window.history.pushState('Presentation', window.location);
             window.location.replace(window.location + '/edit');
+
         }
-    };
+
+    }
 
 
     present.init = function (options) {
 
         prepare_(options);
 
-        setTimeout(function () {
-            document.getElementsByClassName('presentation__loader')[0].remove();
-            pit.core.log("Module loaded",'log','presentation');
-        }, 600);
+        pit.core.log('Module loaded', 'log', 'presentation');
 
     };
 

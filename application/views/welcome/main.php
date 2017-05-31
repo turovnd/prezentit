@@ -10,8 +10,9 @@
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/prezentit.bundle.css?v=<?= filemtime("assets/frontend/bundles/prezentit.bundle.css") ?>">
-    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/prezentit.bundle.js?v=<?= filemtime("assets/frontend/bundles/prezentit.bundle.js") ?>"></script>
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css?v=<?= filemtime("assets/vendor/font-awesome/css/font-awesome.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/pit.min.css?v=<?= filemtime("assets/frontend/bundles/pit.min.css") ?>">
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/pit.min.js?v=<?= filemtime("assets/frontend/bundles/pit.min.js") ?>"></script>
 
     <script type="text/javascript">
         function ready() {
@@ -26,8 +27,6 @@
 
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css?v=<?= filemtime("assets/static/css/welcome.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css?v=<?= filemtime("assets/vendor/font-awesome/css/font-awesome.css") ?>">
-
 
 </head>
 

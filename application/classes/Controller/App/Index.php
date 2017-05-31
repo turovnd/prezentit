@@ -11,10 +11,8 @@
 class Controller_App_Index extends Dispatch
 {
 
-    /**
-     * @const ACTION_NEW [String]
-     */
     const ACTION_PRESENTATION = 'presentation';
+    const ACTION_EDIT_PRESENTATION = 'presentationedit';
 
 
     public function before()
@@ -23,6 +21,10 @@ class Controller_App_Index extends Dispatch
 
             case self::ACTION_PRESENTATION :
                 $this->template = 'app/main-presentation';
+                break;
+
+            case self::ACTION_EDIT_PRESENTATION:
+                $this->template = 'app/main-edit-presentation';
                 break;
 
             default :
