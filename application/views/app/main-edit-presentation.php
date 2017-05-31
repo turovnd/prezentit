@@ -10,10 +10,10 @@
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css?v=<?= filemtime("assets/vendor/font-awesome/css/font-awesome.css") ?>">
 
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/pit.min.css">
-    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/pit.min.js"></script>
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/edit-present.min.css?v=<?= filemtime("assets/frontend/bundles/edit-present.min.css") ?>">
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/edit-present.min.js?v=<?= filemtime("assets/frontend/bundles/edit-present.min.js") ?>"></script>
 
     <script type="text/javascript">
         function ready() {

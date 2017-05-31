@@ -1,7 +1,3 @@
-<link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/edit-present.min.css">
-<script type="text/javascript" src="<?=$assets; ?>frontend/bundles/edit-present.min.js"></script>
-
-
 <section class="section animated fade__in">
 
     <main class="presentation animated fade__in" style="transform: scale(0.57) translateY(120.125px) translateX(376.238px)">
@@ -50,10 +46,3 @@
     <input type="hidden" id="slides_order" value="<?= $presentaton->slides_order; ?>">
 
 </section>
-
-<!-- =============== PAGE SCRIPTS ===============-->
-<script>
-
-
-    document.addEventListener("DOMContentLoaded", ready);
-</script>

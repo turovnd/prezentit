@@ -1,6 +1,5 @@
 <!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css">
-<link rel="stylesheet" href="<?=$assets; ?>static/css/all-presentations.css">
+<link rel="stylesheet" href="<?=$assets; ?>static/css/all-presentations.css?v=<?= filemtime("assets/static/css/all-presentations.css") ?>">
 
 
 <div class="section__content clear-fix animated fade__in">
@@ -72,9 +71,9 @@
 
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>vendor/moment/moment.min.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>static/js/all-presentations.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/moment.min.js?v=<?= filemtime("assets/vendor/moment/moment.min.js") ?>"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js?v=<?= filemtime("assets/vendor/moment/locale/ru.js") ?>"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/all-presentations.js?v=<?= filemtime("assets/static/js/all-presentations.js") ?>"></script>
 
 <script>
     allPresent.init();

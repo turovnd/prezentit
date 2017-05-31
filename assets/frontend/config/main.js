@@ -76,7 +76,7 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
-                //drop_console: true
+                drop_console: true
             }
         }),
 
@@ -85,7 +85,6 @@ module.exports = {
 
         /** Минифицируем CSS */
         new OptimizeCssPlugin({
-            assetNameRegExp: libCSS,
             cssProcessor: require('cssnano'),
             cssProcessorOptions: {
                 discardComments: {
