@@ -3,7 +3,7 @@
 /**
  * Class Controller_Profile
  *
- * @copyright presentit
+ * @copyright prezentit
  * @author Nikolai Turov
  * @version 0.0.0
  */
@@ -33,6 +33,7 @@ class Controller_Profile extends Dispatch
 
         $profile = new Model_User($id);
 
+        $this->template->title = $this->user->name;
         $this->template->header = View::factory('app/blocks/header-app', array('title' => "Профиль - " . $this->user->name));
         $this->template->aside = View::factory('app/blocks/aside-app');
         $this->template->section = View::factory('app/pages/profile')

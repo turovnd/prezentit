@@ -23,8 +23,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 section--md valign fl_r">
                     <div>
-                        <h3 class="h2">Зарегистрируйтесь в <?=$GLOBALS['SITE_NAME']; ?></h3>
-                        <p class="h4 m-t-20">Для создания <a role="button" class="subscribe text-brand">учетной записи</a> не требуется ничего установливать, просто начните использовать <?=$GLOBALS['SITE_NAME']; ?> прямо сейчас!</p>
+                        <h3 class="h2">Зарегистрируйтесь в Prezentit</h3>
+                        <p class="h4 m-t-20">Для создания <a role="button" class="subscribe text-brand">учетной записи</a> не требуется ничего установливать, просто начните использовать Prezentit прямо сейчас!</p>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--md valign">
@@ -38,7 +38,7 @@
                 <div class="col-xs-12 col-sm-6 section--md valign fl_l">
                     <div>
                         <h3 class="h2">Создайте презентацию</h3>
-                        <p class="h4 m-t-20">Заполните свою презентацию слайдами и вопросами, которые вы хотели бы задать своей аудитории.</p>
+                        <p class="h4 m-t-20">Заполните свою презентацию слайдами и вопросами, которые Вы хотели бы задать своей аудитории.</p>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 section--md valign fl_r">
@@ -66,8 +66,8 @@
 <div class="container">
     <div class="m-t-10 divider"></div>
     <div class="m-t-100 m-b-100 m-l-auto m-r-auto clear-fix text-center ">
-        <a role="button" class="btn btn--lg in-circle btn--brand btn--scaled col-xs-12 col-sm-auto subscribe fl_n m-b-0">
-            Подписаться на бета-версию
+        <a href="<?=URL::site('signup')?>" class="btn btn--lg in-circle btn--brand btn--scaled col-xs-12 col-sm-auto fl_n m-b-0">
+            Зарегистрироваться
         </a>
     </div>
     <div class="m-b-10 divider"></div>
@@ -131,11 +131,11 @@
     <div class="valign section--md">
         <div class="container">
             <p class="h1--sale text-white">
-                Хотите попробовать <?=$GLOBALS["SITE_NAME"]; ?>?
+                Хотите попробовать Prezentit?
             </p>
             <div class="text-center m-t-50">
-                <a role="button" class="btn btn--lg in-circle btn--hollow btn--scaled col-xs-12 col-sm-auto subscribe">
-                    Подписаться на бета-версию
+                <a href="<?=URL::site('signup')?>" class="btn btn--lg in-circle btn--hollow btn--scaled col-xs-12 col-sm-auto">
+                    Зарегистрироваться
                 </a>
             </div>
         </div>

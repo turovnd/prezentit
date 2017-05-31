@@ -15,8 +15,6 @@
     margin-bottom: 15px;
     animation-duration: .4s;
     animation-fill-mode: both;
-    -webkit-animation-duration: .4s;
-    -webkit-animation-fill-mode: both;
     z-index: 502;
 }
 .notification--error{
@@ -45,7 +43,7 @@
     text-align: center;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -50%);
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 }
 

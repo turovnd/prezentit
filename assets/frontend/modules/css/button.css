@@ -70,3 +70,8 @@ button {
     background: #f5f5f5;
     border-color: #cfcfcf;
 }
+.btn--success{
+    color: #FCFCFC;
+    background: #27c24c;
+    border-color: #1f9c3d;
+}

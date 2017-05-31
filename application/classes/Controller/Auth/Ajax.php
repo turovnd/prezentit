@@ -3,7 +3,7 @@
 /**
  * Class Controller_Auth_Ajax
  *
- * @copyright presentit
+ * @copyright prezentit
  * @author Nikolai Turov
  * @version 0.0.0
  */
@@ -157,7 +157,7 @@ class Controller_Auth_Ajax extends Auth
 
         $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email . Date::formatted_time('now'));
 
-        $this->redis->set('presentit:confirmation:email:' . $hash, $user->id);
+        $this->redis->set('prezentit:confirmation:email:' . $hash, $user->id);
 
         $template = View::factory('email_templates/confirm_email', array('user' => $user, 'password' => $password, 'hash' => $hash));
 
@@ -176,7 +176,7 @@ class Controller_Auth_Ajax extends Auth
     {
         $hash = $this->request->param('hash');
 
-        $id = $this->redis->get('presentit:confirmation:email:' . $hash);
+        $id = $this->redis->get('prezentit:confirmation:email:' . $hash);
 
         if (!$id) {
             throw new HTTP_Exception_400;
@@ -188,7 +188,7 @@ class Controller_Auth_Ajax extends Auth
 
         $user->update();
 
-        $this->redis->delete('presentit:confirmation:email:' . $hash);
+        $this->redis->delete('prezentit:confirmation:email:' . $hash);
 
         $this->redirect('app');
 
@@ -238,7 +238,7 @@ class Controller_Auth_Ajax extends Auth
 
         $hash = $this->makeHash('sha256', $_SERVER['SALT'] . $user->id . Date::formatted_time('now'));
 
-        $this->redis->set('presentit:reset:password:' . $hash, $user->id, array('nx', 'ex' => 3600));
+        $this->redis->set('prezentit:reset:password:' . $hash, $user->id, array('nx', 'ex' => 3600));
 
         $template = View::factory('email_templates/reset_password', array('user' => $user, 'hash' => $hash));
 
@@ -254,10 +254,10 @@ class Controller_Auth_Ajax extends Auth
      */
     public function action_reset()
     {
-        //$this->checkRequest();
+        $this->checkRequest();
 
         $hash = Cookie::get('reset_link');
-        $id = $this->redis->get('presentit:reset:password:' . $hash);
+        $id = $this->redis->get('prezentit:reset:password:' . $hash);
 
         $user = new Model_User($id);
 
@@ -280,7 +280,7 @@ class Controller_Auth_Ajax extends Auth
         $user->changePassword($password);
 
         Cookie::delete('reset_link');
-        $this->redis->delete('presentit:reset:password:' . $hash);
+        $this->redis->delete('prezentit:reset:password:' . $hash);
         
         $response = new Model_Response_Auth('PASSWORD_CHANGE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
@@ -298,7 +298,7 @@ class Controller_Auth_Ajax extends Auth
 
         $hash = $this->request->param('hash');
 
-        $id = $this->redis->get('presentit:reset:password:' . $hash);
+        $id = $this->redis->get('prezentit:reset:password:' . $hash);
 
         $user = new Model_User($id);
 
@@ -320,12 +320,12 @@ class Controller_Auth_Ajax extends Auth
     {
         $hash = $this->makeHash('sha256', $_SERVER['SALT'] . $sid . $_SERVER['AUTHSALT'] . $uid);
 
-        Cookie::set('secret', $hash, Date::DAY);
+        Cookie::set('secret', $hash, Date::MONTH);
 
         /**
          * save session in Redis server
          */
-        $this->redis->set('presentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+        $this->redis->set('prezentit:sessions:secrets:' . $hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 2629744));
 
     }
 

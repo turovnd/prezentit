@@ -13,26 +13,43 @@
     </main>
 
     <div class="presentation-background"></div>
+    
+    <div class="config">
 
+        <ul class="config__header">
+            <li class="config__btn">
+                Содержание
+            </li>
+            <li class="fl_r config__status">
+                <span class="config__status-icon">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <i class="fa fa-check"></i>
+                    <i class="fa fa-close"></i>
+                </span>
+                <span class="config__status-text config__status-text--saved">Сохранено</span>
+                <span class="config__status-text config__status-text--updating">Сохранение</span>
+                <span class="config__status-text config__status-text--error">Ошибка</span>
+            </li>
+        </ul>
 
-    <div class="slide-block col-xs-12">
-        <div id="slide-block__1">
-            <ul class="tabs__header">
-                <li class="tabs__btn tabs__btn--active" data-toggle="tabs" data-block="slideContent">
-                    Содержание
+        <ul id="configContent" class="config__content">
+
+            <? foreach ($presentaton->slides as $slide) : ?>
+
+                <li id="config_<?=$slide->id; ?>" class="config__item">
+
+                    <?= View::factory('app/blocks/slide-config/' . $slide->view, array('slide' => $slide->content)); ?>
+
                 </li>
-            </ul>
-            <div class="tabs__content fl_l">
-                <div id="slideContent" class="tabs__block tabs__block--active">
-<!--                    --><?//= View::factory('app/blocks/slide-type/heading')?>
-<!--                    --><?//= View::factory('app/blocks/slide-type/image')?>
-<!--                    --><?//= View::factory('app/blocks/slide-type/paragraph')?>
-<!--                    --><?//= View::factory('app/blocks/slide-type/choices')?>
-                </div>
 
-            </div>
-        </div>
+            <? endforeach; ?>
+
+        </ul>
+
     </div>
+
+    <input type="hidden" id="presentation_id" value="<?= $presentaton->id; ?>">
+    <input type="hidden" id="slides_order" value="<?= $presentaton->slides_order; ?>">
 
 </section>
 
@@ -46,14 +63,14 @@
             counter: false
         });
         pit.form.init();
+        editPresent.init();
         present.init({
             aside: false,
-            slideNavigation: true,
-            toggleInstruction: true,
-            slideActions: false,
+            slideNavigation: false,
+            toggleInstruction: false,
+            toggleAnswers: false,
             keyboard: false
         });
-        editPresent.init();
     }
 
     document.addEventListener("DOMContentLoaded", ready);

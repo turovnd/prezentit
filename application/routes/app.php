@@ -16,10 +16,9 @@ Route::set('APP', 'app')
  * - create new
  * - delete existed
  */
-Route::set('NEW_PRESENTATION', 'app/presentation/<action>(/<id>)',
+Route::set('NEW_PRESENTATION', 'presentation/<action>',
     array(
-        'id'        => $DIGIT,
-        'action'    => 'new|delete'
+        'action'    => 'new|delete|editname'
     ))
     ->defaults(array(
         'controller'  => 'App_Ajax',

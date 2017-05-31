@@ -97,7 +97,7 @@ function ready() {
                         window.location.replace(protocol + '//' + host + '/app');
                 },
                 error: function(callbacks) {
-                    pit.core.log('ajax error occur on signin form','danger','authorization',callbacks);
+                    pit.core.log('ajax error occur on signin form','error','authorization',callbacks);
                     signin.classList.add('loading');
                 }
             };
@@ -135,7 +135,7 @@ function ready() {
 
                 },
                 error: function(callbacks) {
-                    pit.core.log('ajax error occur on signup form','danger','authorization',callbacks);
+                    pit.core.log('ajax error occur on signup form','error','authorization',callbacks);
                     signup.classList.remove('loading');
                 }
             };
@@ -172,7 +172,7 @@ function ready() {
 
                 },
                 error: function(callbacks) {
-                    pit.core.log('ajax error occur on forget form','danger','authorization',callbacks);
+                    pit.core.log('ajax error occur on forget form','error','authorization',callbacks);
                     forget.classList.remove('loading');
                 }
             };
@@ -211,7 +211,7 @@ function ready() {
 
                 },
                 error: function(callbacks) {
-                    pit.core.log('ajax error occur on reset form','danger','authorization',callbacks);
+                    pit.core.log('ajax error occur on reset form','error','authorization',callbacks);
                     reset.classList.remove('loading');
                 }
             };

@@ -27,7 +27,7 @@
                 aside: true,
                 slideNavigation: true,
                 toggleInstruction: true,
-                slideActions: true,
+                toggleAnswers: true,
                 keyboard: true
             });
         }

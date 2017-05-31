@@ -3,9 +3,16 @@
 
 Class Model_Presentation {
 
+    /** Min and Max random value as presentation code */
+    const MIN_RAND_VALUE = 100000;
+    const MAX_RAND_VALUE = 999999;
+    const EVENTCODE_KEY  = 'prezentit:presentations:codes';
+
     public $id;
+    public $code;
     public $name;
     public $uri;
+    public $slides_order = "[]";
     public $short_uri;
     public $owner;
     public $dt_update;
@@ -23,8 +30,6 @@ Class Model_Presentation {
             $this->get($id);
         }
 
-        return false;
-
     }
 
 
@@ -33,16 +38,14 @@ Class Model_Presentation {
      * @param $id - presentation ID
      * @return Model_Presentation
      */
-    public static function get($id = 0) {
+    public function get($id = 0) {
 
         $select = Dao_Presentations::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->execute();
 
-        $model = new Model_Presentation();
-
-        return $model->fill_by_row($select);
+        return $this->fill_by_row($select);
 
     }
 
@@ -134,7 +137,7 @@ Class Model_Presentation {
 
 
     /**
-     * Updates user data in database
+     * Update presentation in DB
      * @return Model_Presentation
      */
      public function update()
@@ -153,25 +156,26 @@ Class Model_Presentation {
         return self::get($this->id);
      }
 
-
     /**
-     * @param bool $with_slides
+     * Delete
+     * @param null $id
+     * @return $bool
      */
-     public function delete($with_slides = false)
-     {
-        $this->is_removed = 1;
-        $this->update();
+    public static function delete($id = null)
+    {
+        if (!$id) return false;
 
+        $delete = Dao_Presentations::delete()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute();
 
-        /* удалить слайды */
-        //if ($with_slides) {
-        //}
-
-     }
+        return $delete;
+    }
 
 
     /**
-     * Get all user which have access to presentation
+     * Get all presentation for user
      * @param $id - user id
      * @return array of Presentations
      */
@@ -194,6 +198,40 @@ Class Model_Presentation {
         }
 
         return $presentations;
+    }
+
+
+    /**
+     * Generate code for seeing presentation
+     * @param $id_event
+     * @return int
+     */
+    public static function generateCode($id_event) {
+
+        $redis = Dispatch::redisInstance();
+        $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
+
+        /** try until we find */
+        while ( $redis->hExists(self::EVENTCODE_KEY, $generatedCode) ) {
+            $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
+        }
+
+        $redis->hset(self::EVENTCODE_KEY, $generatedCode, $id_event);
+
+        return $generatedCode;
+
+    }
+
+    /**
+     * Get presentation by code
+     * @param $code
+     * @return string
+     */
+    public static function getByCode($code) {
+
+        $redis = Dispatch::redisInstance();
+        return $redis->hget(self::EVENTCODE_KEY, $code);
+
     }
 
 }

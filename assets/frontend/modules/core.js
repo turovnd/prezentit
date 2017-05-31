@@ -92,7 +92,7 @@ module.exports = (function (core) {
      * Readable keys map
      */
     core.keys = { BACKSPACE: 8, TAB: 9, ENTER: 13, SHIFT: 16, CTRL: 17, ALT: 18, ESC: 27, SPACE: 32,
-        LEFT: 37, UP: 38, DOWN: 40, RIGHT: 39, DELETE: 46, META: 91, Q: 81, I: 73, H: 72, F: 70, C: 67 };
+        LEFT: 37, UP: 38, DOWN: 40, RIGHT: 39, DELETE: 46, META: 91, Q: 81, I: 73, H: 72, F: 70, C: 67, E: 69, P: 80 };
 
 
 
