@@ -32,7 +32,7 @@
 
     <? foreach ($presentaton->slides as $slide) : ?>
 
-        <section id="slide_<?=$slide->id; ?>" class="presentation__slide presentation__slide--center">
+        <section id="slide_<?=$slide->id; ?>" class="presentation__slide <? echo $slide->view != 'choices' ? 'presentation__slide--items-center' : ''; ?>">
 
             <?= View::factory('app/blocks/slide-presentation/' . $slide->view, array('slide' => $slide->content)); ?>
 

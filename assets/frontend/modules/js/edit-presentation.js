@@ -414,6 +414,7 @@ let editPresent = function (editPresent) {
 
                 insertAsideSlide_(response.aside, response.slideId);
                 insertConfigSlide_(response.config, response.slideId);
+                insertSlide_(response.slide, response.slideId);
 
                 changeOrder_('add', response.slideId);
                 selectSlide_(response.slideId);
@@ -538,6 +539,7 @@ let editPresent = function (editPresent) {
 
                 removeAside_(deleted_id);
                 removeConfig_(deleted_id);
+                document.getElementById('slide_' + deleted_id).remove();
 
                 changeOrder_('remove', deleted_id);
 
@@ -701,6 +703,15 @@ let editPresent = function (editPresent) {
         document.getElementById('config_'+id).remove();
     };
 
+
+    let insertSlide_ = function (html, s_id) {
+        let slide = pit.draw.node('SECTION', 'presentation__slide', {id: 'slide_' + s_id}),
+            slidesContent = document.getElementsByClassName('presentation__slides')[0];
+
+        slide.innerHTML = html;
+        slidesContent.appendChild(slide);
+
+    };
 
     /**
      * Updating slides number in aside menu

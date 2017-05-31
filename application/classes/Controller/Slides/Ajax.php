@@ -51,7 +51,7 @@ class Controller_Slides_Ajax extends Ajax
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/heading', array('slide' => $content));
                 $slide_content = View::factory('app/blocks/slide-presentation/heading', array('slide' => $content));
-                $slide_config = View::factory('app/blocks/slide-type/heading', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-config/heading', array('slide' => $content));
                 break;
 
             case 2:
@@ -60,7 +60,7 @@ class Controller_Slides_Ajax extends Ajax
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/image', array('slide' => $content));
                 $slide_content = View::factory('app/blocks/slide-presentation/image', array('slide' => $content));
-                $slide_config = View::factory('app/blocks/slide-type/image', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-config/image', array('slide' => $content));
                 break;
 
             case 3:
@@ -68,7 +68,7 @@ class Controller_Slides_Ajax extends Ajax
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/paragraph', array('slide' => $content));
                 $slide_content = View::factory('app/blocks/slide-presentation/paragraph', array('slide' => $content));
-                $slide_config = View::factory('app/blocks/slide-type/paragraph', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-config/paragraph', array('slide' => $content));
                 break;
 
             case 4:
@@ -78,7 +78,7 @@ class Controller_Slides_Ajax extends Ajax
                 $content = $content->save();
                 $slide_aside = View::factory('app/blocks/slide-aside/choices', array('slide' => $content));
                 $slide_content = View::factory('app/blocks/slide-presentation/choices', array('slide' => $content));
-                $slide_config = View::factory('app/blocks/slide-type/choices', array('slide' => $content));
+                $slide_config = View::factory('app/blocks/slide-config/choices', array('slide' => $content));
                 break;
         }
 

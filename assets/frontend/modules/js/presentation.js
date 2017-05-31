@@ -252,10 +252,11 @@ let present = function (present) {
             }
         }
 
-        slides[slides_order.indexOf(curSlide)].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
-        slides[slides_order.indexOf(curSlide)].classList.add('presentation__slide--active');
-
-        progressBar.style.width = parseInt(slides_order.indexOf(curSlide)/(slides.length-1) * 100) + "%";
+        if (slides_order.indexOf(curSlide) !== -1) {
+            slides[slides_order.indexOf(curSlide)].classList.remove('presentation__slide--after', 'presentation__slide--before', 'presentation__slide--inactive');
+            slides[slides_order.indexOf(curSlide)].classList.add('presentation__slide--active');
+            progressBar.style.width = parseInt(slides_order.indexOf(curSlide)/(slides.length-1) * 100) + "%";
+        }
 
         if (slides_order.indexOf(curSlide) === 0) {
             prevSlideBtn.classList.add('hide')
@@ -380,6 +381,10 @@ let present = function (present) {
             /**
              * TODO: open||close voting
              */
+        }
+        if (keyCode === pit.core.keys.E) {
+            window.history.pushState('Presentation', window.location);
+            window.location.replace(window.location + '/edit');
         }
     };
 

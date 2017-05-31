@@ -1,3 +1,8 @@
+/* hide presentation slides style */
+.presentation__navigation-btns,
+.presentation__progress{
+    display: none;
+}
 /* header */
 .header__title-text{
     overflow: hidden;

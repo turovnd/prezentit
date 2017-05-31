@@ -7,6 +7,7 @@ Class Model_Slideheading {
     public $heading;
     public $subheading;
     public $image = "";
+    public $image_background = 1; //1 - light, 2 - dark
     public $reactions = "";
 
 

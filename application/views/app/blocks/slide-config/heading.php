@@ -23,3 +23,22 @@
     <textarea id="subheading_heading_<?=$slide->id; ?>" class="form-group__control js-ajax-edited" maxlength="150" rows="6" placeholder="Подзаголовок" data-name="subheading"><?=$slide->subheading; ?></textarea>
 
 </div>
+
+<div class="form-group">
+
+    <div class="text-bold">Цвет текста</div>
+
+    <div class="m-t-5">
+
+        <span class="">
+            <input id="image_background_dark_heading_<?=$slide->id; ?>" name="image_background_<?=$slide->id; ?>" type="radio" class="m-t-5 checkbox" data-name="image_background" data-value="1" <? echo $slide->image_background == 1 ? 'checked' : ''; ?>>
+            <label for="image_background_dark_heading_<?=$slide->id; ?>" class="checkbox-label">темный</label>
+        </span>
+
+        <span class="m-l-15">
+            <input id="image_background_light_heading_<?=$slide->id; ?>" name="image_background_<?=$slide->id; ?>" type="radio" class="m-t-5 checkbox" data-name="image_background" data-value="2" <? echo $slide->image_background == 2 ? 'checked' : ''; ?>>
+            <label for="image_background_light_heading_<?=$slide->id; ?>" class="checkbox-label">светлый</label>
+        </span>
+
+    </div>
+</div>

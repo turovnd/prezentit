@@ -1,5 +1,7 @@
-<section class="presentation__slide presentation__slide-background-image" style="background-image: url(https://animal-id.info/img/no-user.jpg)">
-    <div class="background-image--with-opacity"></div>
+
+
+    <div class="presentation__slide-background-image" style="background-image: url(<?= URL::site('uploads/slides/o_' . $slide->image); ?>)"></div>
+
     <div class="presentation__content slide-question">
         <h1 class="slide-question__title">
             heading123heading123heading123heading123heading123heading123heading123heading123
@@ -87,4 +89,3 @@
             <i class="fa fa-users presentation__reaction-icon" aria-hidden="true"></i>
         </div>
     </div>
-</section>

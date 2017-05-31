@@ -5,7 +5,7 @@
 
         <input id="heading_choices_<?=$slide->id; ?>" type="text" class="form-group__control form-group__control-group-input js-ajax-edited" maxlength="80" value="<?=$slide->heading; ?>" data-name="heading" placeholder="Вопрос">
 
-        <label class="form-group__control-group-addon bg-image <? echo $slide->image == (NULL || '') ? '' : 'bg-image--with-image'; ?>" title="Фоновая картинка">
+        <label class="form-group__control-group-addon bg-image <? echo $slide->image == (NULL || '') ? '' : 'bg-image--with-image'; ?>" title="Фоновая картинка" value="<?=$slide->image?>" data-name="image">
             <i class="fa fa-image bg-image__icon" aria-hidden="true"></i>
             <i class="fa fa-close bg-image__close" aria-hidden="true"></i>
             <img src="<?=URL::site('uploads/slides/s_' . $slide->image); ?>" class="bg-image__image">

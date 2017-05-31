@@ -7,7 +7,8 @@ Class Model_Slideparagraph {
     public $heading;
     public $paragraph;
     public $image;
-    public $reactions;      //1 - like, 2 - question, 3 - thumbs up, 4 - thumbs down
+    public $image_background = 1; //1 - light, 2 - dark
+    public $reactions;            //1 - like, 2 - question, 3 - thumbs up, 4 - thumbs down
 
     
     /**

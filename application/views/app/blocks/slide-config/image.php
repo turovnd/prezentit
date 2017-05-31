@@ -22,7 +22,7 @@
         </p>
     </div>
     <div class="col-xs-5">
-        <label class="bg-image image-type <? echo $slide->image == (NULL || '') ? '' : 'bg-image--with-image'; ?>" title="Выбрать файл">
+        <label class="bg-image image-type <? echo $slide->image == (NULL || '') ? '' : 'bg-image--with-image'; ?>" title="Выбрать файл" value="<?=$slide->image?>" data-name="image">
             <i class="fa fa-image bg-image__icon" aria-hidden="true"></i>
             <i class="fa fa-close bg-image__close" aria-hidden="true"></i>
             <img src="<?=URL::site('uploads/slides/m_' . $slide->image); ?>" class="bg-image__image">
