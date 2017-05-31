@@ -458,7 +458,7 @@ body{
     margin: 0 3px;
     transition: all .25s ease;
 }
-.slide-choices__action-icon--open{
+.slide-choices__action-icon--clicked{
     transform: rotate(180deg);
 }
 
@@ -475,6 +475,7 @@ body{
     width: 100%;
     text-align: center;
     font-size: 4vmin;
+    bottom: 12vh;
 }
 .slide-choices__option-image,
 .slide-choices__option-bar{

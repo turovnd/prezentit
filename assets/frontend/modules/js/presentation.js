@@ -9,7 +9,6 @@ module.exports = function (present) {
         nextSlideBtn        = null,
         prevSlideBtn        = null,
         progressBar         = null,
-        toggleAnswerBtns    = null,
         slidesOrder         = null,
         choicesSlides       = null;
 
@@ -25,7 +24,6 @@ module.exports = function (present) {
         prevSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--left')[0];
         progressBar      = document.getElementsByClassName('presentation__progress-bar')[0];
         slidesOrder      = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
-        toggleAnswerBtns = document.getElementsByClassName('slide-choices__action-btn');
 
         for (var i = 0; i < slidesOrder.length; i++) {
 
@@ -52,11 +50,14 @@ module.exports = function (present) {
         }
 
         if (options.toggleAnswers)
-            for (var i = 0; i < toggleAnswerBtns.length; i++) {
 
-                toggleAnswerBtns[i].addEventListener('click', toggleAnswers_);
+            var toggleAnswerBtns = document.getElementsByClassName('slide-choices__action-btn');
 
-            }
+        for (var i = 0; i < toggleAnswerBtns.length; i++) {
+
+            toggleAnswerBtns[i].addEventListener('click', toggleAnswers_);
+
+        }
 
         if (options.keyboard) {
 
@@ -172,15 +173,32 @@ module.exports = function (present) {
 
         var btn     = this,
             content = this.parentNode.parentNode.getElementsByClassName('slide-choices__content')[0],
-            img     = this.parentNode.parentNode.getElementsByClassName('slide-choices__image')[0];
+            img     = this.parentNode.parentNode.getElementsByClassName('slide-choices__image')[0],
+            icon    = this.getElementsByClassName('slide-choices__action-icon')[0],
+            text    = this.getElementsByClassName('slide-choices__action-text')[0];
 
-        btn.children[0].classList.toggle('slide-choices__action-icon--open');
-        btn.children[1].classList.toggle('hide');
-        btn.children[2].classList.toggle('hide');
-        img.classList.toggle('fade__in--up');
-        img.classList.toggle('fade__out--down');
-        content.classList.toggle('fade__in--up');
-        content.classList.toggle('fade__out--down');
+        icon.classList.toggle('slide-choices__action-icon--clicked');
+
+        switch (btn.dataset.status) {
+            case 'image':
+                text.textContent = 'Показать результаты';
+                img.classList.remove('hide', 'fade__in', 'fade__in--up');
+                img.classList.add('fade__out--down');
+                content.classList.remove('hide', 'fade__in', 'fade__out--down');
+                content.classList.add('fade__in--up');
+                btn.dataset.status = 'result';
+                break;
+            case 'result':
+                text.textContent = 'Показать изображение';
+                img.classList.remove('hide', 'fade__in', 'fade__out--down');
+                img.classList.add('fade__in--up');
+                content.classList.remove('hide', 'fade__in', 'fade__out--down');
+                content.classList.add('fade__out--down');
+                btn.dataset.status = 'image';
+                break;
+        }
+
+        content.classList.toggle('fade__in--up', 'fade__out--down');
 
     }
 

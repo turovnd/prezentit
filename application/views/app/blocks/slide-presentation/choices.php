@@ -21,7 +21,7 @@
 
     <div class="slide-choices__block">
 
-        <div class="slide-choices__content animated">
+        <div class="slide-choices__content animated <? echo $slide->image != "" ? 'fade__out--down hide' : 'fade__in'; ?>">
 
             <?
             $defaultAnswers = '[{"text": "", "image": ""}, {"text": "", "image": ""}]';
@@ -57,10 +57,9 @@
 
         <div class="slide-choices__action animated fade__in">
 
-            <button role="button" class="btn btn--round btn--scaled btn--brand slide-choices__action-btn">
+            <button role="button" class="btn btn--round btn--scaled btn--brand slide-choices__action-btn" data-status="image">
                 <i class="fa fa-angle-down slide-choices__action-icon" aria-hidden="true"></i>
                 <span class="slide-choices__action-text">Показать результаты</span>
-                <span class="slide-choices__action-text hide">Показать изображение</span>
             </button>
 
         </div>
