@@ -427,7 +427,8 @@ body{
     align-items: center;
     width: 150vmin;
     margin: auto;
-    height: calc(100% - 20px - 8.5vh);
+    opacity: 0;
+    height: calc(100% - 14vh);
 }
 @media (max-width: 992px) {
     .slide-choices__content {
@@ -438,6 +439,7 @@ body{
     height: 70%;
     width: 80%;
     margin: auto;
+    opacity: 0;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -458,7 +460,7 @@ body{
     margin: 0 3px;
     transition: all .25s ease;
 }
-.slide-choices__action-icon--open{
+.slide-choices__action-icon--clicked{
     transform: rotate(180deg);
 }
 
@@ -475,6 +477,7 @@ body{
     width: 100%;
     text-align: center;
     font-size: 4vmin;
+    bottom: 12vh;
 }
 .slide-choices__option-image,
 .slide-choices__option-bar{

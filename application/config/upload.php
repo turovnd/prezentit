@@ -29,6 +29,7 @@ return array(
          */
         'sizes' => array(
             'o'  => array(false, 1500, 1500),
+            'b'  => array(true , 200, 200),
             's'  => array(true , 50),
         ),
 

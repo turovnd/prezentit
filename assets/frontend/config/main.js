@@ -14,7 +14,7 @@ const ExtractTextPlugin   = require("extract-text-webpack-plugin");
 const OptimizeCssPlugin   = require('optimize-css-assets-webpack-plugin');
 
 const path          = require('path');
-const libJS         = "[name].min.css";
+const libJS         = "[name].min.js";
 const libCSS        = "[name].min.css";
 
 const modulePath    = path.resolve(__dirname, "../modules/");
@@ -34,7 +34,7 @@ module.exports = {
         library: "pit"
     },
 
-    watch: false,
+    watch: true,
 
     watchOptions: {
         aggregateTimeOut: 50
@@ -76,7 +76,7 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
-                drop_console: true
+                //drop_console: true
             }
         }),
 
