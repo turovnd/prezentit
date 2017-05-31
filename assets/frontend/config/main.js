@@ -14,33 +14,27 @@ const ExtractTextPlugin   = require("extract-text-webpack-plugin");
 const OptimizeCssPlugin   = require('optimize-css-assets-webpack-plugin');
 
 const path          = require('path');
-const libJS         = "prezentit.bundle.js";
-const libCSS        = "prezentit.bundle.css";
+const libJS         = "[name].min.css";
+const libCSS        = "[name].min.css";
 
 const modulePath    = path.resolve(__dirname, "../modules/");
 const bundlePath    = path.resolve(__dirname, "../bundles/");
-const entryFile     = path.resolve(__dirname, "../prezentit.js");
-
 
 module.exports = {
 
     entry: {
-        "prezentit" : entryFile
+        "pit"           : path.resolve(__dirname, "../pit.js"),
+        "present"       : path.resolve(__dirname, "../present.js"),
+        "edit-present"  : path.resolve(__dirname, "../edit-present.js"),
     },
 
     output: {
-
-        /** Public output path */
         path : bundlePath,
-
-        /** bundle name */
         filename: libJS,
-
-        /** Lib name */
         library: "pit"
     },
 
-    watch: true,
+    watch: false,
 
     watchOptions: {
         aggregateTimeOut: 50

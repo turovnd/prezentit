@@ -17,11 +17,22 @@
 
     <script type="text/javascript">
         function ready() {
-            pit.header.init('app');
             pit.aside.init();
             pit.collapse.init();
-            pit.parallax.init();
             pit.notification.createHolder();
+            pit.tabs.init({
+                search: false,
+                counter: false
+            });
+            pit.form.init();
+            pit.editPresent.init();
+            pit.present.init({
+                aside: false,
+                slideNavigation: false,
+                toggleInstruction: false,
+                toggleAnswers: false,
+                keyboard: false
+            });
         }
 
         document.addEventListener("DOMContentLoaded", ready);

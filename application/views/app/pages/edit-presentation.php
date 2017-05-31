@@ -1,15 +1,13 @@
-<!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/edit-presentation.css">
-<link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/presentation.css">
+<link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/edit-present.min.css">
+<script type="text/javascript" src="<?=$assets; ?>frontend/bundles/edit-present.min.js"></script>
 
 
 <section class="section animated fade__in">
 
     <main class="presentation animated fade__in" style="transform: scale(0.57) translateY(120.125px) translateX(376.238px)">
+
         <?= View::factory('app/pages/presentation', array('presentaton' => $presentaton)); ?>
-        <div class="presentation__loader">
-            <i class="fa fa-spinner fa-pulse fa-5x fa-fw presentation__loader-icon text-brand"></i>
-        </div>
+
     </main>
 
     <div class="presentation-background"></div>
@@ -54,24 +52,8 @@
 </section>
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/presentation.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/edit-presentation.js"></script>
 <script>
-    function ready() {
-        pit.tabs.init({
-            search: false,
-            counter: false
-        });
-        pit.form.init();
-        editPresent.init();
-        present.init({
-            aside: false,
-            slideNavigation: false,
-            toggleInstruction: false,
-            toggleAnswers: false,
-            keyboard: false
-        });
-    }
+
 
     document.addEventListener("DOMContentLoaded", ready);
 </script>
