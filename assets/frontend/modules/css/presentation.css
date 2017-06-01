@@ -173,8 +173,7 @@ body{
     transition: width .25s ease;
 }
 
-/*.presentation__aside-link--opened  + .presentation__addition-wrapper,*/
-.presentation__aside-link:focus + .presentation__addition-wrapper,
+.presentation__aside-link--opened  + .presentation__addition-wrapper,
 .presentation__aside-link:hover + .presentation__addition-wrapper,
 .presentation__addition-wrapper:hover{
     width: 220px;

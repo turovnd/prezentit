@@ -33,15 +33,17 @@ module.exports = function (present) {
         } else {
 
             asideBtn.addEventListener('click', openAsideMenu_);
-            //
-            // var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
-            //
-            // for (var i = 0; i < asideAdditionMenu.length; i++) {
-            //
-            //     asideAdditionMenu[i].addEventListener('click', toggleAdditionAsideMenu_);
-            //
-            // }
-            //
+
+            var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
+
+            for (var i = 0; i < asideAdditionMenu.length; i++) {
+
+                asideAdditionMenu[i].addEventListener('click', openAdditionAsideMenu_);
+
+            }
+
+            document.getElementsByClassName('presentation__aside')[0].addEventListener('click', closeAdditionAsideMenu_);
+            document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAdditionAsideMenu_);
             document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
@@ -337,20 +339,9 @@ module.exports = function (present) {
      */
     function openAsideMenu_() {
 
-        // this.classList.add('presentation__aside-open--opened');
+        this.classList.add('presentation__aside-open--opened');
 
     }
-
-    /**
-     * Toggle addition aside menu on mobile
-     * @private
-     */
-    function toggleAdditionAsideMenu_() {
-
-        this.classList.toggle('presentation__aside-link--opened');
-
-    }
-
 
     /**
      * Close aside menu on mobile
@@ -360,6 +351,31 @@ module.exports = function (present) {
 
         if ( asideBtn.classList.contains('presentation__aside-open--opened') )
             asideBtn.classList.remove('presentation__aside-open--opened');
+
+    }
+
+    /**
+     * Open addition aside menu on mobile
+     * @private
+     */
+    function openAdditionAsideMenu_() {
+
+        this.classList.toggle('presentation__aside-link--opened');
+
+        document.getElementsByClassName('presentation__aside')[0].click();
+
+    }
+
+    /**
+     * Close addition aside menu on mobile
+     * @private
+     */
+    function closeAdditionAsideMenu_(event) {
+
+        var clickedEl = event.target,
+            openedEl  = document.getElementsByClassName('presentation__aside-link--opened')[0];
+
+        // this.classList.toggle('presentation__aside-link--opened');
 
     }
 
