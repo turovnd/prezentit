@@ -35,6 +35,11 @@ module.exports = function (present) {
 
             asideBtn.remove();
 
+        } else {
+
+            asideBtn.addEventListener('click', openAsideMenu_);
+            document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
+
         }
 
         if (nextSlideBtn && options.slideNavigation) {
@@ -311,6 +316,29 @@ module.exports = function (present) {
         updateChoicesSlideView_(choicesSlides[slide]);
 
     };
+
+
+    /**
+     * Open aside menu on mobile
+     * @private
+     */
+    function openAsideMenu_() {
+
+        this.classList.add('presentation__aside-open--opened');
+
+    }
+
+
+    /**
+     * Close aside menu on mobile
+     * @private
+     */
+    function closeAsideMenu_() {
+
+        if ( asideBtn.classList.contains('presentation__aside-open--opened') )
+            asideBtn.classList.remove('presentation__aside-open--opened');
+
+    }
 
 
     /**

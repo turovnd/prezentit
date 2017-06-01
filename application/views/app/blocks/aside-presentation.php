@@ -2,7 +2,7 @@
 
     <ul class="presentation__aside-menu">
         <li class="aside__item">
-            <a role="button" class="aside__link" onclick="present.toggleFullScreen()">
+            <a role="button" class="aside__link" onclick="pit.present.toggleFullScreen()">
                 <i class="fa fa-expand" aria-hidden="true"></i>
                 Во весь экран
             </a>
@@ -27,7 +27,7 @@
                         </span>
                     </li>
                     <li class="presentation__addition-item">
-                        <a role="button" class="presentation__addition-btn" onclick="present.toggleInstruction()">
+                        <a role="button" class="presentation__addition-btn" onclick="pit.present.toggleInstruction()">
                             <i class="fa fa-info" aria-hidden="true"></i>
                             Инструкции
                         </a>
