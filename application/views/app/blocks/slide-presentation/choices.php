@@ -9,7 +9,7 @@
 
     <? if ($slide->image != "") : ?>
 
-        <div class="slide-choices__block">
+        <div class="slide-choices__block valign">
 
             <div class="slide-choices__image animated fade__in" style="background-image: url(<?= URL::site('uploads/slides/o_' . $slide->image); ?>)"></div>
 
@@ -65,12 +65,13 @@
         </div>
 
     <? endif; ?>
+
 </div>
 
-
-<div class="presentation__reactions-wrapper">
-    <div class="presentation__reaction">
-        <div class="presentation__reaction-votes">2</div>
-        <i class="fa fa-users presentation__reaction-icon" aria-hidden="true"></i>
-    </div>
-</div>
+<!---->
+<!--<div class="presentation__reactions-wrapper">-->
+<!--    <div class="presentation__reaction">-->
+<!--        <div class="presentation__reaction-votes">2</div>-->
+<!--        <i class="fa fa-users presentation__reaction-icon" aria-hidden="true"></i>-->
+<!--    </div>-->
+<!--</div>-->

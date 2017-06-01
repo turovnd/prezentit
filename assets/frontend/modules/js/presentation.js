@@ -23,13 +23,7 @@ module.exports = function (present) {
         nextSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--right')[0];
         prevSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--left')[0];
         progressBar      = document.getElementsByClassName('presentation__progress-bar')[0];
-        slidesOrder      = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
-
-        for (var i = 0; i < slidesOrder.length; i++) {
-
-            slidesOrder[i] = parseInt(slidesOrder[i]);
-
-        }
+        slidesOrder      = JSON.parse(document.getElementById('slides_order').value);
 
         if (asideBtn && ! options.aside) {
 
@@ -39,6 +33,15 @@ module.exports = function (present) {
         } else {
 
             asideBtn.addEventListener('click', openAsideMenu_);
+
+            var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
+
+            for (var i = 0; i < asideAdditionMenu.length; i++) {
+
+                asideAdditionMenu[i].addEventListener('click', toggleAdditionAsideMenu_);
+
+            }
+
             document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
@@ -85,6 +88,7 @@ module.exports = function (present) {
         if (pit.cookies.get('cur_slide') && pit.cookies.get('cur_slide').match(new RegExp(slidesHash))) {
 
             curSlide = parseInt(pit.cookies.get('cur_slide').replace(window.location.pathname.split('/')[3], ''));
+
             if (!slidesOrder.indexOf(curSlide))
                 curSlide = slidesOrder[0];
 
@@ -337,7 +341,6 @@ module.exports = function (present) {
 
     }
 
-
     /**
      * Close aside menu on mobile
      * @private
@@ -348,6 +351,17 @@ module.exports = function (present) {
             asideBtn.classList.remove('presentation__aside-open--opened');
 
     }
+
+    /**
+     * Open addition aside menu on mobile
+     * @private
+     */
+    function toggleAdditionAsideMenu_() {
+
+        this.classList.toggle('presentation__aside-link--opened');
+
+    }
+
 
 
     /**
