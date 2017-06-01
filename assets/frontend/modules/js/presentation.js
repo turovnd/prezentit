@@ -32,17 +32,17 @@ module.exports = function (present) {
 
         } else {
 
-            asideBtn.addEventListener('click', openAsideMenu_);
-
-            var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
-
-            for (var i = 0; i < asideAdditionMenu.length; i++) {
-
-                asideAdditionMenu[i].addEventListener('click', toggleAdditionAsideMenu_);
-
-            }
-
-            document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
+            // asideBtn.addEventListener('click', openAsideMenu_);
+            //
+            // var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
+            //
+            // for (var i = 0; i < asideAdditionMenu.length; i++) {
+            //
+            //     asideAdditionMenu[i].addEventListener('click', toggleAdditionAsideMenu_);
+            //
+            // }
+            //
+            // document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
 
@@ -337,7 +337,7 @@ module.exports = function (present) {
      */
     function openAsideMenu_() {
 
-        this.classList.add('presentation__aside-open--opened');
+        // this.classList.add('presentation__aside-open--opened');
 
     }
 

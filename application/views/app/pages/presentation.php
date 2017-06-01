@@ -1,8 +1,8 @@
-<div class="presentation__aside-open">
-    <a role="button" class="presentation__aside-open-btn">
+<a role="button" class="presentation__aside-open">
+    <span class="presentation__aside-open-btn">
         <i class="fa fa-cog" aria-hidden="true"></i>
-    </a>
-</div>
+    </span>
+</a>
 
 <aside class="presentation__aside">
 

@@ -116,7 +116,8 @@ body{
     visibility: hidden;
 }
 
-.presentation__aside-open--opened +  + .presentation__aside,
+/*.presentation__aside-open--opened +  + .presentation__aside,*/
+.presentation__aside-open:focus + .presentation__aside,
 .presentation__aside-open:hover + .presentation__aside,
 .presentation__aside:hover{
     left: 0;
@@ -173,7 +174,8 @@ body{
     transition: width .25s ease;
 }
 
-.presentation__aside-link--opened  + .presentation__addition-wrapper,
+/*.presentation__aside-link--opened  + .presentation__addition-wrapper,*/
+.presentation__aside-link:focus + .presentation__addition-wrapper,
 .presentation__aside-link:hover + .presentation__addition-wrapper,
 .presentation__addition-wrapper:hover{
     width: 220px;
