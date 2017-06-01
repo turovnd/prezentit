@@ -164,11 +164,12 @@ body{
     background: #efefef;
     transition: width .25s ease;
 }
-
+.presentation__aside-link{
+    transition: all .3s ease;
+}
 .presentation__aside-link--opened  + .presentation__addition-wrapper{
     width: 220px;
     border-right: 1px solid #cfcfcf;
-    transition: all .3s ease;
 }
 .presentation__aside-link--opened .fa-angle-right{
     padding-bottom: 2px;
