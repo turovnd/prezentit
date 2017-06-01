@@ -38,12 +38,10 @@ module.exports = function (present) {
 
             for (var i = 0; i < asideAdditionMenu.length; i++) {
 
-                asideAdditionMenu[i].addEventListener('click', openAdditionAsideMenu_);
+                asideAdditionMenu[i].addEventListener('click', toggleAdditionAsideMenu_);
 
             }
 
-            document.getElementsByClassName('presentation__aside')[0].addEventListener('click', closeAdditionAsideMenu_);
-            document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAdditionAsideMenu_);
             document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
@@ -358,26 +356,12 @@ module.exports = function (present) {
      * Open addition aside menu on mobile
      * @private
      */
-    function openAdditionAsideMenu_() {
+    function toggleAdditionAsideMenu_() {
 
         this.classList.toggle('presentation__aside-link--opened');
 
-        document.getElementsByClassName('presentation__aside')[0].click();
-
     }
 
-    /**
-     * Close addition aside menu on mobile
-     * @private
-     */
-    function closeAdditionAsideMenu_(event) {
-
-        var clickedEl = event.target,
-            openedEl  = document.getElementsByClassName('presentation__aside-link--opened')[0];
-
-        // this.classList.toggle('presentation__aside-link--opened');
-
-    }
 
 
     /**
