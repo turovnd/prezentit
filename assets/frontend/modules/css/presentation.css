@@ -164,7 +164,7 @@ body{
     background: #efefef;
     transition: width .25s ease;
 }
-.presentation__aside-link{
+.presentation__aside-link .fa-angle-right{
     transition: all .3s ease;
 }
 .presentation__aside-link--opened  + .presentation__addition-wrapper{
