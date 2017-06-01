@@ -125,13 +125,13 @@ class Controller_Auth_Ajax extends Auth
 
         $user->save();
 
-        $isSuccess = $this->send_email_confirmation($user, $password);
-
-        if (!$isSuccess) {
-            $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-        }
+//        $isSuccess = $this->send_email_confirmation($user, $password);
+//
+//        if (!$isSuccess) {
+//            $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
+//            $this->response->body(@json_encode($response->get_response()));
+//            return;
+//        }
 
         $auth = new Model_Auth();
 
