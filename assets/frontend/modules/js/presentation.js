@@ -42,7 +42,6 @@ module.exports = function (present) {
 
             }
 
-            asideBtn.addEventListener('click', closeAdditionAsideMenu_);
             document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
