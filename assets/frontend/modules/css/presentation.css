@@ -134,14 +134,6 @@ body{
     width: 100%;
     top:0;
 }
-.aside__item .fa-angle-right{
-    transition: all .3s ease;
-}
-.aside__item:hover .fa-angle-right{
-    padding-bottom: 2px;
-    padding-top: 0;
-    transform: rotate(-180deg);
-}
 .presentation__aside-menu--bottom{
     border-top: 1px solid #cfcfcf;
     top: auto;
@@ -173,11 +165,15 @@ body{
     transition: width .25s ease;
 }
 
-.presentation__aside-link--opened  + .presentation__addition-wrapper,
-/*.presentation__aside-link:hover + .presentation__addition-wrapper,*/
-.presentation__addition-wrapper:hover{
+.presentation__aside-link--opened  + .presentation__addition-wrapper{
     width: 220px;
     border-right: 1px solid #cfcfcf;
+    transition: all .3s ease;
+}
+.presentation__aside-link--opened  + .fa-angle-right{
+    padding-bottom: 2px;
+    padding-top: 0;
+    transform: rotate(-180deg);
 }
 
 .presentation__addition-text,
