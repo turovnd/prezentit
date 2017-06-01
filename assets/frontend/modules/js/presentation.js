@@ -33,6 +33,16 @@ module.exports = function (present) {
         } else {
 
             asideBtn.addEventListener('click', openAsideMenu_);
+
+            var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
+
+            for (var i = 0; i < asideAdditionMenu.length; i++) {
+
+                asideAdditionMenu[i].addEventListener('click', toggleAdditionAsideMenu_);
+
+            }
+
+            asideBtn.addEventListener('click', closeAdditionAsideMenu_);
             document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
@@ -329,6 +339,16 @@ module.exports = function (present) {
     function openAsideMenu_() {
 
         this.classList.add('presentation__aside-open--opened');
+
+    }
+
+    /**
+     * Toggle addition aside menu on mobile
+     * @private
+     */
+    function toggleAdditionAsideMenu_() {
+
+        this.classList.toggle('presentation__aside-link--opened');
 
     }
 
