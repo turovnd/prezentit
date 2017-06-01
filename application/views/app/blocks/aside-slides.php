@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="<?=$assets; ?>static/css/aside-slides.css">
 
 <div class="aside-app__brand">
-    <?=$_SERVER['SITE_NAME'];?>
+    <?=$GLOBALS['SITE_NAME'];?>
 </div>
 
 <div class="aside__menu">
@@ -28,7 +28,7 @@
 </div>
 
 <div class="aside-nav">
-    <a id="newSlide" role="button" class="aside-nav__item">
+    <a role="button" class="aside-nav__item js-new-slide">
         <i class="fa fa-plus aside-nav__item-icon" aria-hidden="true"></i>
         Новый слайд
     </a>

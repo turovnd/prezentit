@@ -25,7 +25,6 @@
                 counter: false
             });
             pit.form.init();
-            pit.editPresent.init();
             pit.present.init({
                 aside: false,
                 slideNavigation: false,
@@ -33,6 +32,7 @@
                 toggleAnswers: false,
                 keyboard: false
             });
+            pit.editPresent.init();
         }
 
         document.addEventListener("DOMContentLoaded", ready);
