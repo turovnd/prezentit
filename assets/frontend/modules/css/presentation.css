@@ -23,19 +23,15 @@ body{
 }
 .presentation__header{
     position: relative;
-    font-size: 5vmin;
+    font-size: 3vmin;
     text-align: center;
-    padding: 2vh;
-    line-height: 4vh;
+    padding: 1.5vh;
+    line-height: 2.5vh;
     cursor: pointer;
     background-color: rgba(250,250,250,0.5);
     border-bottom: 1px solid #cfcfcf;
 }
-@media (max-width: 920px) {
-    .presentation__header {
-        font-size: 3vmin;
-    }
-}
+
 .presentation__header-text{
     opacity:.7;
 }
@@ -240,7 +236,7 @@ body{
 .presentation__slides{
     position: relative;
     overflow: hidden;
-    height: calc(100% - 8vh);
+    height: calc(100% - 5.5vh);
 }
 .presentation__header-wrapper.hide + .presentation__slides{
     height: 100%;

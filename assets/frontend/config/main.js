@@ -34,7 +34,7 @@ module.exports = {
         library: "pit"
     },
 
-    watch: true,
+    watch: false,
 
     watchOptions: {
         aggregateTimeOut: 50
@@ -42,7 +42,7 @@ module.exports = {
 
     module : {
 
-        // rules for modules
+
         rules : [
             {
                 test: /\.js?$/,
@@ -54,15 +54,30 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [ "css-loader" ]
-                }),
+                test: /\.css?$/,
                 include: modulePath,
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                loader: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: [
+                        {
+                            loader: "css-loader"
+                        },
+                        {
+                            loader: "postcss-loader",
+                            options: {
+                                plugins: (loader) => [
+                                    require('postcss-smart-import')(),
+                                    require('postcss-cssnext')()
+                                ]
+                            }
+                        }
+                    ]
+                })
             }
-        ]
+
+        ],
+
 
     },
 
@@ -72,11 +87,12 @@ module.exports = {
     },
 
     plugins : [
+
         /** Минифицируем JS */
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
-                //drop_console: true
+                drop_console: true
             }
         }),
 
@@ -85,7 +101,6 @@ module.exports = {
 
         /** Минифицируем CSS */
         new OptimizeCssPlugin({
-            cssProcessor: require('cssnano'),
             cssProcessorOptions: {
                 discardComments: {
                     removeAll: true

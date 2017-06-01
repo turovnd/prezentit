@@ -6,7 +6,6 @@ Class Model_Presentation {
     /** Min and Max random value as presentation code */
     const MIN_RAND_VALUE = 100000;
     const MAX_RAND_VALUE = 999999;
-    const EVENTCODE_KEY  = 'prezentit:presentations:codes';
 
     public $id;
     public $code;
@@ -212,11 +211,11 @@ Class Model_Presentation {
         $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
 
         /** try until we find */
-        while ( $redis->hExists(self::EVENTCODE_KEY, $generatedCode) ) {
+        while ( $redis->hExists($_SERVER['REDIS_PACKAGE'] . ':presentations:codes', $generatedCode) ) {
             $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
         }
 
-        $redis->hset(self::EVENTCODE_KEY, $generatedCode, $id_event);
+        $redis->hset($_SERVER['REDIS_PACKAGE'] . ':presentations:codes', $generatedCode, $id_event);
 
         return $generatedCode;
 
@@ -230,7 +229,7 @@ Class Model_Presentation {
     public static function getByCode($code) {
 
         $redis = Dispatch::redisInstance();
-        return $redis->hget(self::EVENTCODE_KEY, $code);
+        return $redis->hget($_SERVER['REDIS_PACKAGE'] . ':presentations:codes', $code);
 
     }
 
