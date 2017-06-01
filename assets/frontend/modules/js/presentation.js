@@ -32,7 +32,7 @@ module.exports = function (present) {
 
         } else {
 
-            // asideBtn.addEventListener('click', openAsideMenu_);
+            asideBtn.addEventListener('click', openAsideMenu_);
             //
             // var asideAdditionMenu = document.getElementsByClassName('presentation__aside-link');
             //
@@ -42,7 +42,7 @@ module.exports = function (present) {
             //
             // }
             //
-            // document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
+            document.getElementsByClassName('presentation__slides')[0].addEventListener('click', closeAsideMenu_);
 
         }
 
