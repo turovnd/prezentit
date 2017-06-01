@@ -23,13 +23,7 @@ module.exports = function (present) {
         nextSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--right')[0];
         prevSlideBtn     = document.getElementsByClassName('presentation__navigation-btn--left')[0];
         progressBar      = document.getElementsByClassName('presentation__progress-bar')[0];
-        slidesOrder      = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
-
-        for (var i = 0; i < slidesOrder.length; i++) {
-
-            slidesOrder[i] = parseInt(slidesOrder[i]);
-
-        }
+        slidesOrder      = JSON.parse(document.getElementById('slides_order').value);
 
         if (asideBtn && ! options.aside) {
 
@@ -85,6 +79,7 @@ module.exports = function (present) {
         if (pit.cookies.get('cur_slide') && pit.cookies.get('cur_slide').match(new RegExp(slidesHash))) {
 
             curSlide = parseInt(pit.cookies.get('cur_slide').replace(window.location.pathname.split('/')[3], ''));
+
             if (!slidesOrder.indexOf(curSlide))
                 curSlide = slidesOrder[0];
 
