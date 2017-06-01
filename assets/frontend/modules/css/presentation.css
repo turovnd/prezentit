@@ -113,12 +113,14 @@ body{
     border-right: 1px solid #cfcfcf;
     z-index: 21;
     transition: left .3s ease;
+    visibility: hidden;
 }
 
 .presentation__aside-open--opened +  + .presentation__aside,
 .presentation__aside-open:hover + .presentation__aside,
 .presentation__aside:hover{
     left: 0;
+    visibility: visible;
 }
 
 .presentation__aside-wrapper{

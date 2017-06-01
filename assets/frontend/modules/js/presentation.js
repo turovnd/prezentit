@@ -34,6 +34,7 @@ module.exports = function (present) {
         if (asideBtn && ! options.aside) {
 
             asideBtn.remove();
+            document.getElementsByClassName('presentation__aside')[0].remove();
 
         } else {
 
@@ -46,11 +47,19 @@ module.exports = function (present) {
 
             nextSlideBtn.addEventListener('click', present.toNextSlide);
 
+        } else {
+
+            nextSlideBtn.remove();
+
         }
 
         if (prevSlideBtn && options.slideNavigation) {
 
             prevSlideBtn.addEventListener('click', present.toPrevSlide);
+
+        } else {
+
+            prevSlideBtn.remove();
 
         }
 

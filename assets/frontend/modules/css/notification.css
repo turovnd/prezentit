@@ -17,6 +17,14 @@
     animation-fill-mode: both;
     z-index: 502;
 }
+@media (max-width: 500px) {
+    .notifications-block{
+        left: 20px;
+    }
+    .notification{
+        width: 100%;
+    }
+}
 .notification--error{
     color: #a94442;
     background-color: #f2dede;

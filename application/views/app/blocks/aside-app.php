@@ -1,5 +1,5 @@
 <div class="aside-app__brand">
-    <?=$_SERVER['SITE_NAME'];?>
+    <?=$GLOBALS['SITE_NAME'];?>
 </div>
 
 <ul class="aside__menu">

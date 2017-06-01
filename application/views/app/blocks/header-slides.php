@@ -1,5 +1,5 @@
 <a href="<?=URL::site('/app'); ?>" class="header-app__brand fl_l">
-    <?=$_SERVER['SITE_NAME'];?>
+    <?=$GLOBALS['SITE_NAME'];?>
 </a>
 
 <div class="header__page fl_l">

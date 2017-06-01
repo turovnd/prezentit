@@ -14,10 +14,8 @@ module.exports = function (editPresent) {
         asideMenu                = null,
         configContent            = null,
         deleteSlideModal         = null,
-        deletedID               = null,
-        slides                   = null,
-        slidesOrder             = null,
-        slidesHash               = null,
+        deletedID                = null,
+        slidesOrder              = null,
         curSlideId               = null,
         configStatus             = null,
         editedFields             = null,
@@ -103,12 +101,16 @@ module.exports = function (editPresent) {
 
     function prepareNewSlide_() {
 
-        var newSlideBtn = document.getElementById('newSlide');
+        var newSlideBtns = document.getElementsByClassName('js-new-slide');
 
-        if (!newSlideBtn)
+        if (newSlideBtns.length === 0)
             return false;
 
-        newSlideBtn.addEventListener('click', openNewSlideForm_);
+        for (var i = 0; i < newSlideBtns.length; i++) {
+
+            newSlideBtns[i].addEventListener('click', openNewSlideForm_);
+
+        }
 
         return true;
 
@@ -119,6 +121,20 @@ module.exports = function (editPresent) {
 
         present         = document.getElementsByClassName('presentation')[0];
         presentationId  = document.getElementById('presentation_id').value;
+
+        var slides      = document.getElementsByClassName('presentation__slide');
+
+        if (slides.length === 0) {
+
+            createDefaultSlide_();
+
+        }
+
+        for (var i = 0; i < slides.length; i++) {
+
+            slides[i].classList.remove('presentation__slide--after', 'presentation__slide--before');
+
+        }
 
         transformPresentation_();
         window.addEventListener('resize', transformPresentation_);
@@ -131,10 +147,10 @@ module.exports = function (editPresent) {
     function prepareAside_() {
 
         asideMenu       = document.getElementsByClassName('aside__menu')[0];
-        slidesOrder     = document.getElementById('slides_order').value === '' ? [] : document.getElementById('slides_order').value.split(',');
-        slidesHash      = window.location.pathname.split('/')[3];
+        slidesOrder     = JSON.parse(document.getElementById('slides_order').value);
 
-        var asideSelectBtns = document.getElementsByClassName('js-select-slide'),
+        var slidesHash      = window.location.pathname.split('/')[3],
+            asideSelectBtns = document.getElementsByClassName('js-select-slide'),
             asideDeleteBtns = document.getElementsByClassName('js-delete-slide'),
             existCurSlideId = false;
 
@@ -209,13 +225,6 @@ module.exports = function (editPresent) {
 
         }
 
-        slides = document.getElementsByClassName('presentation__slide');
-
-        for (var i = 0; i < slides.length; i++) {
-
-            slides[i].classList.remove('presentation__slide--after', 'presentation__slide--before');
-
-        }
 
         return true;
 
@@ -291,6 +300,23 @@ module.exports = function (editPresent) {
         return true;
 
     }
+
+
+    /**
+     * Create Default slide with btn "new slide@
+     * @private
+     */
+    function createDefaultSlide_() {
+
+        var slide = pit.draw.node('SECTION', 'cursor-pointer presentation__slide presentation__slide--items-center presentation__slide--active', {id:'defaultSlide'});
+
+        slide.innerHTML = '<div class="presentation__content presentation__content--center"><h1 class="presentation__content-heading presentation__text--light"> Создать новый слайд </h1></div>';
+
+        slide.addEventListener('click', openNewSlideForm_);
+        document.getElementsByClassName('presentation__slides')[0].appendChild(slide);
+
+    }
+
 
 
     /**
@@ -632,6 +658,9 @@ module.exports = function (editPresent) {
                 removeConfig_(deletedID);
                 document.getElementById('slide_' + deletedID).remove();
 
+                if (document.getElementsByClassName('presentation__slide').length === 0)
+                    createDefaultSlide_();
+
                 changeOrder_('remove', deletedID);
 
                 pit.core.log('Slide with id=' + deletedID + ' has been deleted', '', coreLogPrefix);
@@ -686,6 +715,7 @@ module.exports = function (editPresent) {
 
         document.getElementById('aside_'+id).getElementsByClassName('js-select-slide')[0].removeEventListener('click', switchSlide_);
         document.getElementById('delete_'+id).removeEventListener('click', openDeleteSlide_);
+
         var changedID = null;
 
         if (document.getElementById('aside_'+id).classList.contains('aside__item--active') && slidesOrder.length > 1) {
@@ -834,8 +864,17 @@ module.exports = function (editPresent) {
 
     function insertSlide_(html, sID) {
 
-        var slide = pit.draw.node('SECTION', 'presentation__slide', {id: 'slide_' + sID}),
-            slidesContent = document.getElementsByClassName('presentation__slides')[0];
+        var slide         = pit.draw.node('SECTION', 'presentation__slide', {id: 'slide_' + sID}),
+            slidesContent = document.getElementsByClassName('presentation__slides')[0],
+            defaultSlide  = document.getElementById('defaultSlide');
+
+        if (defaultSlide) {
+
+            defaultSlide.removeEventListener('click', createDefaultSlide_);
+            defaultSlide.remove();
+
+        }
+
 
         slide.innerHTML = html;
         slidesContent.appendChild(slide);
@@ -870,12 +909,12 @@ module.exports = function (editPresent) {
 
         switch (action) {
             case 'add':
-                slidesOrder.push(id1);
+                slidesOrder.push(parseInt(id1));
                 break;
             case 'remove':
                 var pos = 0;
 
-                pos = slidesOrder.indexOf(id1);
+                pos = slidesOrder.indexOf(parseInt(id1));
                 slidesOrder.splice(pos, 1);
                 break;
             default:
@@ -888,7 +927,7 @@ module.exports = function (editPresent) {
         var formData = new FormData();
 
         formData.append('presentation', presentationId);
-        formData.append('order', slidesOrder.join(','));
+        formData.append('order', JSON.stringify(slidesOrder));
 
         var ajaxData = {
             url: '/slide/update/order',

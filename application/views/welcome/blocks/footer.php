@@ -5,7 +5,7 @@
             <span class="footer__helper">Узнай больше</span>
             <a href="" class="footer__link text-brand bold block">Примеры</a>
             <a href="" class="footer__link text-brand bold block">Как использовать</a>
-            <a href="" class="footer__link text-brand bold block">Почему <?=$GLOBALS['SITE_NAME']; ?></a>
+            <a href="" class="footer__link text-brand bold block">Почему <?//=$GLOBALS['SITE_NAME']; ?></a>
             <a href="" class="footer__link text-brand bold block">Как использовать</a>
         </div>
 
