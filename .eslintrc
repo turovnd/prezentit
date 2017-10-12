@@ -66,6 +66,8 @@
         "window": true,
         "console" : true,
         "pit": true,
+        "present": true,
+        "editPresent": true,
         "VERSION" : true,
         "Promise" : true,
         "MutationObserver": true,

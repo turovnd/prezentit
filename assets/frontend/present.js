@@ -3,17 +3,12 @@
  * @copyright Prezentit
  */
 
-require('./modules/css/main');
 require('./modules/css/presentation');
 
-module.exports = ( function (pit) {
+module.exports = ( function (present) {
 
-    pit.core         = require('./modules/core');
-    pit.cookies      = require('./modules/js/cookies');
-    pit.notification = require('./modules/js/notification');
-    pit.collapse     = require('./modules/js/collapse');
-    pit.present      = require('./modules/js/presentation');
+    present.plagin      = require('./modules/js/presentation');
 
-    return pit;
+    return present;
 
 })({});

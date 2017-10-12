@@ -12,27 +12,24 @@
 
     <link rel="stylesheet" href="<?=$assets; ?>vendor/font-awesome/css/font-awesome.css?v=<?= filemtime("assets/vendor/font-awesome/css/font-awesome.css") ?>">
 
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/edit-present.min.css?v=<?= filemtime("assets/frontend/bundles/edit-present.min.css") ?>">
-    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/edit-present.min.js?v=<?= filemtime("assets/frontend/bundles/edit-present.min.js") ?>"></script>
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/pit.min.css?v=<?= filemtime("assets/frontend/bundles/pit.min.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/present.min.css?v=<?= filemtime("assets/frontend/bundles/present.min.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/editPresent.min.css?v=<?= filemtime("assets/frontend/bundles/editPresent.min.css") ?>">
+
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/pit.min.js?v=<?= filemtime("assets/frontend/bundles/pit.min.js") ?>"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/present.min.js?v=<?= filemtime("assets/frontend/bundles/present.min.js") ?>"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/editPresent.min.js?v=<?= filemtime("assets/frontend/bundles/editPresent.min.js") ?>"></script>
 
     <script type="text/javascript">
         function ready() {
-            pit.aside.init();
-            pit.collapse.init();
-            pit.notification.createHolder();
-            pit.tabs.init({
-                search: false,
-                counter: false
-            });
-            pit.form.init();
-            pit.present.init({
+            present.plagin.init({
                 aside: false,
                 slideNavigation: false,
                 toggleInstruction: false,
                 toggleAnswers: false,
                 keyboard: false
             });
-            pit.editPresent.init();
+            editPresent.plagin.init();
         }
 
         document.addEventListener("DOMContentLoaded", ready);

@@ -113,7 +113,7 @@ var allPresent = function (allPresent) {
     var getLastUpdate_ = function (date) {
         date = new Date(date);
 
-        if ( new Date() - date < 60*60*24*7) {
+        if ( new Date() - date < 259200000) {
             return moment(date).fromNow();
         } else {
             return moment(date).format('DD MMM YYYY');

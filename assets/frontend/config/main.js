@@ -25,13 +25,13 @@ module.exports = {
     entry: {
         "pit"           : path.resolve(__dirname, "../pit.js"),
         "present"       : path.resolve(__dirname, "../present.js"),
-        "edit-present"  : path.resolve(__dirname, "../edit-present.js"),
+        "editPresent"   : path.resolve(__dirname, "../edit-present.js"),
     },
 
     output: {
         path : bundlePath,
         filename: libJS,
-        library: "pit"
+        library: "[name]"
     },
 
     watch: true,
