@@ -10,8 +10,14 @@
 
 class Controller_App_Index extends Dispatch
 {
-
+    /**
+     * @const ACTION_PRESENTATION [String] - page where presentation is showing
+     */
     const ACTION_PRESENTATION = 'presentation';
+
+    /**
+     * @const ACTION_EDIT_PRESENTATION [String] - page where is editing of presentation
+     */
     const ACTION_EDIT_PRESENTATION = 'presentationedit';
 
 
@@ -42,14 +48,16 @@ class Controller_App_Index extends Dispatch
 
     }
 
-
+    /**
+     * All presentations
+     */
     public function action_index()
     {
         $uid = $this->session->get('uid');
 
         $presentations = Model_Presentation::getByUserId($uid);
 
-        $this->template->title = $this->user->name;
+        $this->template->title = "Все презентации";
 
         $this->template->header = View::factory('app/blocks/header-app', array('title' => "Презентации - " . $this->user->name));
 
@@ -60,53 +68,52 @@ class Controller_App_Index extends Dispatch
 
     }
 
-
+    /**
+     * Show certain presentation
+     *
+     * @throws HTTP_Exception_404
+     */
     public function action_presentation()
     {
         $uri = $this->request->param('uri');
         $presentaton = Model_Presentation::getByFieldName('uri',$uri);
 
-        if ( $presentaton->id ) {
-
-            $presentaton->slides = Model_Slide::getByPresentationId($presentaton->id);
-            $this->template->presentaton = $presentaton;
-
-        } else {
-
+        if (!$presentaton->id)
             throw new HTTP_Exception_404;
 
-        }
+        $presentaton->slides = Model_Slide::getByPresentationId($presentaton->id);
+        $this->template->presentaton = $presentaton;
 
     }
 
 
+    /**
+     * Edit certain presentation
+     *
+     * @throws HTTP_Exception_404
+     */
     public function action_presentationedit()
     {
         $uri = $this->request->param('uri');
 
         $presentaton = Model_Presentation::getByFieldName('uri', $uri);
 
-        if ( $presentaton->id ) {
-
-            $slides = Model_Slide::getByPresentationId($presentaton->id);
-
-            $this->template->title = $presentaton->name;
-
-            $this->template->header = View::factory('app/blocks/header-slides')
-                ->set('presentaton', $presentaton);
-
-            $this->template->aside = View::factory('app/blocks/aside-slides')
-                ->set('slides', $slides);
-
-            $presentaton->slides = $slides;
-            $this->template->section = View::factory('app/pages/edit-presentation')
-                ->set('presentaton', $presentaton);
-
-        } else {
-
+        if (!$presentaton->id)
             throw new HTTP_Exception_404;
 
-        }
+        $slides = Model_Slide::getByPresentationId($presentaton->id);
+
+        $this->template->title = $presentaton->name;
+
+        $this->template->header = View::factory('app/blocks/header-slides')
+            ->set('presentaton', $presentaton);
+
+        $this->template->aside = View::factory('app/blocks/aside-slides')
+            ->set('slides', $slides);
+
+        $presentaton->slides = $slides;
+        $this->template->section = View::factory('app/pages/edit-presentation')
+            ->set('presentaton', $presentaton);
 
     }
 

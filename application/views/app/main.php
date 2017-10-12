@@ -15,18 +15,6 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/pit.min.css?v=<?= filemtime("assets/frontend/bundles/pit.min.css") ?>">
     <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/pit.min.js?v=<?= filemtime("assets/frontend/bundles/pit.min.js") ?>"></script>
 
-    <script type="text/javascript">
-        function ready() {
-            pit.header.init('app');
-            pit.aside.init();
-            pit.collapse.init();
-            pit.parallax.init();
-            pit.notification.createHolder();
-        }
-
-        document.addEventListener("DOMContentLoaded", ready);
-    </script>
-
 </head>
 
 <body>
@@ -55,6 +43,7 @@
     </section>
 
     <div class="backdrop hide"></div>
+    <input type="hidden" id="csrf" name="csrf" value="<?= Security::token(); ?>">
 </body>
 
 </html>

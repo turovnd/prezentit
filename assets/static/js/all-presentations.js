@@ -1,77 +1,74 @@
-let allPresent = function (allPresent) {
+var allPresent = function (allPresent) {
 
-    let coreLogPrefix       = "all-presentations",
-        newPresentBtn       = null,
-        deletePresentBtns   = null,
-        newPresentModal     = null,
-        deletePresentModal  = null,
+    var coreLogPrefix       = "All-present",
         noResults           = null,
         noItems             = null,
-        presentID           = null,
-        presentRow          = null,
-        deleteClickBtn      = null,
-        searchPresentInput  = null,
-        presentations       = [],
-        sharePresentModal   = null;
+        createPresentModal  = null,
+        deletePresentModal  = null,
+        delPresentID        = null,
+        presentations       = [];
 
-    let preparePresentations_ = function () {
+
+    var preparePresentTable_ = function () {
 
         moment.locale('ru');
 
-        noResults = pit.draw.node('tr','',{ id: "noResult"});
-        noResults.innerHTML = '<td colspan="3" style="text-align: center; padding: 20px 8px; border-bottom: 1px solid #e5e5e5;">К сожалению, ничего ненеайдено. Попробуйте изменить запрос</td>';
+        noResults = pit.draw.node('TR','',{ id: "noResult"});
+        noResults.innerHTML =
+            '<td colspan="3" style="text-align: center; padding: 20px 8px; border-bottom: 1px solid #e5e5e5;">' +
+                'К сожалению, ничего ненеайдено. Попробуйте изменить запрос' +
+            '</td>';
 
-        noItems = pit.draw.node('tr','',{id:"noItems"});
-        noItems.innerHTML = '<td colspan="3" style = "text-align: center; padding: 20px 8px; border-bottom: 1px solid #e5e5e5;">Презентации ещё не созданы <i style="margin-left: 2px; font-size: 1.3em" class="fa fa-frown-o" aria-hidden="true"></i></td>';
+        noItems = pit.draw.node('TR','',{id:"noItems"});
+        noItems.innerHTML =
+            '<td colspan="3" style = "text-align: center; padding: 20px 8px; border-bottom: 1px solid #e5e5e5;">' +
+                'Презентации ещё не созданы ' +
+                '<i style="margin-left: 2px; font-size: 1.3em" class="fa fa-frown-o" aria-hidden="true"></i>' +
+            '</td>';
 
 
-        let presentation, time,
-            rows = document.getElementsByClassName('presentations__row');
+        var rows = document.getElementsByClassName('presentations__row');
 
-        for (let i = 0; i < rows.length; i++) {
-            presentation = {
+        for (var i = 0; i < rows.length; i++) {
+
+            var name         = rows[i].getElementsByClassName('presentations__title')[0].getElementsByTagName('a')[0].innerHTML.toLowerCase(),
+                time         = rows[i].getElementsByClassName('presentations__time')[0],
+                toggleAction = rows[i].getElementsByClassName('presentations__actions-toggle')[0],
+                closeAction  = rows[i].getElementsByClassName('presentations__actions-close')[0];
+
+            if (!name || !time || !toggleAction || !closeAction)
+                return false;
+
+            var presentation = {
                 row: rows[i],
-                name: rows[i].getElementsByClassName('presentations__title')[0].getElementsByTagName('a')[0].innerHTML.toLowerCase()
+                name: name
             };
+
             presentations.push(presentation);
 
-            time = rows[i].getElementsByClassName('presentations__time')[0];
-            time.innerHTML = lastUpdate_(time.innerHTML);
+            time.innerHTML = getLastUpdate_(time.innerHTML);
+
+            toggleAction.addEventListener('click', openMobileActions_);
+            closeAction.addEventListener('click', closeMobileActions_);
         }
 
-        checkOnNoPresentation_();
+        checkOnEmptyTable_();
 
-        searchPresentInput = document.getElementById('searchPresentInput');
+        var searchInput   = document.getElementById('searchPresentInput');
 
-        if (searchPresentInput)
-            searchPresentInput.addEventListener('keyup', searchPresent_);
+        if (!searchInput)
+            return false;
 
-        newPresentBtn = document.getElementById('newPresent');
+        searchInput.addEventListener('keyup', searchPresent_);
 
-        if (newPresentBtn)
-            newPresentBtn.addEventListener('click', openNewPresentModal_);
+        createPresentModal = document.getElementById('presentModal');
 
+        if (!createPresentModal)
+            return false;
 
-        let deletePresentBtns = document.getElementsByClassName('presentation__delete');
-        for (let i = 0; i < deletePresentBtns.length; i++) {
-            deletePresentBtns[i].addEventListener('click', openDeletePresentModal_);
-        }
+        createPresentModal.addEventListener('submit', createNewPresent_);
 
-    };
-    
-    
-    let prepareMobileMenu_ = function () {
-        let toggleAction = document.getElementsByClassName('presentations__actions-toggle'),
-            closeAction = document.getElementsByClassName('presentations__actions-close'),
-            sharePresent = document.getElementsByClassName('presentation__share'),
-            sharePresentMobile = document.getElementsByClassName('presentation__share-mobile');
-
-        for (let i = 0; i < toggleAction.length; i++) {
-            toggleAction[i].addEventListener('click', openMobileActions_);
-            closeAction[i].addEventListener('click', closeMobileActions_);
-            sharePresent[i].addEventListener('click', sharePresentModal_);
-            sharePresentMobile[i].addEventListener('click', sharePresentModal_);
-        }
+        return true;
     };
 
 
@@ -79,11 +76,11 @@ let allPresent = function (allPresent) {
      * Searching presentation on page
      * @private
      */
-    let searchPresent_ = function () {
-        let searchingText = new RegExp(this.value.toLowerCase()),
+    var searchPresent_ = function () {
+        var searchingText = new RegExp(this.value.toLowerCase()),
             shownPresent = 0;
 
-        for (let i = 0; i < presentations.length; i++) {
+        for (var i = 0; i < presentations.length; i++) {
 
             if ( searchingText.test(presentations[i].name) ) {
 
@@ -113,10 +110,10 @@ let allPresent = function (allPresent) {
      * @returns String
      * @private
      */
-    let lastUpdate_ = function (date) {
+    var getLastUpdate_ = function (date) {
         date = new Date(date);
 
-        if ( new Date() - date < 259200000) {
+        if ( new Date() - date < 60*60*24*7) {
             return moment(date).fromNow();
         } else {
             return moment(date).format('DD MMM YYYY');
@@ -124,45 +121,21 @@ let allPresent = function (allPresent) {
     };
 
 
-    /**
-     * Open modal for creating presentation
-     * @private
-     */
-    let openNewPresentModal_ = function () {
-        newPresentModal = pit.notification.notify({
-            type: 'confirm',
-            message: '<div class="new-present"> ' +
-                        '<h2>Новая презентация</h2>'+
-                        '<div class="form-group">' +
-                            '<input id="newPresentFormName" class="form-group__control" type="text" name="name" placeholder="Введите название презентации">' +
-                        '</div>' +
-                    '</div>',
-            showCancelButton: true,
-            validation: true,
-            confirmText: 'Создать',
-            confirm: createPresent_
-        });
-    };
-
 
     /**
      * Submit creating new presentation
      * @private
      */
-    let createPresent_ = function () {
+    var createNewPresent_ = function (event) {
 
-        let formData = new FormData(),
-            newPresentWrapper = document.getElementsByClassName('new-present')[0];
+        event.preventDefault();
 
-        formData.append('name', document.getElementById('newPresentFormName').value);
-        formData.append('csrf', document.getElementById('newPresentFormCSRF').value);
-
-        let ajaxData = {
+        var ajaxData = {
             url: '/presentation/new',
             type: 'POST',
-            data: formData,
+            data: new FormData(createPresentModal),
             beforeSend: function(){
-                newPresentWrapper.classList.add('loader');
+                createPresentModal.getElementsByClassName('modal__wrapper')[0].classList.add('loader');
             },
             success: function(response) {
                 response = JSON.parse(response);
@@ -177,15 +150,12 @@ let allPresent = function (allPresent) {
                     return false;
                 }
 
-                newPresentModal.close();
-                newPresentModal = null;
-                window.history.pushState('App', window.location.protocol + '//' + window.location.host + '/app');
-                window.location.replace(window.location.protocol + '//' + window.location.host + '/app/s/' + response.uri + '/edit');
-                newPresentWrapper.classList.remove('loader');
+                window.location.assign(window.location.protocol + '//' + window.location.host + '/app/s/' + response.uri + '/edit');
+                createPresentModal.getElementsByClassName('modal__wrapper')[0].classList.remove('loader');
             },
             error: function(callbacks) {
                 pit.core.log('ajax error occur on creating presentation','error', coreLogPrefix, callbacks);
-                newPresentWrapper.classList.remove('loader');
+                createPresentModal.getElementsByClassName('modal__wrapper')[0].classList.remove('loader');
             }
         };
 
@@ -195,18 +165,17 @@ let allPresent = function (allPresent) {
 
 
     /**
-     * Open modal for deleting presentation
-     * @private
+     * Open modal for delete presentation
      */
-    let openDeletePresentModal_ = function () {
+    allPresent.deletePresentation = function (element) {
 
-        presentRow = this.parentNode.parentNode;
-        deleteClickBtn = this;
-        presentID = this.dataset.id;
+        delPresentID = element.dataset.id;
 
         deletePresentModal = pit.notification.notify({
             type: 'confirm',
-            message: '<h2>Подтверждение удаления</h2><p>После удаления, у Вас не будет способа восстановить презентацию!</p>',
+            message:
+                '<h2>Подтверждение удаления</h2>' +
+                '<p>После удаления, у Вас не будет способа восстановить презентацию со всеми её материалами!</p>',
             showCancelButton: true,
             validation: true,
             confirmText: 'Удалить',
@@ -214,18 +183,20 @@ let allPresent = function (allPresent) {
         });
     };
 
+
     /**
      * Submit deleting presentation
      * @private
      */
-    let deletePresent_ = function() {
+    var deletePresent_ = function() {
 
-        let formData = new FormData(),
+        var formData = new FormData(),
             deleteWrapper = document.getElementsByClassName('notification--confirm')[0];
 
-        formData.append('id', presentID);
+        formData.append('id', delPresentID);
+        formData.append('csrf', document.getElementById('csrf').value);
 
-        let ajaxData = {
+        var ajaxData = {
             url: '/presentation/delete',
             type: 'POST',
             data: formData,
@@ -247,13 +218,15 @@ let allPresent = function (allPresent) {
                     return false;
                 }
 
-                pit.core.log('Presentation with id=' + presentID + ' has been deleted','', coreLogPrefix);
-                deleteClickBtn.removeEventListener('click', openDeletePresentModal_);
-                presentRow.remove();
-                presentID = null;
+                pit.core.log('Presentation with id=' + delPresentID + ' has been deleted','', coreLogPrefix);
+
+                var row = document.getElementById('row'+delPresentID);
+                if (row)
+                    row.remove();
+                delPresentID = null;
                 deletePresentModal.close();
                 deletePresentModal = null;
-                checkOnNoPresentation_();
+                checkOnEmptyTable_();
             },
             error: function (callbacks) {
                 pit.core.log('ajax error occur on deleting presentation','error', coreLogPrefix, callbacks);
@@ -265,13 +238,14 @@ let allPresent = function (allPresent) {
 
     };
 
+
     /**
      * Open mobile menu actions on click
      * @private
      */
-    let openMobileActions_ = function () {
+    var openMobileActions_ = function () {
 
-        let arr = this.parentNode.parentNode.children,
+        var arr = this.parentNode.parentNode.children,
             len = this.parentNode.parentNode.children.length - 1;
 
         arr[len].classList.add('presentations__actions-mobile--opened');
@@ -282,28 +256,8 @@ let allPresent = function (allPresent) {
      * Close mobile menu actions on click
      * @private
      */
-    let closeMobileActions_ = function () {
+    var closeMobileActions_ = function () {
         this.parentNode.classList.remove('presentations__actions-mobile--opened');
-    };
-
-
-    /**
-     * Share presentation modal form
-     * @private
-     */
-    let sharePresentModal_ = function () {
-        let code = this.dataset.code;
-
-        pit.notification.notify({
-            type: 'confirm',
-            message: '<h2>Как предоставить доступ</h2>' +
-            '<h3 class="text-bold">Перейдите по адресу www.prezentit.ru</h3>' +
-            '<div class="form-group">' +
-            '<label for="" class="form-group__label">Введите код для просмотра презентации и голосования</label>' +
-                '<input type="text" class="form-group__control text-center text-bold" value="' + code + '" style="width:60%; margin: 15px auto 0 auto; letter-spacing: 10px">' +
-            '</div>',
-        });
-
     };
 
 
@@ -311,20 +265,27 @@ let allPresent = function (allPresent) {
      * Checking Number of presentation on Page
      * @private
      */
-    let checkOnNoPresentation_ = function () {
+    var checkOnEmptyTable_ = function () {
         if (document.getElementsByClassName('presentations__row').length === 0) {
             document.getElementsByClassName('presentations__body')[0].appendChild(noItems);
-        } else if ( document.getElementById('noItems')) {
+        } else if (document.getElementById('noItems')) {
             document.getElementById('noItems').remove();
         }
     };
 
 
-    allPresent.init = function () {
-        preparePresentations_();
-        prepareMobileMenu_();
-        pit.core.log('Module loaded', '', coreLogPrefix);
+
+    var init_ = function () {
+
+        if (preparePresentTable_())
+            pit.core.log('Module loaded', '', coreLogPrefix);
+
+        else
+            pit.core.log('Module NOT loaded', 'error', coreLogPrefix);
+
     };
+
+    document.addEventListener("DOMContentLoaded", init_);
 
     return allPresent;
 

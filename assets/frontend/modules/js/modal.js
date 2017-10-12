@@ -35,14 +35,14 @@ module.exports = (function (modal) {
 
         settings.node = settings.node || 'DIV';
 
-        var modalWrapper = vp.draw.node(settings.node, 'modal', {id: settings.id, 'tabindex': '-1'}),
-            content      = vp.draw.node('DIV', 'modal__content'),
-            wrapper      = vp.draw.node('DIV', 'modal__wrapper'),
-            header       = vp.draw.node('DIV', 'modal__header'),
-            headerTitle  = vp.draw.node('H4', 'modal__title'),
-            closeHeadBtn = vp.draw.node('BUTTON', 'modal__title-close', {'data-close':'modal'}),
-            body         = vp.draw.node('DIV', 'modal__body'),
-            footer       = vp.draw.node('DIV', 'modal__footer'),
+        var modalWrapper = pit.draw.node(settings.node, 'modal', {id: settings.id, 'tabindex': '-1'}),
+            content      = pit.draw.node('DIV', 'modal__content'),
+            wrapper      = pit.draw.node('DIV', 'modal__wrapper'),
+            header       = pit.draw.node('DIV', 'modal__header'),
+            headerTitle  = pit.draw.node('H4', 'modal__title'),
+            closeHeadBtn = pit.draw.node('BUTTON', 'modal__title-close', {'data-close':'modal'}),
+            body         = pit.draw.node('DIV', 'modal__body'),
+            footer       = pit.draw.node('DIV', 'modal__footer'),
             onclose      = settings.onclose || 'hide';
 
         closeHeadBtn.innerHTML = '<i class="fa fa-close" aria-hidden="true"></i>';
@@ -108,7 +108,7 @@ module.exports = (function (modal) {
 
             } else {
 
-                vp.core.log('Can not catch `data-area`', 'error', 'VP: modal module');
+                pit.core.log('Can not catch `data-area`', 'error', 'VP: modal module');
                 return;
 
             }
@@ -124,7 +124,7 @@ module.exports = (function (modal) {
 
         }
 
-        var backdrop = vp.draw.node('DIV', 'modal-backdrop');
+        var backdrop = pit.draw.node('DIV', 'modal-backdrop');
 
         block.classList.add('modal--opening', 'modal--opened');
         document.body.classList.add('overflow--hidden');
@@ -156,7 +156,7 @@ module.exports = (function (modal) {
 
             } else {
 
-                vp.core.log('Can not catch element', 'error', 'VP: modal module');
+                pit.core.log('Can not catch element', 'error', 'VP: modal module');
                 return;
 
             }
@@ -196,7 +196,7 @@ module.exports = (function (modal) {
 
             } else {
 
-                vp.core.log('Can not catch element', 'error', 'VP: modal module');
+                pit.core.log('Can not catch element', 'error', 'VP: modal module');
                 return;
 
             }

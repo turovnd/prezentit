@@ -16,7 +16,7 @@ module.exports = ( function (pit) {
     pit.aside        = require('./modules/js/aside');
     pit.collapse     = require('./modules/js/collapse');
     pit.cookies      = require('./modules/js/cookies');
-    pit.tabs         = require('./modules/js/tabs');
+    
     pit.form         = require('./modules/js/form');
     pit.notification = require('./modules/js/notification');
     pit.present      = require('./modules/js/presentation');

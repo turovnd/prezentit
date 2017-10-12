@@ -27,7 +27,7 @@ class Controller_App_Ajax extends Ajax
         $name = Arr::get($_POST, 'name');
 
         if ( empty($name) ) {
-            $response = new Model_Response_Presentation('EMPTY_PRESENTATION_NAME_ERROR', 'error');
+            $response = new Model_Response_Form('EMPTY_FIELD_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
         }
@@ -38,7 +38,7 @@ class Controller_App_Ajax extends Ajax
 
         $presentation = $presentation->save();
 
-        $presentation->code     = Model_Presentation::generateCode($presentation->id);
+        $presentation->code  = Model_Presentation::generateCode($presentation->id);
 
         $presentation->update();
 
