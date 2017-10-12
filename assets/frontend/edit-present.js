@@ -1,6 +1,6 @@
 /**
  * @author Turov Nikolay
- * @copyright Prezentit Team 2017
+ * @copyright Prezentit
  */
 
 require('./modules/css/main');

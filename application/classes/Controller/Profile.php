@@ -57,16 +57,23 @@ class Controller_Profile extends Dispatch
             return;
         }
 
+        $name = Arr::get($_POST, 'name');
+        $newsletter = Arr::get($_POST, 'newsletter') ? 1 : 0;
+
         $user = new Model_User($id);
 
-        $user->name = Arr::get($_POST, 'name');
-        $user->newsletter = Arr::get($_POST, 'newsletter') ? 1 : 0;
+        if ($name == $user->name && $newsletter == $user->newsletter) {
+            $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
 
+        $user->name = $name;
+        $user->newsletter = $newsletter;
         $user->update();
 
         $response = new Model_Response_Profile('USER_UPDATE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
-
     }
 
 
@@ -105,7 +112,7 @@ class Controller_Profile extends Dispatch
 
         $user = new Model_User($id);
 
-        $curPass = $this->makeHash('md5', $curPass . $_SERVER['SALT']);
+        $curPass = $this->makeHash('sha256', $curPass . $_SERVER['SALT']);
 
         if (!$user->checkPassword($curPass)) {
             $response = new Model_Response_Profile('USER_INVALID_PASSWORD_ERROR', 'error');
@@ -113,7 +120,7 @@ class Controller_Profile extends Dispatch
             return;
         }
 
-        $newPass = $this->makeHash('md5', $newPass . $_SERVER['SALT']);
+        $newPass = $this->makeHash('sha256', $newPass . $_SERVER['SALT']);
 
         $user->changePassword($newPass);
 

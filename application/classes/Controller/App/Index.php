@@ -110,30 +110,4 @@ class Controller_App_Index extends Dispatch
 
     }
 
-
-    public function action_presentationmobile()
-    {
-        $uri = $this->request->param('uri');
-
-        $presentaton = Model_Presentation::getByFieldName('uri',$uri);
-
-        if ( $presentaton->id ) {
-
-            $this->template->title = $presentaton->name;
-            $this->template->section = "";
-
-        } else {
-
-            throw new HTTP_Exception_404;
-
-        }
-
-        echo Debug::vars("mobile app for switching slides");
-        exit;
-
-
-
-
-    }
-
 }

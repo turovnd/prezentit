@@ -52,7 +52,7 @@ class Controller_Auth_Ajax extends Auth
         }
 
         $user = new Model_Auth();
-        $password = $this->makeHash('md5', $password . $_SERVER['SALT']);
+        $password = $this->makeHash('sha256', $password . $_SERVER['SALT']);
 
         if (!$user->login($email, $password, $remember)) {
             $this->makeAttempt();
@@ -112,7 +112,7 @@ class Controller_Auth_Ajax extends Auth
             return;
         }
 
-        $password_hash = $this->makeHash('md5', $password . $_SERVER['SALT']);
+        $password_hash = $this->makeHash('sha256', $password . $_SERVER['SALT']);
 
         $user = new Model_User();
 
@@ -276,7 +276,7 @@ class Controller_Auth_Ajax extends Auth
             return;
         }
 
-        $password = $this->makeHash('md5', $newpass1 . $_SERVER['SALT']);
+        $password = $this->makeHash('sha256', $newpass1 . $_SERVER['SALT']);
         $user->changePassword($password);
 
         Cookie::delete('reset_link');
